@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - ELIDZ SMME Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #0f172a;
+            --accent: #3b82f6;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-600: #475569;
+            --gray-900: #0f172a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .profile-sidebar {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .profile-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .company-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .company-type {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .verification-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .badge-verified {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--success);
+        }
+
+        .funding-score {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-900);
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            background: var(--white);
+            color: var(--gray-900);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-input:read-only {
+            background: var(--gray-50);
+            color: var(--gray-600);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--gray-50);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-label {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .document-item:hover {
+            background: rgba(30, 64, 175, 0.05);
+        }
+
+        .document-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--success);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .document-info h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .document-info p {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #1e3a8a;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .profile-sidebar {
+                position: static;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">ELIDZ SMME Portal</div>
+            <nav class="nav-links">
+                <a href="portal.html" class="nav-link">Dashboard</a>
+                <a href="applications.html" class="nav-link">Applications</a>
+                <a href="opportunities.html" class="nav-link">Opportunities</a>
+                <a href="profile.html" class="nav-link active">Profile</a>
+                <a href="analytics.html" class="nav-link">Analytics</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="profile-sidebar">
+            <div class="profile-avatar">
+                <i class="fas fa-building"></i>
+            </div>
+            
+            <div class="profile-info">
+                <div class="company-name">TechSolutions SA</div>
+                <div class="company-type">Technology Services</div>
+                <p style="color: var(--gray-600); font-size: 0.75rem;">Est. 2022 • East London, EC</p>
+            </div>
+
+            <div class="verification-badges">
+                <div class="badge badge-verified">
+                    <i class="fas fa-check-circle"></i>
+                    CIPC Verified
+                </div>
+                <div class="badge badge-verified">
+                    <i class="fas fa-check-circle"></i>
+                    SARS Compliant
+                </div>
+                <div class="badge badge-verified">
+                    <i class="fas fa-check-circle"></i>
+                    Bank Verified
+                </div>
+                <div class="badge badge-verified">
+                    <i class="fas fa-check-circle"></i>
+                    Director Verified
+                </div>
+            </div>
+
+            <div class="funding-score">
+                <div class="score-number">97.3</div>
+                <div style="font-weight: 600; font-size: 0.875rem;">Funding Score</div>
+                <p style="opacity: 0.9; font-size: 0.75rem; margin-top: 0.25rem;">Top 5% of businesses</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Company Information</h2>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-input" value="TechSolutions SA (Pty) Ltd" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Registration Number</label>
+                            <input type="text" class="form-input" value="2022/123456/07" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Industry Sector</label>
+                            <input type="text" class="form-input" value="Information Technology" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Business Type</label>
+                            <input type="text" class="form-input" value="Private Company" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Contact Email</label>
+                            <input type="email" class="form-input" value="info@techsolutions.co.za" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" value="+27 43 123 4567" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Financial Information</h2>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-upload"></i>
+                        Update
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">R2.1M</div>
+                            <div class="metric-label">Annual Revenue</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">R450K</div>
+                            <div class="metric-label">Net Profit</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">R1.8M</div>
+                            <div class="metric-label">Total Assets</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">15</div>
+                            <div class="metric-label">Employees</div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid" style="margin-top: 2rem;">
+                        <div class="form-group">
+                            <label class="form-label">Tax Reference</label>
+                            <input type="text" class="form-input" value="9876543210" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">VAT Number</label>
+                            <input type="text" class="form-input" value="4567890123" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Bank Account</label>
+                            <input type="text" class="form-input" value="Standard Bank - ****1234" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Credit Rating</label>
+                            <input type="text" class="form-input" value="A+ (Excellent)" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Documents & Compliance</h2>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Upload
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="documents-grid">
+                        <div class="document-item">
+                            <div class="document-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Certificate of Incorporation</h4>
+                                <p>Uploaded 15 Jan 2025</p>
+                            </div>
+                        </div>
+                        <div class="document-item">
+                            <div class="document-icon">
+                                <i class="fas fa-file-excel"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Financial Statements 2024</h4>
+                                <p>Uploaded 20 Jan 2025</p>
+                            </div>
+                        </div>
+                        <div class="document-item">
+                            <div class="document-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Tax Clearance Certificate</h4>
+                                <p>Valid until Dec 2025</p>
+                            </div>
+                        </div>
+                        <div class="document-item">
+                            <div class="document-icon">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>B-BBEE Certificate</h4>
+                                <p>Level 4 Contributor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Funding Preferences</h2>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Preferred Amount</label>
+                            <select class="form-input">
+                                <option>R100K - R500K</option>
+                                <option>R500K - R1M</option>
+                                <option>R1M - R2M</option>
+                                <option>Over R2M</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Funding Type</label>
+                            <select class="form-input">
+                                <option>Grants (Non-repayable)</option>
+                                <option>Concessional Loans</option>
+                                <option>Equity Investment</option>
+                                <option>Mixed Funding</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Purpose</label>
+                            <select class="form-input">
+                                <option>Business Expansion</option>
+                                <option>Equipment Purchase</option>
+                                <option>Working Capital</option>
+                                <option>Technology Upgrade</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Notifications</label>
+                            <select class="form-input">
+                                <option>Notify immediately</option>
+                                <option>Weekly digest</option>
+                                <option>Monthly summary</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Preferences
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script>
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const text = this.textContent.trim();
+                
+                if (text.includes('Edit')) {
+                    portal.editProfile();
+                } else if (text.includes('Update')) {
+                    portal.showModal('Update Financial Information', `
+                        <p>To update your financial information, please upload your latest:</p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li>Annual Financial Statements</li>
+                            <li>Management Accounts (last 6 months)</li>
+                            <li>Bank Statements (last 3 months)</li>
+                            <li>Tax Returns (latest year)</li>
+                        </ul>
+                        <p style="color: #64748b; font-size: 0.875rem;">All documents will be verified and processed within 24 hours.</p>
+                    `, `
+                        <button class="btn btn-outline" onclick="portal.closeModal()">Cancel</button>
+                        <button class="btn btn-primary" onclick="portal.uploadDocument()">
+                            <i class="fas fa-upload"></i>
+                            Upload Documents
+                        </button>
+                    `);
+                } else if (text.includes('Upload')) {
+                    portal.uploadDocument();
+                } else if (text.includes('Configure')) {
+                    portal.showModal('Configure Funding Preferences', `
+                        <div style="display: grid; gap: 1rem;">
+                            <div>
+                                <label>Notification Frequency</label>
+                                <select style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                                    <option>Immediate notifications</option>
+                                    <option>Daily digest</option>
+                                    <option>Weekly summary</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Minimum Match Score</label>
+                                <input type="range" min="70" max="100" value="85" style="width: 100%;">
+                                <span style="color: #64748b; font-size: 0.875rem;">85% minimum match</span>
+                            </div>
+                            <div>
+                                <label>Auto-apply for high matches (95%+)</label>
+                                <input type="checkbox" style="margin-left: 0.5rem;">
+                            </div>
+                        </div>
+                    `, `
+                        <button class="btn btn-outline" onclick="portal.closeModal()">Cancel</button>
+                        <button class="btn btn-primary" onclick="portal.savePreferences()">
+                            <i class="fas fa-save"></i>
+                            Save Preferences
+                        </button>
+                    `);
+                } else if (text.includes('Save')) {
+                    portal.savePreferences();
+                }
+            });
+        });
+
+        // Add savePreferences method to portal
+        portal.savePreferences = function() {
+            this.showProgressModal('Saving Preferences', 'Updating your funding preferences...');
+            setTimeout(() => {
+                this.showSuccessModal('Preferences Saved', 'Your funding preferences have been updated successfully!');
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

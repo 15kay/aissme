@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMME Funding AI - Donor Portal with Backend</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #059669;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #f59e0b 100%);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            color: var(--gray-900);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(24px);
+            padding: 1.25rem 0;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.875rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo::before {
+            content: '🏦 ';
+        }
+
+        .main-container {
+            max-width: 1440px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--gray-200);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-label {
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .applications-section {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 2rem;
+        }
+
+        .application-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .application-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.pending {
+            background: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+
+        .status-badge.approved {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.review {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.25rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-xl);
+            border-left: 4px solid var(--success);
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            border-left-color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">SMME Funding AI</div>
+            <button class="btn btn-primary" onclick="showCreateFund()">
+                <i class="fas fa-plus"></i>
+                Create Fund
+            </button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value" id="smmesFunded">247</div>
+                <div class="metric-label">SMMEs Funded</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="jobsCreated">1,847</div>
+                <div class="metric-label">Jobs Created</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="averageROI">R2.8M</div>
+                <div class="metric-label">Average ROI</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="pendingReviews">18</div>
+                <div class="metric-label">Pending Reviews</div>
+            </div>
+        </div>
+
+        <div class="applications-section">
+            <h3 style="margin-bottom: 1.5rem;">Applications</h3>
+            <div id="applicationsList">
+                <!-- Applications will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Create Fund Modal -->
+    <div id="createFundModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">Create New Fund</h3>
+            <form id="createFundForm">
+                <div class="form-group">
+                    <label>Fund Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Budget (R)</label>
+                    <input type="number" name="budget" required>
+                </div>
+                <div class="form-group">
+                    <label>Industry</label>
+                    <select name="industry" required>
+                        <option value="">Select Industry</option>
+                        <option value="technology">Technology</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="agriculture">Agriculture</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Max Amount per SMME (R)</label>
+                    <input type="number" name="maxAmount" required>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" class="btn" onclick="closeModal('createFundModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Fund</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notificationText">Action completed!</span>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+
+        // API functions
+        async function apiRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    headers: { 'Content-Type': 'application/json' },
+                    ...options
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                showNotification('Connection error', 'error');
+                throw error;
+            }
+        }
+
+        // Load applications
+        async function loadApplications() {
+            try {
+                const applications = await apiRequest('/applications');
+                const container = document.getElementById('applicationsList');
+                
+                container.innerHTML = applications.map(app => `
+                    <div class="application-item">
+                        <div>
+                            <strong>${app.company}</strong><br>
+                            <small>${app.industry} • R${app.amount.toLocaleString()}</small>
+                        </div>
+                        <div>
+                            <span class="status-badge ${app.status}">${app.status}</span>
+                            ${app.status === 'pending' ? `
+                                <button class="btn btn-success" onclick="updateStatus(${app.id}, 'approved')">Approve</button>
+                                <button class="btn btn-danger" onclick="updateStatus(${app.id}, 'rejected')">Reject</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('applicationsList').innerHTML = '<p>Failed to load applications</p>';
+            }
+        }
+
+        // Update application status
+        async function updateStatus(id, status) {
+            try {
+                await apiRequest(`/applications/${id}/status`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ status })
+                });
+                showNotification(`Application ${status}!`);
+                loadApplications();
+                loadMetrics();
+            } catch (error) {
+                showNotification('Failed to update status', 'error');
+            }
+        }
+
+        // Load metrics
+        async function loadMetrics() {
+            try {
+                const metrics = await apiRequest('/metrics');
+                document.getElementById('smmesFunded').textContent = metrics.smmesFunded;
+                document.getElementById('jobsCreated').textContent = metrics.jobsCreated.toLocaleString();
+                document.getElementById('averageROI').textContent = `R${(metrics.averageROI / 1000000).toFixed(1)}M`;
+                document.getElementById('pendingReviews').textContent = metrics.pendingReviews;
+            } catch (error) {
+                console.error('Failed to load metrics');
+            }
+        }
+
+        // Create fund
+        document.getElementById('createFundForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const fundData = {
+                name: formData.get('name'),
+                budget: parseInt(formData.get('budget')),
+                industry: formData.get('industry'),
+                maxAmount: parseInt(formData.get('maxAmount'))
+            };
+
+            try {
+                await apiRequest('/funds', {
+                    method: 'POST',
+                    body: JSON.stringify(fundData)
+                });
+                showNotification('Fund created successfully!');
+                closeModal('createFundModal');
+                e.target.reset();
+            } catch (error) {
+                showNotification('Failed to create fund', 'error');
+            }
+        });
+
+        // Modal functions
+        function showCreateFund() {
+            document.getElementById('createFundModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const text = document.getElementById('notificationText');
+            
+            text.textContent = message;
+            notification.className = `notification ${type === 'error' ? 'error' : ''}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadApplications();
+            loadMetrics();
+            
+            // Auto-refresh every 30 seconds
+            setInterval(() => {
+                loadApplications();
+                loadMetrics();
+            }, 30000);
+        });
+
+        // Close modals when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMME Funding AI - Smart Application Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --success: #059669;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #f59e0b 100%);
+            --gradient-light: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            color: var(--gray-900);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(24px);
+            padding: 1.25rem 0;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.875rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo::before {
+            content: '🚀';
+            font-size: 2rem;
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+
+        .main-container {
+            max-width: 1440px;
+            margin: 2.5rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 3.5rem;
+        }
+
+        .sidebar {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 2.5rem;
+            height: fit-content;
+            box-shadow: var(--shadow-xl);
+            position: sticky;
+            top: 140px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .progress-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .progress-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0deg, var(--gray-200) 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .progress-circle::before {
+            content: '';
+            width: 110px;
+            height: 110px;
+            background: var(--white);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: inset var(--shadow-md);
+        }
+
+        .progress-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .step {
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            position: relative;
+            border: 2px solid transparent;
+            background: var(--gray-50);
+        }
+
+        .step:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step.pending .step-icon {
+            background: var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        .step.active .step-icon {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .step.completed .step-icon {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .step.active {
+            background: var(--gradient-light);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step.completed {
+            background: rgba(5, 150, 105, 0.08);
+            border-color: var(--success);
+        }
+
+        .content {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-xl);
+            min-height: 700px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .verification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .verification-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 2px solid var(--gray-200);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .verification-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .verification-card.verifying {
+            border-color: var(--warning);
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.1);
+        }
+
+        .verification-card.verified {
+            border-color: var(--success);
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1);
+        }
+
+        .verification-card.failed {
+            border-color: var(--danger);
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.05) 0%, rgba(239, 68, 68, 0.05) 100%);
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+        }
+
+        .verification-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .verification-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.375rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .verification-card.pending .verification-icon {
+            background: var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        .verification-card.verifying .verification-icon {
+            background: var(--warning);
+            color: var(--white);
+            animation: pulse 2s infinite, glow 2s infinite;
+        }
+
+        .verification-card.verified .verification-icon {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .verification-card.failed .verification-icon {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: var(--shadow-md), 0 0 20px rgba(217, 119, 6, 0.3); }
+            50% { box-shadow: var(--shadow-lg), 0 0 30px rgba(217, 119, 6, 0.5); }
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1.125rem 1.5rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--white);
+            font-family: 'Inter', sans-serif;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1), var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .btn {
+            padding: 1.125rem 2.25rem;
+            border: none;
+            border-radius: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl), 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .verification-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-pending {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .status-verifying {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .status-verified {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .status-failed {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .overall-progress {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin: 3.5rem 0;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            border: 1px solid var(--gray-200);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 16px;
+            background: var(--gray-200);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            box-shadow: inset var(--shadow-sm);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 8px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">SMME Funding AI</div>
+            <div>
+                <button class="btn btn-primary">
+                    <i class="fas fa-headset"></i>
+                    Support
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="progress-header">
+                <div class="progress-circle" id="progressCircle">
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+                <h3>Application Progress</h3>
+            </div>
+
+            <div class="step pending" id="step-verification" onclick="showSection('verification')">
+                <div class="step-icon">
+                    <i class="fas fa-shield-check"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">Business Verification</div>
+                    <div style="font-size: 0.875rem; opacity: 0.7;">Validate your business</div>
+                </div>
+            </div>
+
+            <div class="step pending" id="step-profile" onclick="showSection('profile')">
+                <div class="step-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">Business Profile</div>
+                    <div style="font-size: 0.875rem; opacity: 0.7;">Company details</div>
+                </div>
+            </div>
+
+            <div class="step pending" id="step-requirements" onclick="showSection('requirements')">
+                <div class="step-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">Funding Requirements</div>
+                    <div style="font-size: 0.875rem; opacity: 0.7;">Define your needs</div>
+                </div>
+            </div>
+
+            <div class="step pending" id="step-matching" onclick="showSection('matching')">
+                <div class="step-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">AI Matching</div>
+                    <div style="font-size: 0.875rem; opacity: 0.7;">Find opportunities</div>
+                </div>
+            </div>
+
+            <div class="step pending" id="step-application" onclick="showSection('application')">
+                <div class="step-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">Application</div>
+                    <div style="font-size: 0.875rem; opacity: 0.7;">Generate & review</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Verification Section -->
+            <div id="verification" class="form-section active">
+                <div class="section-header">
+                    <h2>Business Verification</h2>
+                    <p>Instant AI-powered verification to ensure business legitimacy and compliance</p>
+                </div>
+
+                <div class="verification-grid">
+                    <div class="verification-card pending" id="cipc-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div>
+                                <h3>CIPC Registration</h3>
+                                <p>Company registration validation with real-time API</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Registration Number</label>
+                            <input type="text" placeholder="e.g., 2023/123456/07" id="regNumber" oninput="startVerification('cipc')">
+                        </div>
+                        <div class="verification-status status-pending" id="cipc-status">
+                            <i class="fas fa-clock"></i>
+                            Enter registration number to verify
+                        </div>
+                    </div>
+
+                    <div class="verification-card pending" id="sars-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <div>
+                                <h3>SARS Tax Compliance</h3>
+                                <p>Real-time tax status verification</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tax Reference Number</label>
+                            <input type="text" placeholder="Enter tax reference number" id="taxNumber" oninput="startVerification('sars')">
+                        </div>
+                        <div class="verification-status status-pending" id="sars-status">
+                            <i class="fas fa-clock"></i>
+                            Enter tax number to verify
+                        </div>
+                    </div>
+
+                    <div class="verification-card pending" id="bank-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <div>
+                                <h3>Banking Verification</h3>
+                                <p>Secure business account validation</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Account Number</label>
+                            <input type="text" placeholder="Enter business account number" id="bankNumber" oninput="startVerification('bank')">
+                        </div>
+                        <div class="verification-status status-pending" id="bank-status">
+                            <i class="fas fa-clock"></i>
+                            Enter account number to verify
+                        </div>
+                    </div>
+
+                    <div class="verification-card pending" id="director-card">
+                        <div class="verification-header">
+                            <div class="verification-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <div>
+                                <h3>Director Identity</h3>
+                                <p>Secure identity verification system</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Director ID Number</label>
+                            <input type="text" placeholder="Enter South African ID number" id="directorId" oninput="startVerification('director')">
+                        </div>
+                        <div class="verification-status status-pending" id="director-status">
+                            <i class="fas fa-clock"></i>
+                            Enter ID number to verify
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overall-progress">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Verification Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="verificationProgress"></div>
+                    </div>
+                    <p id="progressMessage" style="font-size: 1.125rem; color: var(--gray-600); margin-bottom: 2rem;">Complete all verifications to proceed</p>
+                    <button class="btn btn-primary" id="proceedBtn" onclick="proceedToAccount()" disabled>
+                        <i class="fas fa-rocket"></i>
+                        Launch Application Process
+                    </button>
+                </div>
+            </div>
+
+            <!-- Business Profile Section -->
+            <div id="profile" class="form-section">
+                <div class="section-header">
+                    <h2>Business Profile</h2>
+                    <p>Complete your business information for personalized funding recommendations</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" placeholder="Enter your registered company name">
+                    </div>
+                    <div class="form-group">
+                        <label>Industry Sector</label>
+                        <select>
+                            <option>Select your industry</option>
+                            <option>Technology</option>
+                            <option>Manufacturing</option>
+                            <option>Retail</option>
+                            <option>Services</option>
+                            <option>Agriculture</option>
+                            <option>Healthcare</option>
+                            <option>Construction</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Years in Operation</label>
+                        <select>
+                            <option>Select years</option>
+                            <option>Less than 1 year</option>
+                            <option>1-2 years</option>
+                            <option>3-5 years</option>
+                            <option>6-10 years</option>
+                            <option>More than 10 years</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Employees</label>
+                        <select>
+                            <option>Select employee count</option>
+                            <option>1-5 employees</option>
+                            <option>6-20 employees</option>
+                            <option>21-50 employees</option>
+                            <option>51-200 employees</option>
+                            <option>More than 200 employees</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button class="btn btn-primary" onclick="nextSection('requirements')">
+                        <i class="fas fa-arrow-right"></i>
+                        Continue to Funding Requirements
+                    </button>
+                </div>
+            </div>
+
+            <!-- Funding Requirements Section -->
+            <div id="requirements" class="form-section">
+                <div class="section-header">
+                    <h2>Funding Requirements</h2>
+                    <p>Define your funding needs for AI-powered opportunity matching</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+                    <div class="form-group">
+                        <label>Funding Amount Required</label>
+                        <select>
+                            <option>Select funding range</option>
+                            <option>R50,000 - R250,000</option>
+                            <option>R250,000 - R500,000</option>
+                            <option>R500,000 - R1,000,000</option>
+                            <option>R1,000,000 - R5,000,000</option>
+                            <option>More than R5,000,000</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Funding Purpose</label>
+                        <select>
+                            <option>Select primary purpose</option>
+                            <option>Working Capital</option>
+                            <option>Equipment Purchase</option>
+                            <option>Business Expansion</option>
+                            <option>Technology Upgrade</option>
+                            <option>Market Entry</option>
+                            <option>Research & Development</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Funding Type</label>
+                        <select>
+                            <option>Select funding type</option>
+                            <option>Grant (Non-repayable)</option>
+                            <option>Low-interest Loan</option>
+                            <option>Equity Investment</option>
+                            <option>Government Incentive</option>
+                            <option>Any Available Option</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Timeline Required</label>
+                        <select>
+                            <option>Select timeline</option>
+                            <option>Immediate (Within 30 days)</option>
+                            <option>Short-term (1-3 months)</option>
+                            <option>Medium-term (3-6 months)</option>
+                            <option>Long-term (6+ months)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button class="btn btn-primary" onclick="nextSection('matching')">
+                        <i class="fas fa-brain"></i>
+                        Start AI Matching Process
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Matching Section -->
+            <div id="matching" class="form-section">
+                <div class="section-header">
+                    <h2>AI-Powered Opportunity Matching</h2>
+                    <p>Our advanced AI is analyzing thousands of funding opportunities for your business</p>
+                </div>
+                
+                <div style="text-align: center; padding: 3rem 0;">
+                    <div style="width: 200px; height: 200px; margin: 0 auto 2rem; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite;">
+                        <i class="fas fa-brain" style="font-size: 4rem; color: white;"></i>
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">AI Analysis in Progress</h3>
+                    <p style="color: var(--gray-600); margin-bottom: 2rem;">Matching your profile with 500+ funding opportunities...</p>
+                    
+                    <div class="progress-bar" style="max-width: 400px; margin: 0 auto 2rem;">
+                        <div class="progress-fill" id="matchingProgress" style="width: 0%; animation: progressAnimation 3s ease-in-out;"></div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="nextSection('application')" id="viewMatchesBtn" style="opacity: 0.5; pointer-events: none;">
+                        <i class="fas fa-eye"></i>
+                        View Matched Opportunities
+                    </button>
+                </div>
+            </div>
+
+            <!-- Application Generation Section -->
+            <div id="application" class="form-section">
+                <div class="section-header">
+                    <h2>Smart Application Generation</h2>
+                    <p>AI-generated applications tailored to each funding opportunity</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                    <div style="background: var(--white); border: 2px solid var(--success); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-lg);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="width: 50px; height: 50px; background: var(--success); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div>
+                                <h3>SEDA Business Grant</h3>
+                                <p style="color: var(--gray-600);">95% Match Score</p>
+                            </div>
+                        </div>
+                        <p style="margin-bottom: 1rem;"><strong>Amount:</strong> R500,000</p>
+                        <p style="margin-bottom: 1rem;"><strong>Type:</strong> Non-repayable Grant</p>
+                        <p style="margin-bottom: 2rem;"><strong>Timeline:</strong> 45 days</p>
+                        <button class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-file-alt"></i>
+                            Generate Application
+                        </button>
+                    </div>
+                    
+                    <div style="background: var(--white); border: 2px solid var(--primary); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-lg);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="width: 50px; height: 50px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div>
+                                <h3>IDC Funding Scheme</h3>
+                                <p style="color: var(--gray-600);">88% Match Score</p>
+                            </div>
+                        </div>
+                        <p style="margin-bottom: 1rem;"><strong>Amount:</strong> R2,000,000</p>
+                        <p style="margin-bottom: 1rem;"><strong>Type:</strong> Low-interest Loan</p>
+                        <p style="margin-bottom: 2rem;"><strong>Timeline:</strong> 60 days</p>
+                        <button class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-file-alt"></i>
+                            Generate Application
+                        </button>
+                    </div>
+                    
+                    <div style="background: var(--white); border: 2px solid var(--warning); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-lg);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="width: 50px; height: 50px; background: var(--warning); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div>
+                                <h3>NYDA Youth Fund</h3>
+                                <p style="color: var(--gray-600);">82% Match Score</p>
+                            </div>
+                        </div>
+                        <p style="margin-bottom: 1rem;"><strong>Amount:</strong> R1,000,000</p>
+                        <p style="margin-bottom: 1rem;"><strong>Type:</strong> Grant + Mentorship</p>
+                        <p style="margin-bottom: 2rem;"><strong>Timeline:</strong> 30 days</p>
+                        <button class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-file-alt"></i>
+                            Generate Application
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--gradient-light); border-radius: 20px;">
+                    <h3 style="margin-bottom: 1rem;">🎉 Application Process Complete!</h3>
+                    <p style="color: var(--gray-600); margin-bottom: 2rem;">Your applications have been generated and are ready for submission</p>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit All Applications
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let verificationState = {
+            cipc: false,
+            sars: false,
+            bank: false,
+            director: false
+        };
+
+        let verificationTimeouts = {};
+
+        function startVerification(type) {
+            const input = document.getElementById(type === 'cipc' ? 'regNumber' : 
+                                               type === 'sars' ? 'taxNumber' : 
+                                               type === 'bank' ? 'bankNumber' : 'directorId');
+            
+            if (input.value.length < 5) return;
+
+            // Clear existing timeout
+            if (verificationTimeouts[type]) {
+                clearTimeout(verificationTimeouts[type]);
+            }
+
+            // Start verification animation
+            const card = document.getElementById(`${type}-card`);
+            const status = document.getElementById(`${type}-status`);
+            
+            card.className = 'verification-card verifying';
+            status.className = 'verification-status status-verifying';
+            status.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying with AI systems...';
+
+            // Simulate instant verification with realistic delay
+            verificationTimeouts[type] = setTimeout(() => {
+                completeVerification(type);
+            }, Math.random() * 1500 + 800); // 0.8-2.3 seconds
+        }
+
+        function completeVerification(type) {
+            const card = document.getElementById(`${type}-card`);
+            const status = document.getElementById(`${type}-status`);
+            
+            // Simulate 95% success rate
+            const success = Math.random() > 0.05;
+            
+            if (success) {
+                card.className = 'verification-card verified';
+                status.className = 'verification-status status-verified';
+                
+                const messages = {
+                    cipc: '<i class="fas fa-check-circle"></i> CIPC Verified: Active company in good standing',
+                    sars: '<i class="fas fa-check-circle"></i> SARS Verified: Tax compliant status confirmed',
+                    bank: '<i class="fas fa-check-circle"></i> Bank Verified: Active business account validated',
+                    director: '<i class="fas fa-check-circle"></i> Director Verified: Valid SA ID confirmed'
+                };
+                
+                status.innerHTML = messages[type];
+                verificationState[type] = true;
+            } else {
+                card.className = 'verification-card failed';
+                status.className = 'verification-status status-failed';
+                status.innerHTML = '<i class="fas fa-exclamation-circle"></i> Verification failed - please check details';
+                verificationState[type] = false;
+            }
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const completed = Object.values(verificationState).filter(Boolean).length;
+            const total = Object.keys(verificationState).length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            // Update progress circle
+            const circle = document.getElementById('progressCircle');
+            const text = document.getElementById('progressText');
+            const degrees = (percentage / 100) * 360;
+            
+            circle.style.background = `conic-gradient(var(--primary) ${degrees}deg, var(--gray-100) ${degrees}deg)`;
+            text.textContent = `${percentage}%`;
+            
+            // Update verification progress bar
+            const progressFill = document.getElementById('verificationProgress');
+            const progressMessage = document.getElementById('progressMessage');
+            const proceedBtn = document.getElementById('proceedBtn');
+            
+            progressFill.style.width = `${percentage}%`;
+            
+            if (percentage === 100) {
+                progressMessage.textContent = 'All verifications complete! Ready to proceed.';
+                proceedBtn.disabled = false;
+                
+                // Update step status
+                const step = document.getElementById('step-verification');
+                step.className = 'step completed';
+            } else {
+                progressMessage.textContent = `${completed}/${total} verifications complete`;
+                proceedBtn.disabled = true;
+            }
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked step
+            const step = document.getElementById(`step-${sectionId}`);
+            if (step) step.classList.add('active');
+        }
+
+        function nextSection(sectionId) {
+            showSection(sectionId);
+            
+            // Mark current step as completed and next as active
+            const currentStep = document.querySelector('.step.active');
+            if (currentStep) {
+                currentStep.classList.remove('active');
+                currentStep.classList.add('completed');
+            }
+            
+            const nextStep = document.getElementById(`step-${sectionId}`);
+            if (nextStep) nextStep.classList.add('active');
+        }
+
+        function proceedToAccount() {
+            window.location.href = 'create-account.html';
+        }
+
+        // Enhanced matching animation
+        function startMatching() {
+            const progressBar = document.getElementById('matchingProgress');
+            const viewBtn = document.getElementById('viewMatchesBtn');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15 + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    viewBtn.style.opacity = '1';
+                    viewBtn.style.pointerEvents = 'auto';
+                }
+                progressBar.style.width = progress + '%';
+            }, 200);
+        }
+
+        // Auto-start matching when section is shown
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked step
+            const step = document.getElementById(`step-${sectionId}`);
+            if (step) step.classList.add('active');
+            
+            // Start matching animation if matching section
+            if (sectionId === 'matching') {
+                setTimeout(startMatching, 500);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('verification');
+            document.getElementById('step-verification').classList.add('active');
+        });
+
+        // Add CSS animation for matching progress
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes progressAnimation {
+                0% { width: 0%; }
+                100% { width: 100%; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

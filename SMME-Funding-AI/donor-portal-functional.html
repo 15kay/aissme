@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMME Funding AI - Functional Donor Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --success: #059669;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #f59e0b 100%);
+            --gradient-light: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            color: var(--gray-900);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(24px);
+            padding: 1.25rem 0;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .header-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.875rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo::before {
+            content: '🏦';
+            font-size: 2rem;
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--gray-100);
+            border-radius: 16px;
+            padding: 0.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-btn {
+            position: relative;
+            padding: 0.75rem;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notification-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .main-container {
+            max-width: 1440px;
+            margin: 2.5rem auto;
+            padding: 0 2rem;
+        }
+
+        .welcome-banner {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 3.5rem;
+            border-radius: 28px;
+            margin-bottom: 3.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .welcome-text h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+
+        .welcome-text p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .impact-stats {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .impact-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .metric-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl), 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+            background: var(--gradient);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .metric-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--success);
+            background: rgba(5, 150, 105, 0.1);
+            padding: 0.5rem 0.75rem;
+            border-radius: 12px;
+        }
+
+        .metric-value {
+            font-size: 2.75rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .metric-label {
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--gray-200);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl), 0 20px 40px rgba(37, 99, 235, 0.1);
+        }
+
+        .card-header {
+            padding: 2.5rem 2.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .card-body {
+            padding: 0 2.5rem 2.5rem;
+        }
+
+        .application-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--gray-100);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 16px;
+        }
+
+        .application-item:hover {
+            background: var(--gray-50);
+            margin: 0 -1.5rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .application-item:last-child {
+            border-bottom: none;
+        }
+
+        .application-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .company-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .application-details h4 {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .application-details p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .application-status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .status-badge.pending {
+            background: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+
+        .status-badge.approved {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.review {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .amount-display {
+            font-weight: 700;
+            color: var(--gray-900);
+            font-size: 0.875rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.125rem 2.25rem;
+            border: none;
+            border-radius: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            box-shadow: var(--shadow-md);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl), 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-sm {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .action-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .action-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl), 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+
+        .action-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-card h3 {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+            font-size: 1.125rem;
+        }
+
+        .action-card p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-600);
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-xl);
+            border-left: 4px solid var(--success);
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            border-left-color: var(--danger);
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+            .welcome-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .welcome-text h1 {
+                font-size: 2rem;
+            }
+            .modal-content {
+                padding: 2rem;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">SMME Funding AI</div>
+            <nav class="nav-links">
+                <a class="nav-link active" onclick="showDashboard()">Dashboard</a>
+                <a class="nav-link" onclick="showApplicationsPage()">Applications</a>
+                <a class="nav-link" onclick="showPortfolio()">Portfolio</a>
+                <a class="nav-link" onclick="showAnalytics()">Analytics</a>
+                <a class="nav-link" onclick="showSettings()">Settings</a>
+            </nav>
+            <div class="user-section">
+                <button class="notification-btn" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge"></div>
+                </button>
+                <button class="btn btn-outline" onclick="showProfile()">
+                    <i class="fas fa-user-tie"></i>
+                    Profile
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="welcome-banner">
+            <div class="welcome-content">
+                <div class="welcome-text">
+                    <h1>Welcome to Your Impact Dashboard</h1>
+                    <p>Empowering South African SMMEs through strategic funding partnerships. Track your contributions, review applications, and measure real economic impact.</p>
+                </div>
+                <div class="impact-stats">
+                    <div class="impact-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Total Impact</h3>
+                    <p style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">R12.5M</p>
+                    <p style="opacity: 0.8;">Funded to Date</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card" onclick="showMetricDetails('SMMEs Funded')">
+                <div class="metric-header">
+                    <div class="metric-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="metric-trend">
+                        <i class="fas fa-arrow-up"></i>
+                        +15.2%
+                    </div>
+                </div>
+                <div class="metric-value">247</div>
+                <div class="metric-label">SMMEs Funded</div>
+            </div>
+
+            <div class="metric-card" onclick="showMetricDetails('Jobs Created')">
+                <div class="metric-header">
+                    <div class="metric-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-trend">
+                        <i class="fas fa-arrow-up"></i>
+                        +8.7%
+                    </div>
+                </div>
+                <div class="metric-value">1,847</div>
+                <div class="metric-label">Jobs Created</div>
+            </div>
+
+            <div class="metric-card" onclick="showMetricDetails('Average ROI')">
+                <div class="metric-header">
+                    <div class="metric-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="metric-trend">
+                        <i class="fas fa-arrow-up"></i>
+                        +23.1%
+                    </div>
+                </div>
+                <div class="metric-value">R2.8M</div>
+                <div class="metric-label">Average ROI</div>
+            </div>
+
+            <div class="metric-card" onclick="showMetricDetails('Pending Reviews')">
+                <div class="metric-header">
+                    <div class="metric-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="metric-trend">
+                        <i class="fas fa-arrow-down"></i>
+                        -12.5%
+                    </div>
+                </div>
+                <div class="metric-value">18</div>
+                <div class="metric-label">Pending Reviews</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Recent Applications</h3>
+                    <button class="btn btn-outline btn-sm" onclick="showAllApplications()">
+                        <i class="fas fa-eye"></i>
+                        View All
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="application-item" onclick="showApplicationDetails('TechInnovate Solutions')">
+                        <div class="application-info">
+                            <div class="company-avatar">TI</div>
+                            <div class="application-details">
+                                <h4>TechInnovate Solutions</h4>
+                                <p>Software Development • 15 employees</p>
+                            </div>
+                        </div>
+                        <div class="application-status">
+                            <div class="status-badge pending">Pending</div>
+                            <div class="amount-display">R750,000</div>
+                        </div>
+                    </div>
+
+                    <div class="application-item" onclick="showApplicationDetails('GreenManufacturing Co')">
+                        <div class="application-info">
+                            <div class="company-avatar">GM</div>
+                            <div class="application-details">
+                                <h4>GreenManufacturing Co</h4>
+                                <p>Manufacturing • 28 employees</p>
+                            </div>
+                        </div>
+                        <div class="application-status">
+                            <div class="status-badge review">In Review</div>
+                            <div class="amount-display">R1,200,000</div>
+                        </div>
+                    </div>
+
+                    <div class="application-item" onclick="showApplicationDetails('Digital Services Hub')">
+                        <div class="application-info">
+                            <div class="company-avatar">DS</div>
+                            <div class="application-details">
+                                <h4>Digital Services Hub</h4>
+                                <p>Digital Marketing • 8 employees</p>
+                            </div>
+                        </div>
+                        <div class="application-status">
+                            <div class="status-badge approved">Approved</div>
+                            <div class="amount-display">R450,000</div>
+                        </div>
+                    </div>
+
+                    <div class="application-item" onclick="showApplicationDetails('AgriFood Innovations')">
+                        <div class="application-info">
+                            <div class="company-avatar">AF</div>
+                            <div class="application-details">
+                                <h4>AgriFood Innovations</h4>
+                                <p>Agriculture • 22 employees</p>
+                            </div>
+                        </div>
+                        <div class="application-status">
+                            <div class="status-badge pending">Pending</div>
+                            <div class="amount-display">R980,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">AI Recommendations</h3>
+                </div>
+                <div class="card-body">
+                    <div style="text-align: center; padding: 2rem 0;">
+                        <div style="width: 80px; height: 80px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; animation: pulse 2s infinite;">
+                            <i class="fas fa-brain" style="font-size: 2rem; color: white;"></i>
+                        </div>
+                        <h4 style="margin-bottom: 1rem;">Smart Matching Active</h4>
+                        <p style="color: var(--gray-600); margin-bottom: 2rem; line-height: 1.6;">Our AI has identified 12 high-potential applications that match your funding criteria and impact goals.</p>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="showRecommendations()">
+                            <i class="fas fa-eye"></i>
+                            Review Recommendations
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: var(--white); border-radius: 28px; padding: 2.5rem; box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem; font-weight: 700;">Quick Actions</h3>
+                <button class="btn btn-primary" onclick="showCreateFund()">
+                    <i class="fas fa-plus"></i>
+                    Create New Fund
+                </button>
+            </div>
+
+            <div class="quick-actions">
+                <div class="action-card" onclick="showAllApplications()">
+                    <div class="action-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Review Applications</h3>
+                    <p>Evaluate pending funding requests with AI-powered insights and risk assessments</p>
+                </div>
+
+                <div class="action-card" onclick="showAnalytics()">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Portfolio Analytics</h3>
+                    <p>Track performance metrics and impact measurements across your funding portfolio</p>
+                </div>
+
+                <div class="action-card" onclick="showDirectory()">
+                    <div class="action-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>SMME Directory</h3>
+                    <p>Browse and connect with verified small businesses seeking funding opportunities</p>
+                </div>
+
+                <div class="action-card" onclick="showSettings()">
+                    <div class="action-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Fund Settings</h3>
+                    <p>Configure funding criteria, approval workflows, and automated matching preferences</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Donor Profile</h3>
+                <button class="close-btn" onclick="closeModal('profileModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div style="background: var(--gray-50); border-radius: 16px; padding: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem;">Organization Details</h4>
+                    <p><strong>Organization:</strong> Development Finance Corporation</p>
+                    <p><strong>Type:</strong> Government Entity</p>
+                    <p><strong>Established:</strong> 1995</p>
+                    <p><strong>Total Funds:</strong> R2.5 Billion</p>
+                </div>
+                <div style="background: var(--gray-50); border-radius: 16px; padding: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem;">Contact Information</h4>
+                    <p><strong>Primary Contact:</strong> Sarah Johnson</p>
+                    <p><strong>Email:</strong> sarah.j@dfc.gov.za</p>
+                    <p><strong>Phone:</strong> +27 11 123 4567</p>
+                    <p><strong>Location:</strong> Johannesburg, SA</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                <button class="btn btn-outline" onclick="closeModal('profileModal')">Close</button>
+                <button class="btn btn-primary" onclick="editProfile()">Edit Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Fund Modal -->
+    <div id="createFundModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Fund</h3>
+                <button class="close-btn" onclick="closeModal('createFundModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form onsubmit="submitFund(event)">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Fund Name</label>
+                        <input type="text" placeholder="Enter fund name" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 8px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Total Budget</label>
+                        <input type="number" placeholder="Amount in Rands" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 8px;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Target Industry</label>
+                        <select required style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 8px;">
+                            <option value="">Select Industry</option>
+                            <option value="technology">Technology</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="retail">Retail</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Max Amount per SMME</label>
+                        <input type="number" placeholder="Maximum funding amount" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 8px;">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('createFundModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Fund</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recommendations Modal -->
+    <div id="recommendationsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">AI Recommendations</h3>
+                <button class="close-btn" onclick="closeModal('recommendationsModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="display: grid; gap: 1.5rem;">
+                <div style="background: var(--gray-50); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--success);">
+                    <h4 style="color: var(--success); margin-bottom: 0.5rem;">High Priority</h4>
+                    <p><strong>TechInnovate Solutions</strong> - 92% match score</p>
+                    <p style="font-size: 0.875rem; color: var(--gray-600);">Strong financials, proven track record, low risk</p>
+                </div>
+                <div style="background: var(--gray-50); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--primary);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Medium Priority</h4>
+                    <p><strong>AgriFood Innovations</strong> - 89% match score</p>
+                    <p style="font-size: 0.875rem; color: var(--gray-600);">Growing sector, good potential, moderate risk</p>
+                </div>
+                <div style="background: var(--gray-50); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--warning);">
+                    <h4 style="color: var(--warning); margin-bottom: 0.5rem;">Review Required</h4>
+                    <p><strong>GreenManufacturing Co</strong> - 87% match score</p>
+                    <p style="font-size: 0.875rem; color: var(--gray-600);">Large amount requested, needs detailed review</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+            <span id="notificationText">Action completed successfully!</span>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Navigation functions
+        function showDashboard() {
+            updateActiveNav(event.target);
+            showNotification('Dashboard loaded');
+        }
+
+        function showApplicationsPage() {
+            updateActiveNav(event.target);
+            showNotification('Loading applications page...');
+        }
+
+        function showPortfolio() {
+            updateActiveNav(event.target);
+            showNotification('Loading portfolio overview...');
+        }
+
+        function showAnalytics() {
+            updateActiveNav(event.target);
+            showNotification('Opening analytics dashboard...');
+        }
+
+        function showSettings() {
+            updateActiveNav(event.target);
+            showNotification('Opening settings panel...');
+        }
+
+        function updateActiveNav(activeElement) {
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            activeElement.classList.add('active');
+        }
+
+        // Button functions
+        function showProfile() {
+            showModal('profileModal');
+        }
+
+        function editProfile() {
+            closeModal('profileModal');
+            showNotification('Profile editing mode activated');
+        }
+
+        function showCreateFund() {
+            showModal('createFundModal');
+        }
+
+        function submitFund(event) {
+            event.preventDefault();
+            closeModal('createFundModal');
+            showNotification('New fund created successfully!');
+            event.target.reset();
+        }
+
+        function showRecommendations() {
+            showModal('recommendationsModal');
+        }
+
+        function showNotifications() {
+            showNotification('Notifications panel opened');
+        }
+
+        function showAllApplications() {
+            showNotification('Loading all applications...');
+        }
+
+        function showApplicationDetails(companyName) {
+            showNotification(`Viewing ${companyName} application details`);
+        }
+
+        function showMetricDetails(metricName) {
+            showNotification(`Viewing ${metricName} analytics...`);
+        }
+
+        function showDirectory() {
+            showNotification('Loading SMME directory...');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const text = document.getElementById('notificationText');
+            const icon = notification.querySelector('i');
+            
+            text.textContent = message;
+            
+            if (type === 'error') {
+                notification.classList.add('error');
+                icon.className = 'fas fa-exclamation-circle';
+                icon.style.color = 'var(--danger)';
+            } else {
+                notification.classList.remove('error');
+                icon.className = 'fas fa-check-circle';
+                icon.style.color = 'var(--success)';
+            }
+            
+            notification.classList.add('show');
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate metrics on load
+            document.querySelectorAll('.metric-value').forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    element.style.transition = 'all 0.6s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+            
+            // Close modals when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('active');
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

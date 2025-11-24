@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Portal - SMME Funding AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #7c3aed;
+            --accent: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--gray-50) 0%, #fafbff 100%);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.15);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-100);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background: var(--gray-50);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+        }
+
+        .content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-100);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .stat-change.positive {
+            color: var(--accent);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-100);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .application-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid var(--gray-100);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .application-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+        }
+
+        .application-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .application-meta {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-approved {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+        }
+
+        .status-rejected {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-hand-holding-heart"></i>
+                SMME Funding AI - Donor Portal
+            </div>
+            <div class="user-menu">
+                <span>Welcome, John Donor</span>
+                <div class="user-avatar">JD</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <div class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-chart-pie"></i>
+                    Dashboard
+                </div>
+                <div class="nav-item" data-section="applications">
+                    <i class="fas fa-file-alt"></i>
+                    Applications
+                </div>
+                <div class="nav-item" data-section="funds">
+                    <i class="fas fa-coins"></i>
+                    My Funds
+                </div>
+                <div class="nav-item" data-section="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    Analytics
+                </div>
+                <div class="nav-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </div>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <!-- Dashboard Section -->
+            <div id="dashboard-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-applications">247</div>
+                        <div class="stat-label">Total Applications</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +12% this month
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="funds-distributed">R2.4M</div>
+                        <div class="stat-label">Funds Distributed</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +8% this month
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="success-rate">73%</div>
+                        <div class="stat-label">Success Rate</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +5% this month
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="active-funds">12</div>
+                        <div class="stat-label">Active Funds</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +2 new funds
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Applications</h2>
+                        <button class="btn btn-primary" onclick="showSection('applications')">
+                            <i class="fas fa-eye"></i>
+                            View All
+                        </button>
+                    </div>
+                    <div id="recent-applications">
+                        <!-- Applications will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications Section -->
+            <div id="applications-section" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Application Management</h2>
+                        <div style="display: flex; gap: 1rem;">
+                            <select id="status-filter" class="form-input" style="width: auto;">
+                                <option value="">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                            <button class="btn btn-outline" onclick="refreshApplications()">
+                                <i class="fas fa-sync"></i>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div id="applications-list">
+                        <!-- Applications will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Funds Section -->
+            <div id="funds-section" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Fund Management</h2>
+                        <button class="btn btn-primary" onclick="showCreateFundModal()">
+                            <i class="fas fa-plus"></i>
+                            Create Fund
+                        </button>
+                    </div>
+                    <div id="funds-list">
+                        <!-- Funds will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analytics-section" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Impact Analytics</h2>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Businesses Funded</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">2,340</div>
+                            <div class="stat-label">Jobs Created</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">R18.7M</div>
+                            <div class="stat-label">Economic Impact</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">89%</div>
+                            <div class="stat-label">Business Survival Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings-section" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Account Settings</h2>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Organization Name</label>
+                        <input type="text" class="form-input" value="Impact Investment Fund">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contact Email</label>
+                        <input type="email" class="form-input" value="john@impactfund.co.za">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Notification Preferences</label>
+                        <select class="form-input">
+                            <option>Email + SMS</option>
+                            <option>Email Only</option>
+                            <option>SMS Only</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Fund Modal -->
+    <div id="create-fund-modal" class="modal">
+        <div class="modal-content">
+            <div class="card-header">
+                <h2 class="card-title">Create New Fund</h2>
+                <button onclick="hideCreateFundModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+            </div>
+            <form id="create-fund-form">
+                <div class="form-group">
+                    <label class="form-label">Fund Name</label>
+                    <input type="text" class="form-input" id="fund-name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Total Amount (R)</label>
+                    <input type="number" class="form-input" id="fund-amount" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Industry Focus</label>
+                    <select class="form-input" id="fund-industry" required>
+                        <option value="">Select Industry</option>
+                        <option value="technology">Technology</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="agriculture">Agriculture</option>
+                        <option value="retail">Retail</option>
+                        <option value="services">Services</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-input" id="fund-description" rows="4" required></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="hideCreateFundModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Create Fund
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                showSection(item.dataset.section);
+            });
+        });
+
+        function showSection(section) {
+            document.querySelectorAll('[id$="-section"]').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(section + '-section').classList.remove('hidden');
+            
+            if (section === 'applications') loadApplications();
+            if (section === 'funds') loadFunds();
+        }
+
+        // Load applications
+        function loadApplications() {
+            const applications = [
+                { id: 1, company: 'TechStart Solutions', amount: 'R250,000', status: 'pending', date: '2024-01-15' },
+                { id: 2, company: 'Green Energy Co', amount: 'R500,000', status: 'approved', date: '2024-01-14' },
+                { id: 3, company: 'Local Retail Hub', amount: 'R150,000', status: 'rejected', date: '2024-01-13' },
+                { id: 4, company: 'AgriTech Innovations', amount: 'R300,000', status: 'pending', date: '2024-01-12' }
+            ];
+
+            const container = document.getElementById('applications-list');
+            container.innerHTML = applications.map(app => `
+                <div class="application-item">
+                    <div class="application-info">
+                        <h4>${app.company}</h4>
+                        <div class="application-meta">Amount: ${app.amount} • Applied: ${app.date}</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span class="status-badge status-${app.status}">${app.status}</span>
+                        <button class="btn btn-outline" onclick="reviewApplication(${app.id})">
+                            <i class="fas fa-eye"></i>
+                            Review
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Load recent applications for dashboard
+            document.getElementById('recent-applications').innerHTML = applications.slice(0, 3).map(app => `
+                <div class="application-item">
+                    <div class="application-info">
+                        <h4>${app.company}</h4>
+                        <div class="application-meta">${app.amount} • ${app.date}</div>
+                    </div>
+                    <span class="status-badge status-${app.status}">${app.status}</span>
+                </div>
+            `).join('');
+        }
+
+        // Load funds
+        function loadFunds() {
+            const funds = [
+                { id: 1, name: 'Tech Innovation Fund', amount: 'R2,000,000', allocated: 'R1,200,000', industry: 'Technology' },
+                { id: 2, name: 'Green Energy Initiative', amount: 'R1,500,000', allocated: 'R800,000', industry: 'Energy' },
+                { id: 3, name: 'Rural Development Fund', amount: 'R1,000,000', allocated: 'R400,000', industry: 'Agriculture' }
+            ];
+
+            document.getElementById('funds-list').innerHTML = funds.map(fund => `
+                <div class="application-item">
+                    <div class="application-info">
+                        <h4>${fund.name}</h4>
+                        <div class="application-meta">Total: ${fund.amount} • Allocated: ${fund.allocated} • Industry: ${fund.industry}</div>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-outline" onclick="editFund(${fund.id})">
+                            <i class="fas fa-edit"></i>
+                            Edit
+                        </button>
+                        <button class="btn btn-primary" onclick="viewFundDetails(${fund.id})">
+                            <i class="fas fa-eye"></i>
+                            Details
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal functions
+        function showCreateFundModal() {
+            document.getElementById('create-fund-modal').style.display = 'block';
+        }
+
+        function hideCreateFundModal() {
+            document.getElementById('create-fund-modal').style.display = 'none';
+            document.getElementById('create-fund-form').reset();
+        }
+
+        // Form submission
+        document.getElementById('create-fund-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            console.log('Creating fund:', Object.fromEntries(formData));
+            hideCreateFundModal();
+            loadFunds();
+        });
+
+        // Utility functions
+        function refreshApplications() {
+            loadApplications();
+        }
+
+        function reviewApplication(id) {
+            console.log('Reviewing application:', id);
+        }
+
+        function editFund(id) {
+            console.log('Editing fund:', id);
+        }
+
+        function viewFundDetails(id) {
+            console.log('Viewing fund details:', id);
+        }
+
+        // Initialize
+        loadApplications();
+        loadFunds();
+    </script>
+</body>
+</html>

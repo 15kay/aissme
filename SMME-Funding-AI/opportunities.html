@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunities - ELIDZ SMME Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #0f172a;
+            --accent: #3b82f6;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-600: #475569;
+            --gray-900: #0f172a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--gray-600);
+        }
+
+        .search-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-900);
+        }
+
+        .filter-select {
+            padding: 0.75rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--gray-900);
+            font-size: 0.875rem;
+        }
+
+        .ai-insights {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .opportunities-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .opportunity-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .opportunity-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .opportunity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+
+        .opportunity-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .opportunity-provider {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .match-score {
+            background: var(--success);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .opportunity-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .ai-recommendation {
+            background: rgba(30, 64, 175, 0.05);
+            border: 1px solid rgba(30, 64, 175, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .recommendation-text {
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #1e3a8a;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .trending-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--warning);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+            .search-filters {
+                grid-template-columns: 1fr;
+            }
+            .opportunity-details {
+                grid-template-columns: 1fr;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">ELIDZ SMME Portal</div>
+            <nav class="nav-links">
+                <a href="portal.html" class="nav-link">Dashboard</a>
+                <a href="applications.html" class="nav-link">Applications</a>
+                <a href="opportunities.html" class="nav-link active">Opportunities</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+                <a href="analytics.html" class="nav-link">Analytics</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">Funding Opportunities</h1>
+            <p class="page-subtitle">AI-powered matching finds the perfect funding for your business</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label class="filter-label">Funding Amount</label>
+                    <select class="filter-select">
+                        <option>Any amount</option>
+                        <option>Under R100K</option>
+                        <option>R100K - R500K</option>
+                        <option>R500K - R1M</option>
+                        <option>Over R1M</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Funding Type</label>
+                    <select class="filter-select">
+                        <option>All types</option>
+                        <option>Grants</option>
+                        <option>Loans</option>
+                        <option>Equity</option>
+                        <option>Mixed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Industry</label>
+                    <select class="filter-select">
+                        <option>Technology</option>
+                        <option>Manufacturing</option>
+                        <option>Agriculture</option>
+                        <option>Services</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Deadline</label>
+                    <select class="filter-select">
+                        <option>Next 30 days</option>
+                        <option>Next 60 days</option>
+                        <option>Next 90 days</option>
+                        <option>Rolling</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-insights">
+            <h3 style="margin-bottom: 1rem;">AI Insights for Your Business</h3>
+            <p>Based on your profile, we've identified <strong>47 opportunities</strong> with an average match score of <strong>94.2%</strong>. Your success probability is <strong>89.3%</strong>.</p>
+        </div>
+
+        <div class="opportunities-grid">
+            <div class="opportunity-card">
+                <div class="trending-badge">Trending</div>
+                <div class="opportunity-header">
+                    <div>
+                        <h3 class="opportunity-title">SEDA Technology Innovation Grant</h3>
+                        <p class="opportunity-provider">Department of Small Business Development</p>
+                    </div>
+                    <div class="match-score">
+                        <i class="fas fa-bullseye"></i>
+                        98.7%
+                    </div>
+                </div>
+
+                <div class="opportunity-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Amount</div>
+                        <div class="detail-value">Up to R500,000</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Type</div>
+                        <div class="detail-value">Grant</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Deadline</div>
+                        <div class="detail-value">30 Mar 2025</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Success Rate</div>
+                        <div class="detail-value">73%</div>
+                    </div>
+                </div>
+
+                <div class="ai-recommendation">
+                    <div class="recommendation-header">
+                        <i class="fas fa-lightbulb"></i>
+                        AI Recommendation
+                    </div>
+                    <p class="recommendation-text">Perfect match! Your technology focus and operational history align perfectly with SEDA's criteria. Apply within 7 days for optimal timing.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="applyNow('SEDA')">
+                        <i class="fas fa-rocket"></i>
+                        Apply Now (2 mins)
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-info-circle"></i>
+                        View Details
+                    </button>
+                </div>
+            </div>
+
+            <div class="opportunity-card">
+                <div class="opportunity-header">
+                    <div>
+                        <h3 class="opportunity-title">IDC SMME Development Fund</h3>
+                        <p class="opportunity-provider">Industrial Development Corporation</p>
+                    </div>
+                    <div class="match-score">
+                        <i class="fas fa-bullseye"></i>
+                        94.2%
+                    </div>
+                </div>
+
+                <div class="opportunity-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Amount</div>
+                        <div class="detail-value">R100K - R1M</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Type</div>
+                        <div class="detail-value">Loan</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Deadline</div>
+                        <div class="detail-value">Rolling</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Interest</div>
+                        <div class="detail-value">Prime - 2%</div>
+                    </div>
+                </div>
+
+                <div class="ai-recommendation">
+                    <div class="recommendation-header">
+                        <i class="fas fa-lightbulb"></i>
+                        AI Recommendation
+                    </div>
+                    <p class="recommendation-text">Excellent opportunity for expansion capital. Your manufacturing focus makes you an ideal candidate. Consider applying for R750K based on your financials.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="applyNow('IDC')">
+                        <i class="fas fa-rocket"></i>
+                        Apply Now (3 mins)
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-calculator"></i>
+                        Loan Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="opportunity-card">
+                <div class="opportunity-header">
+                    <div>
+                        <h3 class="opportunity-title">Eastern Cape Development Corporation</h3>
+                        <p class="opportunity-provider">Provincial Development Finance</p>
+                    </div>
+                    <div class="match-score">
+                        <i class="fas fa-bullseye"></i>
+                        91.8%
+                    </div>
+                </div>
+
+                <div class="opportunity-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Amount</div>
+                        <div class="detail-value">Up to R2M</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Type</div>
+                        <div class="detail-value">Mixed</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Deadline</div>
+                        <div class="detail-value">15 Apr 2025</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Jobs Required</div>
+                        <div class="detail-value">Min. 5</div>
+                    </div>
+                </div>
+
+                <div class="ai-recommendation">
+                    <div class="recommendation-header">
+                        <i class="fas fa-lightbulb"></i>
+                        AI Recommendation
+                    </div>
+                    <p class="recommendation-text">Strong regional match! Your Eastern Cape location and job creation potential align well. Highlight your expansion plans and local impact.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="applyNow('ECDC')">
+                        <i class="fas fa-rocket"></i>
+                        Apply Now (4 mins)
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Regional Benefits
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script>
+        function applyNow(funder) {
+            const amounts = {
+                'SEDA': 'R500,000',
+                'IDC': 'R750,000',
+                'ECDC': 'R1,200,000'
+            };
+            portal.applyForFunding(funder, amounts[funder] || 'Amount TBD');
+        }
+
+        // Update all action buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const text = this.textContent.trim();
+                
+                if (text.includes('View Details')) {
+                    const card = this.closest('.opportunity-card');
+                    const title = card.querySelector('.opportunity-title').textContent;
+                    const provider = card.querySelector('.opportunity-provider').textContent;
+                    const details = Array.from(card.querySelectorAll('.detail-value')).map(el => el.textContent).join(' • ');
+                    
+                    portal.viewOpportunityDetails(title, `
+                        <p><strong>Provider:</strong> ${provider}</p>
+                        <p><strong>Details:</strong> ${details}</p>
+                        <div style="margin: 1rem 0; padding: 1rem; background: rgba(30, 64, 175, 0.05); border-radius: 8px;">
+                            <strong>AI Recommendation:</strong> This opportunity has a high match score based on your business profile.
+                        </div>
+                    `);
+                } else if (text.includes('Loan Calculator')) {
+                    portal.showModal('Loan Calculator', `
+                        <div style="display: grid; gap: 1rem;">
+                            <div>
+                                <label>Loan Amount (R)</label>
+                                <input type="number" value="750000" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            </div>
+                            <div>
+                                <label>Interest Rate (%)</label>
+                                <input type="number" value="8.5" step="0.1" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            </div>
+                            <div>
+                                <label>Term (Years)</label>
+                                <input type="number" value="5" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            </div>
+                            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                                <strong>Monthly Payment: R15,847</strong><br>
+                                <span style="color: #64748b;">Total Interest: R200,820</span>
+                            </div>
+                        </div>
+                    `);
+                } else if (text.includes('Regional Benefits')) {
+                    portal.showModal('Regional Benefits', `
+                        <h4>Eastern Cape Regional Advantages</h4>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li>Additional 10% funding bonus for local businesses</li>
+                            <li>Fast-track processing (30 days vs 60 days)</li>
+                            <li>Dedicated regional support team</li>
+                            <li>Job creation incentives</li>
+                            <li>Skills development partnerships</li>
+                        </ul>
+                        <div style="background: rgba(5, 150, 105, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                            <strong>Your Advantage:</strong> As an Eastern Cape business, you qualify for all regional benefits.
+                        </div>
+                    `);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
