@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applications - ELIDZ SMME Portal</title>
+    <title>Applications | ELIDZ Eastern Cape Business Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e40af;
-            --secondary: #0f172a;
-            --accent: #3b82f6;
-            --success: #059669;
-            --warning: #d97706;
-            --danger: #dc2626;
+            --primary: #0f172a;
+            --secondary: #1e40af;
+            --accent: #059669;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
             --white: #ffffff;
             --gray-50: #f8fafc;
             --gray-100: #f1f5f9;
             --gray-200: #e2e8f0;
             --gray-600: #475569;
+            --gray-800: #1e293b;
             --gray-900: #0f172a;
         }
 
@@ -26,17 +27,20 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
+            background: linear-gradient(135deg, var(--gray-50) 0%, #e0e7ff 100%);
             color: var(--gray-900);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         .header {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
         }
 
         .header-container {
@@ -46,81 +50,303 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 70px;
+            height: 88px;
         }
 
         .logo {
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.625rem;
             font-weight: 800;
             color: var(--primary);
+            text-decoration: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 0;
+            gap: 0.25rem;
+            background: rgba(248, 250, 252, 0.8);
+            padding: 0.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.6);
         }
 
         .nav-link {
             text-decoration: none;
             color: var(--gray-600);
             font-weight: 500;
-            padding: 1rem 1.5rem;
-            transition: all 0.2s;
-            position: relative;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav-link:hover {
             color: var(--primary);
-            background: var(--gray-50);
+            background: var(--white);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+            transform: translateY(-1px);
         }
 
         .nav-link.active {
-            color: var(--primary);
-            background: var(--gray-50);
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+            font-weight: 600;
         }
 
-        .nav-link.active::after {
-            content: '';
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            position: relative;
+        }
+
+        .notification-btn {
+            position: relative;
+            padding: 0.875rem;
+            border: none;
+            background: rgba(248, 250, 252, 0.8);
+            cursor: pointer;
+            border-radius: 14px;
+            transition: all 0.3s;
+            color: var(--gray-600);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .notification-btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.1);
+            color: var(--primary);
+        }
+
+        .notification-badge {
             position: absolute;
-            bottom: 0;
-            left: 0;
+            top: 0.625rem;
+            right: 0.625rem;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, var(--danger), #f87171);
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(248, 250, 252, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            position: relative;
+        }
+
+        .user-profile:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 0.875rem;
+        }
+
+        .user-role {
+            color: var(--gray-600);
+            font-size: 0.75rem;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
             right: 0;
-            height: 2px;
-            background: var(--primary);
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+            min-width: 280px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+
+        .user-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            text-align: center;
+        }
+
+        .dropdown-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+
+        .dropdown-menu {
+            padding: 0.5rem;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--gray-700);
+            text-decoration: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--gray-50);
+            color: var(--primary);
+        }
+
+        .dropdown-item.danger {
+            color: var(--danger);
+        }
+
+        .dropdown-item.danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--gray-200);
+            margin: 0.5rem 0;
         }
 
         .main-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
         }
 
         .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #7c3aed 100%);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            margin-bottom: 3rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
         }
 
         .page-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--gray-900);
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
         }
 
-        .filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
+        .page-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        .filter-select {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--gray-200);
-            border-radius: 8px;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
             background: var(--white);
-            color: var(--gray-900);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray-600);
             font-size: 0.875rem;
+            font-weight: 500;
         }
 
         .applications-grid {
@@ -130,150 +356,135 @@
 
         .application-card {
             background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 2rem;
-            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .application-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
         .application-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
         }
 
         .application-header {
             display: flex;
-            justify-content: between;
-            align-items: start;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: 1.5rem;
         }
 
         .application-title {
             font-size: 1.25rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--gray-900);
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
         }
 
-        .application-id {
-            color: var(--gray-600);
-            font-size: 0.875rem;
+        .application-amount {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--accent);
         }
 
         .status-badge {
-            padding: 0.375rem 0.75rem;
+            padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.025em;
+            letter-spacing: 0.5px;
         }
 
-        .status-approved {
-            background: rgba(5, 150, 105, 0.1);
-            color: var(--success);
-        }
-
-        .status-pending {
-            background: rgba(217, 119, 6, 0.1);
-            color: var(--warning);
-        }
-
-        .status-review {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent);
-        }
+        .status-approved { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-review { background: rgba(59, 130, 246, 0.1); color: var(--secondary); }
+        .status-pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .status-rejected { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
 
         .application-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
+            text-align: center;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 12px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
         }
 
         .detail-label {
             font-size: 0.75rem;
             color: var(--gray-600);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 500;
-        }
-
-        .detail-value {
-            font-weight: 600;
-            color: var(--gray-900);
-        }
-
-        .progress-section {
-            margin: 1.5rem 0;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .progress-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--gray-900);
-        }
-
-        .progress-percentage {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--primary);
+            letter-spacing: 0.5px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: var(--gray-200);
-            border-radius: 3px;
+            border-radius: 4px;
             overflow: hidden;
+            margin: 1rem 0;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 3px;
-            transition: width 0.5s ease;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            border-radius: 4px;
+            transition: width 0.3s;
         }
 
-        .action-buttons {
+        .application-actions {
             display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
             padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 8px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            text-decoration: none;
             font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: var(--secondary);
             color: var(--white);
         }
 
         .btn-primary:hover {
-            background: #1e3a8a;
+            background: #1d4ed8;
+            transform: translateY(-1px);
         }
 
         .btn-outline {
@@ -293,44 +504,60 @@
         }
 
         .btn-success:hover {
-            background: #047857;
+            background: #059669;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--gray-600);
+        .floating-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
         }
 
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--gray-400);
+        .fab {
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3);
+            transition: all 0.3s;
+            font-size: 1.25rem;
         }
 
-        @media (max-width: 1024px) {
-            .nav-links {
-                display: none;
-            }
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+        }
+
+        .fab.secondary {
+            background: var(--accent);
+            width: 48px;
+            height: 48px;
+            font-size: 1rem;
         }
 
         @media (max-width: 768px) {
             .main-container {
                 padding: 1rem;
             }
-            .page-header {
+            .nav-links {
+                display: none;
+            }
+            .application-header {
                 flex-direction: column;
-                align-items: start;
                 gap: 1rem;
             }
-            .filters {
-                flex-wrap: wrap;
-            }
-            .application-details {
-                grid-template-columns: 1fr;
-            }
-            .action-buttons {
-                flex-direction: column;
+            .application-actions {
+                justify-content: center;
             }
         }
     </style>
@@ -338,86 +565,143 @@
 <body>
     <header class="header">
         <div class="header-container">
-            <div class="logo">ELIDZ SMME Portal</div>
+            <a href="../index.html" class="logo">
+                <img src="https://www.globalafricanetwork.com/wp-content/uploads/2021/05/ELIDZ-LOGO-transparent-2.png" alt="ELIDZ" style="height: 40px;">
+            </a>
             <nav class="nav-links">
-                <a href="portal.html" class="nav-link">Dashboard</a>
-                <a href="applications.html" class="nav-link active">Applications</a>
-                <a href="opportunities.html" class="nav-link">Opportunities</a>
-                <a href="profile.html" class="nav-link">Profile</a>
-                <a href="analytics.html" class="nav-link">Analytics</a>
+                <a href="portal.html" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    Dashboard
+                </a>
+                <a href="applications.html" class="nav-link active">
+                    <i class="fas fa-file-alt"></i>
+                    Applications
+                </a>
+                <a href="opportunities.html" class="nav-link">
+                    <i class="fas fa-search"></i>
+                    Opportunities
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
             </nav>
+            <div class="user-menu">
+                <button class="notification-btn" onclick="toggleNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge"></div>
+                </button>
+                <div class="user-profile" onclick="toggleUserDropdown()">
+                    <div class="user-avatar">TC</div>
+                    <div class="user-info">
+                        <div class="user-name">TechCorp Solutions</div>
+                        <div class="user-role">Verified Business</div>
+                    </div>
+                    <i class="fas fa-chevron-down" style="color: var(--gray-600); font-size: 0.75rem;"></i>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar">TC</div>
+                            <div style="font-weight: 600; color: var(--gray-900);">TechCorp Solutions</div>
+                            <div style="color: var(--gray-600); font-size: 0.875rem;">Verified Business • Eastern Cape</div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="profile.html" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="applications.html" class="dropdown-item">
+                                <i class="fas fa-file-alt"></i>
+                                <span>My Applications</span>
+                            </a>
+                            <a href="opportunities.html" class="dropdown-item">
+                                <i class="fas fa-search"></i>
+                                <span>Find Opportunities</span>
+                            </a>
+                            <div class="dropdown-item" onclick="showSettings()">
+                                <i class="fas fa-cog"></i>
+                                <span>Account Settings</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSecurity()">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Security & Privacy</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSupport()">
+                                <i class="fas fa-headset"></i>
+                                <span>Help & Support</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item danger" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <main class="main-container">
         <div class="page-header">
-            <h1 class="page-title">Applications</h1>
-            <button class="btn btn-primary">
-                <i class="fas fa-plus"></i>
-                New Application
-            </button>
+            <h1 class="page-title">📋 Application Manager</h1>
+            <p class="page-subtitle">Track, manage, and optimize your funding applications with real-time updates and AI insights</p>
         </div>
 
-        <div class="filters">
-            <select class="filter-select">
-                <option>All Status</option>
-                <option>Approved</option>
-                <option>In Review</option>
-                <option>Pending</option>
-            </select>
-            <select class="filter-select">
-                <option>All Types</option>
-                <option>Grants</option>
-                <option>Loans</option>
-                <option>Mixed</option>
-            </select>
-            <select class="filter-select">
-                <option>Last 30 days</option>
-                <option>Last 90 days</option>
-                <option>This year</option>
-            </select>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--success);">1</div>
+                <div class="stat-label">Approved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--secondary);">2</div>
+                <div class="stat-label">In Review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--warning);">1</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--accent);">R650K</div>
+                <div class="stat-label">Total Applied</div>
+            </div>
         </div>
 
         <div class="applications-grid">
             <div class="application-card">
                 <div class="application-header">
                     <div>
-                        <h3 class="application-title">SEDA Technology Innovation Grant</h3>
-                        <p class="application-id">Application ID: TIG-2024-001</p>
+                        <div class="application-title">SEDA Technology Innovation Grant</div>
+                        <div class="application-amount">R150,000</div>
                     </div>
-                    <div class="status-badge status-approved">Approved</div>
+                    <div class="status-badge status-approved">✅ Approved</div>
                 </div>
-
                 <div class="application-details">
                     <div class="detail-item">
-                        <div class="detail-label">Amount Requested</div>
-                        <div class="detail-value">R150,000</div>
+                        <div class="detail-value">15 March 2024</div>
+                        <div class="detail-label">Applied</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Amount Approved</div>
-                        <div class="detail-value">R150,000</div>
+                        <div class="detail-value">2 April 2024</div>
+                        <div class="detail-label">Approved</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Application Date</div>
-                        <div class="detail-value">15 Jan 2025</div>
+                        <div class="detail-value">Technology</div>
+                        <div class="detail-label">Category</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Approval Date</div>
-                        <div class="detail-value">28 Jan 2025</div>
+                        <div class="detail-value">98.7%</div>
+                        <div class="detail-label">Match Score</div>
                     </div>
                 </div>
-
-                <div class="progress-section">
-                    <div class="progress-header">
-                        <span class="progress-label">Funding Progress</span>
-                        <span class="progress-percentage">100%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%;"></div>
-                    </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;"></div>
                 </div>
-
-                <div class="action-buttons">
+                <div class="application-actions">
                     <button class="btn btn-success">
                         <i class="fas fa-download"></i>
                         Download Agreement
@@ -432,49 +716,40 @@
             <div class="application-card">
                 <div class="application-header">
                     <div>
-                        <h3 class="application-title">IDC SMME Development Fund</h3>
-                        <p class="application-id">Application ID: IDC-2024-002</p>
+                        <div class="application-title">IDC SMME Development Fund</div>
+                        <div class="application-amount">R300,000</div>
                     </div>
-                    <div class="status-badge status-review">In Review</div>
+                    <div class="status-badge status-review">🔄 In Review</div>
                 </div>
-
                 <div class="application-details">
                     <div class="detail-item">
-                        <div class="detail-label">Amount Requested</div>
-                        <div class="detail-value">R300,000</div>
+                        <div class="detail-value">22 March 2024</div>
+                        <div class="detail-label">Applied</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Application Date</div>
-                        <div class="detail-value">22 Jan 2025</div>
+                        <div class="detail-value">Est. 15 May</div>
+                        <div class="detail-label">Decision</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Expected Decision</div>
-                        <div class="detail-value">15 Feb 2025</div>
+                        <div class="detail-value">Manufacturing</div>
+                        <div class="detail-label">Category</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Review Stage</div>
-                        <div class="detail-value">Final Assessment</div>
+                        <div class="detail-value">94.2%</div>
+                        <div class="detail-label">Match Score</div>
                     </div>
                 </div>
-
-                <div class="progress-section">
-                    <div class="progress-header">
-                        <span class="progress-label">Review Progress</span>
-                        <span class="progress-percentage">85%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%;"></div>
-                    </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 65%;"></div>
                 </div>
-
-                <div class="action-buttons">
+                <div class="application-actions">
                     <button class="btn btn-primary">
-                        <i class="fas fa-comments"></i>
-                        Contact Reviewer
+                        <i class="fas fa-upload"></i>
+                        Upload Documents
                     </button>
                     <button class="btn btn-outline">
-                        <i class="fas fa-eye"></i>
-                        View Status
+                        <i class="fas fa-comments"></i>
+                        Contact Officer
                     </button>
                 </div>
             </div>
@@ -482,89 +757,720 @@
             <div class="application-card">
                 <div class="application-header">
                     <div>
-                        <h3 class="application-title">Eastern Cape Development Corporation</h3>
-                        <p class="application-id">Application ID: ECDC-2024-003</p>
+                        <div class="application-title">Eastern Cape Development Corporation</div>
+                        <div class="application-amount">R200,000</div>
                     </div>
-                    <div class="status-badge status-pending">Pending</div>
+                    <div class="status-badge status-pending">⏳ Pending</div>
                 </div>
-
                 <div class="application-details">
                     <div class="detail-item">
-                        <div class="detail-label">Amount Requested</div>
-                        <div class="detail-value">R200,000</div>
+                        <div class="detail-value">28 March 2024</div>
+                        <div class="detail-label">Applied</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Draft Created</div>
-                        <div class="detail-value">25 Jan 2025</div>
+                        <div class="detail-value">Awaiting Review</div>
+                        <div class="detail-label">Status</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Submission Deadline</div>
-                        <div class="detail-value">10 Feb 2025</div>
+                        <div class="detail-value">Infrastructure</div>
+                        <div class="detail-label">Category</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">Completion Status</div>
-                        <div class="detail-value">Ready to Submit</div>
+                        <div class="detail-value">91.8%</div>
+                        <div class="detail-label">Match Score</div>
                     </div>
                 </div>
-
-                <div class="progress-section">
-                    <div class="progress-header">
-                        <span class="progress-label">Application Completion</span>
-                        <span class="progress-percentage">95%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 95%;"></div>
-                    </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%;"></div>
                 </div>
-
-                <div class="action-buttons">
+                <div class="application-actions">
                     <button class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i>
-                        Submit Application
+                        <i class="fas fa-edit"></i>
+                        Update Application
                     </button>
                     <button class="btn btn-outline">
-                        <i class="fas fa-edit"></i>
-                        Edit Application
+                        <i class="fas fa-clock"></i>
+                        Check Status
                     </button>
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="shared.js"></script>
+    <div class="floating-actions">
+        <button class="fab" onclick="startNewApplication()" title="New Application">
+            <i class="fas fa-plus"></i>
+        </button>
+        <button class="fab secondary" onclick="window.location.href='opportunities.html'" title="Find Opportunities">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+
     <script>
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const text = this.textContent.trim();
-                
-                if (text.includes('Download')) {
-                    portal.downloadDocument('SEDA_Agreement_TIG-2024-001.pdf');
-                } else if (text.includes('Submit')) {
-                    portal.submitApplication('ECDC-2024-003');
-                } else if (text.includes('Contact')) {
-                    portal.contactReviewer('Sarah Johnson', 'sarah.johnson@idc.co.za');
-                } else if (text.includes('New Application')) {
-                    window.location.href = 'opportunities.html';
-                } else if (text.includes('View Details') || text.includes('View Status')) {
-                    const card = this.closest('.application-card');
-                    const title = card.querySelector('.application-title').textContent;
-                    const id = card.querySelector('.application-id').textContent;
-                    portal.showModal('Application Details', `
-                        <h4>${title}</h4>
-                        <p>${id}</p>
-                        <div style="margin: 1rem 0;">
-                            <strong>Status:</strong> Processing<br>
-                            <strong>Last Update:</strong> 2 hours ago<br>
-                            <strong>Next Step:</strong> Awaiting final review
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; top: 2rem; right: 2rem; z-index: 1000;
+                background: white; border-radius: 12px; padding: 1rem 1.5rem;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15); border-left: 4px solid ${type === 'success' ? '#10b981' : '#1e40af'};
+                transform: translateX(400px); transition: transform 0.3s;
+            `;
+            toast.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle" style="color: ${type === 'success' ? '#10b981' : '#1e40af'};"></i>
+                    <div style="font-weight: 600; color: #0f172a;">${message}</div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // User dropdown functionality
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function showSettings() {
+            showNotification('Opening account settings...', 'info');
+        }
+
+        function showSecurity() {
+            showNotification('Opening security settings...', 'info');
+        }
+
+        function showSupport() {
+            showNotification('Opening support center...', 'info');
+        }
+
+        function logout() {
+            showNotification('Logging out...', 'info');
+            setTimeout(() => {
+                window.location.href = '../login.html';
+            }, 1500);
+        }
+
+        function toggleNotifications() {
+            showNotification('Opening notifications...', 'info');
+        }
+
+        // Modal system
+        function createModal(title, content, actions = []) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000;
+                background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+                opacity: 0; transition: opacity 0.3s;
+            `;
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 16px; padding: 2rem; max-width: 500px; width: 90%; transform: scale(0.9); transition: transform 0.3s;">
+                    <h3 style="margin-bottom: 1rem; color: #0f172a;">${title}</h3>
+                    <div style="margin-bottom: 2rem;">${content}</div>
+                    <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                        ${actions.map(action => `<button onclick="${action.onclick}" class="btn ${action.class}">${action.text}</button>`).join('')}
+                        <button onclick="closeModal(this)" class="btn btn-outline">Close</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.querySelector('div').style.transform = 'scale(1)';
+            }, 10);
+            return modal;
+        }
+
+        function closeModal(btn) {
+            const modal = btn.closest('[style*="position: fixed"]');
+            modal.style.opacity = '0';
+            setTimeout(() => modal.remove(), 300);
+        }
+
+        // Document download
+        function downloadAgreement() {
+            showNotification('📄 Downloading SEDA agreement document...');
+            const link = document.createElement('a');
+            link.href = 'data:text/plain;charset=utf-8,SEDA Technology Innovation Grant Agreement\n\nGrantee: TechCorp Solutions\nAmount: R150,000\nApproval Date: 2 April 2024\n\nTerms and Conditions:\n1. Funds must be used for technology innovation\n2. Quarterly reports required\n3. Job creation targets: 5 new positions';
+            link.download = 'SEDA_Agreement_TechCorp.txt';
+            link.click();
+        }
+
+        // Document upload
+        function uploadDocuments() {
+            const modal = createModal(
+                '📤 Upload Required Documents',
+                `
+                <div style="border: 2px dashed #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 1rem;">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #94a3b8; margin-bottom: 1rem;"></i>
+                    <p style="color: #64748b;">Drag and drop files here or click to browse</p>
+                    <input type="file" multiple style="margin-top: 1rem;" onchange="handleFileUpload(this)">
+                </div>
+                <div style="font-size: 0.875rem; color: #64748b;">
+                    Required: Financial statements, Business plan update, Equipment quotes
+                </div>
+                `,
+                [{ text: 'Upload Files', class: 'btn-primary', onclick: 'processUpload()' }]
+            );
+        }
+
+        function handleFileUpload(input) {
+            const files = Array.from(input.files);
+            if (files.length > 0) {
+                showNotification(`📁 ${files.length} file(s) selected for upload`);
+            }
+        }
+
+        function processUpload() {
+            showNotification('📤 Documents uploaded successfully! IDC will review within 5 business days.');
+            closeModal(event.target);
+        }
+
+        // Contact officer
+        function contactOfficer() {
+            const modal = createModal(
+                '📞 Contact Funding Officer',
+                `
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding: 1rem; background: #f8fafc; border-radius: 12px;">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #1e40af, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">SM</div>
+                    <div>
+                        <div style="font-weight: 600; color: #0f172a;">Sarah Mthembu</div>
+                        <div style="color: #64748b; font-size: 0.875rem;">Senior Funding Officer - IDC</div>
+                        <div style="color: #64748b; font-size: 0.875rem;">📧 s.mthembu@idc.co.za | 📱 +27 41 123 4567</div>
+                    </div>
+                </div>
+                <textarea placeholder="Type your message here..." style="width: 100%; height: 100px; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px; resize: vertical;"></textarea>
+                `,
+                [{ text: 'Send Message', class: 'btn-primary', onclick: 'sendMessage()' }]
+            );
+        }
+
+        function sendMessage() {
+            showNotification('📧 Message sent to Sarah Mthembu. Expect a response within 24 hours.');
+            closeModal(event.target);
+        }
+
+        // Update application
+        function updateApplication() {
+            const modal = createModal(
+                '✏️ Update Application',
+                `
+                <div style="display: grid; gap: 1rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Project Description</label>
+                        <textarea style="width: 100%; height: 80px; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px;" placeholder="Update your project description..."></textarea>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Funding Amount</label>
+                        <input type="text" value="R200,000" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Job Creation Target</label>
+                        <input type="number" value="3" style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    </div>
+                </div>
+                `,
+                [{ text: 'Save Changes', class: 'btn-primary', onclick: 'saveApplication()' }]
+            );
+        }
+
+        function saveApplication() {
+            showNotification('💾 Application updated successfully! Changes will be reviewed by ECDC.');
+            closeModal(event.target);
+        }
+
+        // Check status
+        function checkStatus() {
+            const modal = createModal(
+                '🔍 Application Status Details',
+                `
+                <div style="display: grid; gap: 1rem;">
+                    <div style="padding: 1rem; background: #fef3c7; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <div style="font-weight: 600; color: #92400e;">⏳ Pending Review</div>
+                        <div style="font-size: 0.875rem; color: #b45309; margin-top: 0.25rem;">Your application is in the initial review queue</div>
+                    </div>
+                    <div style="display: grid; gap: 0.75rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Application Submitted</span>
+                            <span style="color: #10b981;">✅ 28 March 2024</span>
                         </div>
-                    `);
-                } else if (text.includes('Edit')) {
-                    portal.showModal('Edit Application', `
-                        <p>This application is currently under review and cannot be edited.</p>
-                        <p>If you need to make changes, please contact the reviewer directly.</p>
-                    `);
-                }
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Initial Review</span>
+                            <span style="color: #f59e0b;">⏳ In Progress</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Committee Review</span>
+                            <span style="color: #94a3b8;">⏸️ Pending</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Final Decision</span>
+                            <span style="color: #94a3b8;">⏸️ Pending</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.875rem; color: #64748b; text-align: center; margin-top: 1rem;">
+                        Estimated decision date: 15 May 2024
+                    </div>
+                </div>
+                `,
+                []
+            );
+        }
+
+        // View details
+        function viewDetails() {
+            const modal = createModal(
+                '👁️ Application Details',
+                `
+                <div style="display: grid; gap: 1.5rem;">
+                    <div>
+                        <h4 style="color: #0f172a; margin-bottom: 0.5rem;">SEDA Technology Innovation Grant</h4>
+                        <div style="color: #64748b; font-size: 0.875rem;">Application ID: SEDA-2024-TCS-001</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div style="padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                            <div style="font-weight: 600; color: #0f172a;">R150,000</div>
+                            <div style="font-size: 0.875rem; color: #64748b;">Approved Amount</div>
+                        </div>
+                        <div style="padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                            <div style="font-weight: 600; color: #0f172a;">Technology</div>
+                            <div style="font-size: 0.875rem; color: #64748b;">Category</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Project Description:</div>
+                        <div style="color: #64748b; font-size: 0.875rem; line-height: 1.5;">Development of AI-powered business management software for SMMEs in the Eastern Cape, focusing on inventory management, financial tracking, and compliance automation.</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Key Milestones:</div>
+                        <div style="font-size: 0.875rem; color: #64748b;">
+                            • Software development completion: June 2024<br>
+                            • Beta testing with 10 SMMEs: August 2024<br>
+                            • Commercial launch: October 2024<br>
+                            • Job creation: 5 new positions by December 2024
+                        </div>
+                    </div>
+                </div>
+                `,
+                []
+            );
+        }
+
+        // New application functionality
+        function startNewApplication() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000;
+                background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
+                opacity: 0; transition: opacity 0.3s; backdrop-filter: blur(8px);
+            `;
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 24px; padding: 0; max-width: 700px; width: 90%; transform: scale(0.9); transition: transform 0.3s; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.25);">
+                    <div style="background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #7c3aed 100%); padding: 2rem; color: white; text-align: center; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%;"></div>
+                        <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; position: relative; z-index: 1;">🚀 Start Your Funding Journey</h2>
+                        <p style="opacity: 0.9; position: relative; z-index: 1;">Choose the perfect opportunity for your business growth</p>
+                    </div>
+                    
+                    <div style="padding: 2rem;">
+                        <div style="display: grid; gap: 1.25rem;">
+                            <div class="opportunity-card" onclick="selectOpportunity('NYDA Youth Fund')" style="padding: 1.5rem; border: 2px solid #e2e8f0; border-radius: 16px; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);">
+                                <div style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🌱</div>
+                                <div style="margin-right: 80px;">
+                                    <div style="font-weight: 700; color: #0f172a; font-size: 1.125rem; margin-bottom: 0.5rem;">NYDA Youth Development Fund</div>
+                                    <div style="color: #64748b; font-size: 0.875rem; margin-bottom: 0.75rem;">Empowering young entrepreneurs • Up to R1M • Rolling applications</div>
+                                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                        <div style="background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; padding: 0.375rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">96.5% AI Match</div>
+                                        <div style="background: #fef3c7; color: #92400e; padding: 0.375rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Youth Focus</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="opportunity-card" onclick="selectOpportunity('NEF Black Business Fund')" style="padding: 1.5rem; border: 2px solid #e2e8f0; border-radius: 16px; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);">
+                                <div style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: 60px; background: linear-gradient(135deg, #1e40af, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🏢</div>
+                                <div style="margin-right: 80px;">
+                                    <div style="font-weight: 700; color: #0f172a; font-size: 1.125rem; margin-bottom: 0.5rem;">NEF Black Business Fund</div>
+                                    <div style="color: #64748b; font-size: 0.875rem; margin-bottom: 0.75rem;">Supporting black-owned enterprises • R500K - R5M • Quarterly intake</div>
+                                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                        <div style="background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; padding: 0.375rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">93.8% AI Match</div>
+                                        <div style="background: #e0e7ff; color: #3730a3; padding: 0.375rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">High Impact</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="opportunity-card" onclick="selectOpportunity('DSBD SMME Fund')" style="padding: 1.5rem; border: 2px solid #e2e8f0; border-radius: 16px; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);">
+                                <div style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: 60px; background: linear-gradient(135deg, #7c3aed, #a855f7); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🏭</div>
+                                <div style="margin-right: 80px;">
+                                    <div style="font-weight: 700; color: #0f172a; font-size: 1.125rem; margin-bottom: 0.5rem;">DSBD SMME Development Fund</div>
+                                    <div style="color: #64748b; font-size: 0.875rem; margin-bottom: 0.75rem;">Manufacturing excellence • Up to R2M • Deadline: 30 June 2024</div>
+                                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                        <div style="background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; padding: 0.375rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">91.2% AI Match</div>
+                                        <div style="background: #fce7f3; color: #be185d; padding: 0.375rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Manufacturing</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; text-align: center;">
+                            <button onclick="closeModal(this)" style="background: #f1f5f9; color: #64748b; border: none; padding: 0.75rem 2rem; border-radius: 50px; cursor: pointer; font-weight: 500; transition: all 0.2s;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.querySelector('div').style.transform = 'scale(1)';
+            }, 10);
+            
+            // Add enhanced hover effects
+            modal.querySelectorAll('.opportunity-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.borderColor = '#1e40af';
+                    card.style.transform = 'translateY(-4px)';
+                    card.style.boxShadow = '0 20px 40px rgba(30, 64, 175, 0.15)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.borderColor = '#e2e8f0';
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = 'none';
+                });
+            });
+        }
+
+        function selectOpportunity(opportunityName) {
+            closeModal(event.target);
+            showNotification(`Selected: ${opportunityName}`);
+            setTimeout(() => createApplicationForm(opportunityName), 500);
+        }
+
+        function createApplicationForm(opportunityName) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000;
+                background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
+                opacity: 0; transition: opacity 0.3s; backdrop-filter: blur(8px); overflow-y: auto;
+            `;
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 24px; margin: 2rem; max-width: 800px; width: 90%; transform: scale(0.9); transition: transform 0.3s; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.25); max-height: 90vh; overflow-y: auto;">
+                    <div style="background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #7c3aed 100%); padding: 2rem; color: white; text-align: center; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%;"></div>
+                        <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; position: relative; z-index: 1;">📝 ${opportunityName}</h2>
+                        <p style="opacity: 0.9; position: relative; z-index: 1;">Complete your application with confidence</p>
+                    </div>
+                    
+                    <div style="padding: 2rem;">
+                        <form id="newApplicationForm" style="display: grid; gap: 2rem;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0;">
+                                    <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 0.5rem;">
+                                        💰 Funding Amount
+                                    </label>
+                                    <input type="text" name="amount" placeholder="e.g., R500,000" style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.2s;" required>
+                                </div>
+                                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0;">
+                                    <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 0.5rem;">
+                                        ⏰ Project Duration
+                                    </label>
+                                    <select name="duration" style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.2s;" required>
+                                        <option value="">Select duration</option>
+                                        <option value="6">6 months</option>
+                                        <option value="12">12 months</option>
+                                        <option value="18">18 months</option>
+                                        <option value="24">24 months</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0;">
+                                <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 0.5rem;">
+                                    🎯 Project Title
+                                </label>
+                                <input type="text" name="title" placeholder="Brief, descriptive project title" style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.2s;" required>
+                            </div>
+                            
+                            <div style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0;">
+                                <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 0.5rem;">
+                                    📝 Project Description
+                                </label>
+                                <textarea name="description" placeholder="Describe your project, its objectives, and expected outcomes..." style="width: 100%; height: 120px; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; resize: vertical; transition: all 0.2s;" required></textarea>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0;">
+                                    <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 0.5rem;">
+                                        👥 Job Creation
+                                    </label>
+                                    <input type="number" name="jobs" placeholder="Number of jobs" min="1" style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.2s;" required>
+                                </div>
+                                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0;">
+                                    <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 0.5rem;">
+                                        🏢 Industry Sector
+                                    </label>
+                                    <select name="sector" style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.2s;" required>
+                                        <option value="">Select sector</option>
+                                        <option value="technology">Technology</option>
+                                        <option value="manufacturing">Manufacturing</option>
+                                        <option value="agriculture">Agriculture</option>
+                                        <option value="services">Services</option>
+                                        <option value="retail">Retail</option>
+                                        <option value="construction">Construction</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #e2e8f0;">
+                                <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 0.5rem;">
+                                    📊 Use of Funds
+                                </label>
+                                <textarea name="useOfFunds" placeholder="Detailed breakdown: equipment (40%), salaries (30%), marketing (20%), other (10%)" style="width: 100%; height: 100px; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; resize: vertical; transition: all 0.2s;" required></textarea>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 1.5rem; border-radius: 16px; border: 2px solid #0ea5e9;">
+                                <div style="font-weight: 700; color: #0c4a6e; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.125rem;">
+                                    📋 Required Documents
+                                </div>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; font-size: 0.875rem; color: #075985;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div style="width: 8px; height: 8px; background: #0ea5e9; border-radius: 50%;"></div>
+                                        Business registration
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div style="width: 8px; height: 8px; background: #0ea5e9; border-radius: 50%;"></div>
+                                        Financial statements
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div style="width: 8px; height: 8px; background: #0ea5e9; border-radius: 50%;"></div>
+                                        Business plan
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div style="width: 8px; height: 8px; background: #0ea5e9; border-radius: 50%;"></div>
+                                        BEE certificate
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div style="width: 8px; height: 8px; background: #0ea5e9; border-radius: 50%;"></div>
+                                        Director ID copies
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                            <button onclick="submitNewApplication('${opportunityName}')" style="background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border: none; padding: 1rem 2rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.2s; box-shadow: 0 4px 16px rgba(30, 64, 175, 0.3);">
+                                🚀 Submit Application
+                            </button>
+                            <button onclick="saveDraft('${opportunityName}')" style="background: #f1f5f9; color: #64748b; border: 2px solid #e2e8f0; padding: 1rem 2rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.2s;">
+                                💾 Save Draft
+                            </button>
+                            <button onclick="closeModal(this)" style="background: transparent; color: #64748b; border: none; padding: 1rem 2rem; border-radius: 50px; cursor: pointer; font-weight: 500; transition: all 0.2s;">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.querySelector('div').style.transform = 'scale(1)';
+            }, 10);
+            
+            // Add focus effects to inputs
+            modal.querySelectorAll('input, select, textarea').forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.style.borderColor = '#1e40af';
+                    input.style.boxShadow = '0 0 0 3px rgba(30, 64, 175, 0.1)';
+                });
+                input.addEventListener('blur', () => {
+                    input.style.borderColor = '#e2e8f0';
+                    input.style.boxShadow = 'none';
+                });
+            });
+        }
+
+        function submitNewApplication(opportunityName) {
+            const form = document.getElementById('newApplicationForm');
+            const formData = new FormData(form);
+            
+            // Validate form
+            if (!form.checkValidity()) {
+                showNotification('Please fill in all required fields', 'warning');
+                return;
+            }
+            
+            // Create new application data
+            const newApp = {
+                title: formData.get('title'),
+                opportunity: opportunityName,
+                amount: formData.get('amount'),
+                duration: formData.get('duration'),
+                description: formData.get('description'),
+                jobs: formData.get('jobs'),
+                sector: formData.get('sector'),
+                useOfFunds: formData.get('useOfFunds'),
+                status: 'draft',
+                dateApplied: new Date().toLocaleDateString('en-GB')
+            };
+            
+            // Add to applications grid
+            addNewApplicationCard(newApp);
+            
+            closeModal(event.target);
+            showNotification(`🎉 Application for ${opportunityName} submitted successfully!`);
+            
+            // Update stats
+            updateApplicationStats();
+        }
+
+        function saveDraft(opportunityName) {
+            const form = document.getElementById('newApplicationForm');
+            const formData = new FormData(form);
+            
+            showNotification(`💾 Draft saved for ${opportunityName}`);
+            closeModal(event.target);
+        }
+
+        function addNewApplicationCard(appData) {
+            const applicationsGrid = document.querySelector('.applications-grid');
+            const newCard = document.createElement('div');
+            newCard.className = 'application-card';
+            newCard.style.animation = 'slideIn 0.5s ease';
+            
+            newCard.innerHTML = `
+                <div class="application-header">
+                    <div>
+                        <div class="application-title">${appData.opportunity}</div>
+                        <div class="application-amount">${appData.amount}</div>
+                    </div>
+                    <div class="status-badge status-pending">📝 Draft</div>
+                </div>
+                <div class="application-details">
+                    <div class="detail-item">
+                        <div class="detail-value">${appData.dateApplied}</div>
+                        <div class="detail-label">Created</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">${appData.duration} months</div>
+                        <div class="detail-label">Duration</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">${appData.sector}</div>
+                        <div class="detail-label">Sector</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">${appData.jobs} jobs</div>
+                        <div class="detail-label">Job Target</div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 15%;"></div>
+                </div>
+                <div class="application-actions">
+                    <button class="btn btn-primary" onclick="continueApplication('${appData.opportunity}')">
+                        <i class="fas fa-edit"></i>
+                        Continue Application
+                    </button>
+                    <button class="btn btn-outline" onclick="deleteApplication(this)">
+                        <i class="fas fa-trash"></i>
+                        Delete Draft
+                    </button>
+                </div>
+            `;
+            
+            applicationsGrid.appendChild(newCard);
+        }
+
+        function continueApplication(opportunityName) {
+            showNotification(`📝 Opening ${opportunityName} application editor...`);
+            setTimeout(() => {
+                window.location.href = `../application.html?opportunity=${encodeURIComponent(opportunityName)}&mode=edit`;
+            }, 1000);
+        }
+
+        function deleteApplication(btn) {
+            if (confirm('Are you sure you want to delete this draft application?')) {
+                const card = btn.closest('.application-card');
+                card.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    card.remove();
+                    updateApplicationStats();
+                    showNotification('Draft application deleted');
+                }, 300);
+            }
+        }
+
+        function updateApplicationStats() {
+            const cards = document.querySelectorAll('.application-card');
+            const totalApplied = cards.length;
+            
+            // Update stats display
+            const statCards = document.querySelectorAll('.stat-card .stat-value');
+            if (statCards[3]) {
+                statCards[3].textContent = `${totalApplied} Total`;
+            }
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes slideOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function (e) {
+            const userDropdown = document.getElementById('userDropdown');
+            const userProfile = document.querySelector('.user-profile');
+            if (userDropdown && !userProfile.contains(e.target)) {
+                userDropdown.classList.remove('show');
+            }
+        });
+
+        // Button event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const action = this.textContent.trim();
+                    
+                    if (action.includes('Download Agreement')) {
+                        downloadAgreement();
+                    } else if (action.includes('Upload Documents')) {
+                        uploadDocuments();
+                    } else if (action.includes('Contact Officer')) {
+                        contactOfficer();
+                    } else if (action.includes('Update Application')) {
+                        updateApplication();
+                    } else if (action.includes('Check Status')) {
+                        checkStatus();
+                    } else if (action.includes('View Details')) {
+                        viewDetails();
+                    }
+                });
+            });
+
+            // Card hover effects
+            document.querySelectorAll('.application-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.btn')) {
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = 'translateY(-4px)';
+                        }, 100);
+                    }
+                });
             });
         });
     </script>

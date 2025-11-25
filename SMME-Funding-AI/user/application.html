@@ -3,55 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMME Funding AI - Smart Application Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <title>Apply for Funding | ELIDZ SMME AI Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #f59e0b;
-            --success: #059669;
-            --danger: #dc2626;
-            --warning: #d97706;
+            --primary: #0f172a;
+            --secondary: #1e40af;
+            --accent: #059669;
             --white: #ffffff;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-600: #4b5563;
-            --gray-900: #111827;
-            --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #f59e0b 100%);
-            --gradient-light: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-            color: var(--gray-900);
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
             line-height: 1.6;
         }
 
-        .header {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(24px);
-            padding: 1.25rem 0;
-            box-shadow: var(--shadow-lg);
-            position: sticky;
+        .navbar {
+            position: fixed;
             top: 0;
-            z-index: 100;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            padding: 1rem 0;
         }
 
-        .header-container {
-            max-width: 1400px;
+        .nav-container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -60,251 +52,273 @@
         }
 
         .logo {
-            font-size: 1.875rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 0.75rem;
-        }
-
-        .logo::before {
-            content: '🚀';
-            font-size: 2rem;
-            background: none;
-            -webkit-text-fill-color: initial;
-        }
-
-        .main-container {
-            max-width: 1440px;
-            margin: 2.5rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 380px 1fr;
-            gap: 3.5rem;
-        }
-
-        .sidebar {
-            background: var(--white);
-            border-radius: 28px;
-            padding: 2.5rem;
-            height: fit-content;
-            box-shadow: var(--shadow-xl);
-            position: sticky;
-            top: 140px;
-            border: 1px solid var(--gray-200);
-        }
-
-        .progress-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .progress-circle {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: conic-gradient(var(--primary) 0deg, var(--gray-200) 0deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            position: relative;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .progress-circle::before {
-            content: '';
-            width: 110px;
-            height: 110px;
-            background: var(--white);
-            border-radius: 50%;
-            position: absolute;
-            box-shadow: inset var(--shadow-md);
-        }
-
-        .progress-text {
-            font-size: 1.75rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--primary);
-            z-index: 1;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
         }
 
-        .step {
-            padding: 1.5rem;
-            border-radius: 20px;
-            margin-bottom: 1.25rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .nav-actions {
             display: flex;
+            gap: 1rem;
             align-items: center;
-            gap: 1.25rem;
-            position: relative;
-            border: 2px solid transparent;
-            background: var(--gray-50);
         }
 
-        .step:hover {
-            transform: translateX(4px);
-            box-shadow: var(--shadow-md);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
         }
 
-        .step-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.125rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .step.pending .step-icon {
-            background: var(--gray-200);
-            color: var(--gray-600);
-        }
-
-        .step.active .step-icon {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .step.completed .step-icon {
-            background: var(--success);
-            color: var(--white);
-        }
-
-        .step.active {
-            background: var(--gradient-light);
-            border-color: var(--primary);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .step.completed {
-            background: rgba(5, 150, 105, 0.08);
-            border-color: var(--success);
-        }
-
-        .content {
-            background: var(--white);
-            border-radius: 28px;
-            padding: 3.5rem;
-            box-shadow: var(--shadow-xl);
-            min-height: 700px;
-            border: 1px solid var(--gray-200);
-        }
-
-        .form-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .form-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-header {
+        .header-section {
             text-align: center;
             margin-bottom: 3rem;
         }
 
-        .section-header h2 {
-            font-size: 2.75rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.25rem;
-            letter-spacing: -0.025em;
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
 
-        .section-header p {
+        .header-section p {
             font-size: 1.125rem;
             color: var(--gray-600);
             max-width: 600px;
             margin: 0 auto;
         }
 
-        .verification-grid {
+        .progress-bar {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-200);
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .step-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .step-circle.completed {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .step-circle.active {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .step-circle.pending {
+            background: var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        .progress-line {
+            height: 2px;
+            background: var(--gray-200);
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .progress-line.completed {
+            background: var(--success);
+        }
+
+        .form-container {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-200);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+        }
+
+        .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-800);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-600);
+            border: 1px solid var(--gray-200);
+        }
+
+        .btn-outline:hover {
+            background: var(--gray-50);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .verification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
         .verification-card {
             background: var(--white);
-            border-radius: 24px;
-            padding: 2.5rem;
             border: 2px solid var(--gray-200);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        .verification-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .verification-card.verifying {
-            border-color: var(--warning);
-            background: linear-gradient(135deg, rgba(217, 119, 6, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
-            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
         }
 
         .verification-card.verified {
             border-color: var(--success);
-            background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
-            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1);
+            background: rgba(16, 185, 129, 0.05);
         }
 
-        .verification-card.failed {
-            border-color: var(--danger);
-            background: linear-gradient(135deg, rgba(220, 38, 38, 0.05) 0%, rgba(239, 68, 68, 0.05) 100%);
-            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+        .verification-card.pending {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.05);
         }
 
         .verification-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .verification-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.375rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-md);
-        }
-
-        .verification-card.pending .verification-icon {
-            background: var(--gray-200);
-            color: var(--gray-600);
-        }
-
-        .verification-card.verifying .verification-icon {
-            background: var(--warning);
-            color: var(--white);
-            animation: pulse 2s infinite, glow 2s infinite;
+            font-size: 1.125rem;
         }
 
         .verification-card.verified .verification-icon {
@@ -312,237 +326,267 @@
             color: var(--white);
         }
 
-        .verification-card.failed .verification-icon {
-            background: var(--danger);
+        .verification-card.pending .verification-icon {
+            background: var(--warning);
             color: var(--white);
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: var(--shadow-md), 0 0 20px rgba(217, 119, 6, 0.3); }
-            50% { box-shadow: var(--shadow-lg), 0 0 30px rgba(217, 119, 6, 0.5); }
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            font-size: 1rem;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 1.125rem 1.5rem;
-            border: 2px solid var(--gray-200);
-            border-radius: 16px;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: var(--white);
-            font-family: 'Inter', sans-serif;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1), var(--shadow-md);
-            transform: translateY(-1px);
-        }
-
-        .btn {
-            padding: 1.125rem 2.25rem;
-            border: none;
-            border-radius: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-xl), 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .verification-status {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 12px;
-            font-size: 0.875rem;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .status-pending {
-            background: var(--gray-100);
-            color: var(--gray-900);
-        }
-
-        .status-verifying {
-            background: rgba(245, 158, 11, 0.1);
-            color: #d97706;
         }
 
         .status-verified {
             background: rgba(16, 185, 129, 0.1);
-            color: #059669;
+            color: var(--success);
         }
 
-        .status-failed {
-            background: rgba(239, 68, 68, 0.1);
-            color: #dc2626;
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
         }
 
-        .overall-progress {
+        .opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .opportunity-card {
             background: var(--white);
-            border-radius: 24px;
-            padding: 2.5rem;
-            margin: 3.5rem 0;
-            box-shadow: var(--shadow-lg);
-            text-align: center;
             border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 16px;
-            background: var(--gray-200);
-            border-radius: 8px;
-            overflow: hidden;
-            margin: 1.5rem 0;
-            box-shadow: inset var(--shadow-sm);
+        .opportunity-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 8px;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 0%;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        .opportunity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
         }
 
-        @media (max-width: 1024px) {
-            .main-container {
+        .match-score {
+            background: var(--success);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .opportunity-details {
+            margin: 1rem 0;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .detail-label {
+            color: var(--gray-600);
+        }
+
+        .detail-value {
+            font-weight: 500;
+            color: var(--gray-800);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 5rem 1rem 2rem;
+            }
+            .form-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
-            .sidebar {
-                position: static;
+            .form-actions {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
+
+
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-container">
-            <div class="logo">SMME Funding AI</div>
-            <div>
-                <button class="btn btn-primary">
-                    <i class="fas fa-headset"></i>
-                    Support
-                </button>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="https://www.globalafricanetwork.com/wp-content/uploads/2021/05/ELIDZ-LOGO-transparent-2.png" alt="ELIDZ SMME AI" style="height: 40px; margin-right: 10px;">
+            </div>
+            <div class="nav-actions">
+                <a href="#" class="btn btn-outline">
+                    <i class="fas fa-question-circle"></i>
+                    Help
+                </a>
+                <a href="login.html" class="btn btn-outline">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+                <a href="portal/portal.html" class="btn btn-primary">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <div class="main-container">
-        <div class="sidebar">
-            <div class="progress-header">
-                <div class="progress-circle" id="progressCircle">
-                    <span class="progress-text" id="progressText">0%</span>
-                </div>
-                <h3>Application Progress</h3>
-            </div>
+    <div class="container">
+        <div class="header-section">
+            <h1>ELIDZ Eastern Cape Business Portal</h1>
+            <p>Exclusive to Eastern Cape businesses only. Verification required for platform access.</p>
+        </div>
 
-            <div class="step pending" id="step-verification" onclick="showSection('verification')">
-                <div class="step-icon">
-                    <i class="fas fa-shield-check"></i>
+        <div class="progress-bar">
+            <div class="progress-steps">
+                <div class="progress-step">
+                    <div class="step-circle active" id="step1">1</div>
+                    <span>Business Details</span>
                 </div>
-                <div>
-                    <div style="font-weight: 600;">Business Verification</div>
-                    <div style="font-size: 0.875rem; opacity: 0.7;">Validate your business</div>
+                <div class="progress-line" id="line1"></div>
+                <div class="progress-step">
+                    <div class="step-circle pending" id="step2">2</div>
+                    <span>Document Verification</span>
                 </div>
-            </div>
-
-            <div class="step pending" id="step-profile" onclick="showSection('profile')">
-                <div class="step-icon">
-                    <i class="fas fa-building"></i>
-                </div>
-                <div>
-                    <div style="font-weight: 600;">Business Profile</div>
-                    <div style="font-size: 0.875rem; opacity: 0.7;">Company details</div>
-                </div>
-            </div>
-
-            <div class="step pending" id="step-requirements" onclick="showSection('requirements')">
-                <div class="step-icon">
-                    <i class="fas fa-bullseye"></i>
-                </div>
-                <div>
-                    <div style="font-weight: 600;">Funding Requirements</div>
-                    <div style="font-size: 0.875rem; opacity: 0.7;">Define your needs</div>
-                </div>
-            </div>
-
-            <div class="step pending" id="step-matching" onclick="showSection('matching')">
-                <div class="step-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <div>
-                    <div style="font-weight: 600;">AI Matching</div>
-                    <div style="font-size: 0.875rem; opacity: 0.7;">Find opportunities</div>
-                </div>
-            </div>
-
-            <div class="step pending" id="step-application" onclick="showSection('application')">
-                <div class="step-icon">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <div>
-                    <div style="font-weight: 600;">Application</div>
-                    <div style="font-size: 0.875rem; opacity: 0.7;">Generate & review</div>
+                <div class="progress-line" id="line2"></div>
+                <div class="progress-step">
+                    <div class="step-circle pending" id="step3">3</div>
+                    <span>Account Creation</span>
                 </div>
             </div>
         </div>
 
-        <div class="content">
-            <!-- Verification Section -->
-            <div id="verification" class="form-section active">
-                <div class="section-header">
-                    <h2>Business Verification</h2>
-                    <p>Instant AI-powered verification to ensure business legitimacy and compliance</p>
+        <div class="form-container">
+            <!-- Step 1: Business Information -->
+            <div id="step-business" class="form-section active">
+                <h2 class="section-title">Business Information</h2>
+                <p class="section-subtitle">Provide business details for CIPC verification</p>
+                
+                <div style="background: #dc2626; color: white; border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <strong>EASTERN CAPE ONLY:</strong> This platform is exclusively for businesses located in the Eastern Cape Province.
+                    </div>
                 </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="companyName">Company Name *</label>
+                        <input type="text" id="companyName" placeholder="Enter your registered company name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regNumber">Registration Number *</label>
+                        <input type="text" id="regNumber" placeholder="e.g., 2023/123456/07" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="industry">Industry Sector *</label>
+                        <select id="industry" required>
+                            <option value="">Select your industry</option>
+                            <option value="technology">Technology & Software</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="retail">Retail & E-commerce</option>
+                            <option value="services">Professional Services</option>
+                            <option value="agriculture">Agriculture & Food</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="construction">Construction</option>
+                            <option value="tourism">Tourism & Hospitality</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="yearsOperation">Years in Operation *</label>
+                        <select id="yearsOperation" required>
+                            <option value="">Select years</option>
+                            <option value="startup">Startup (Less than 1 year)</option>
+                            <option value="1-2">1-2 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="6-10">6-10 years</option>
+                            <option value="10+">More than 10 years</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="employees">Number of Employees *</label>
+                        <select id="employees" required>
+                            <option value="">Select employee count</option>
+                            <option value="1-5">1-5 employees</option>
+                            <option value="6-20">6-20 employees</option>
+                            <option value="21-50">21-50 employees</option>
+                            <option value="51-200">51-200 employees</option>
+                            <option value="200+">More than 200 employees</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Eastern Cape City/Town *</label>
+                        <select id="location" required>
+                            <option value="">Select your city/town</option>
+                            <option value="port-elizabeth">Gqeberha (Port Elizabeth)</option>
+                            <option value="east-london">East London</option>
+                            <option value="uitenhage">Kariega (Uitenhage)</option>
+                            <option value="king-williams-town">King William's Town</option>
+                            <option value="mdantsane">Mdantsane</option>
+                            <option value="butterworth">Butterworth</option>
+                            <option value="queenstown">Queenstown</option>
+                            <option value="grahamstown">Makhanda (Grahamstown)</option>
+                            <option value="fort-beaufort">Fort Beaufort</option>
+                            <option value="alice">Alice</option>
+                            <option value="cradock">Cradock</option>
+                            <option value="graaff-reinet">Graaff-Reinet</option>
+                            <option value="somerset-east">Somerset East</option>
+                            <option value="jeffreys-bay">Jeffreys Bay</option>
+                            <option value="humansdorp">Humansdorp</option>
+                            <option value="other-ec">Other Eastern Cape Location</option>
+                        </select>
+                        <small style="color: var(--gray-600); margin-top: 0.25rem; display: block;">Only Eastern Cape businesses are eligible for this program</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="businessDescription">Business Description</label>
+                    <textarea id="businessDescription" placeholder="Briefly describe your business activities and main products/services"></textarea>
+                </div>
+                
+                <div style="background: var(--gray-50); border-radius: 12px; padding: 2rem; margin-top: 2rem; text-align: center;" id="cipc-verification">
+                    <h3 style="color: var(--gray-600); margin-bottom: 1rem;">Eastern Cape Business Verification</h3>
+                    <div id="cipc-status" style="margin-bottom: 1.5rem;">
+                        <div style="background: var(--gray-200); color: var(--gray-600); padding: 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-clock"></i>
+                            Complete form to verify Eastern Cape business registration
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="verify-cipc-btn" onclick="verifyCIPC()" disabled style="opacity: 0.5;">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Verify Eastern Cape Business
+                    </button>
+                </div>
+            </div>
 
+            <!-- Step 2: Document Verification -->
+            <div id="step-verification" class="form-section">
+                <h2 class="section-title">Document Verification</h2>
+                <p class="section-subtitle">All documents must be verified before platform access is granted</p>
+                
+                <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: #92400e;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Security Notice:</strong> Login credentials will only be created after ALL verifications pass.
+                    </div>
+                </div>
+                
                 <div class="verification-grid">
                     <div class="verification-card pending" id="cipc-card">
                         <div class="verification-header">
@@ -551,19 +595,22 @@
                             </div>
                             <div>
                                 <h3>CIPC Registration</h3>
-                                <p>Company registration validation with real-time API</p>
+                                <div class="status-badge status-pending" id="cipc-status">
+                                    <i class="fas fa-clock"></i>
+                                    Pending
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Registration Number</label>
-                            <input type="text" placeholder="e.g., 2023/123456/07" id="regNumber" oninput="startVerification('cipc')">
+                            <label for="regNumberVerify">Registration Number *</label>
+                            <input type="text" id="regNumberVerify" placeholder="Must match business registration" required>
                         </div>
-                        <div class="verification-status status-pending" id="cipc-status">
-                            <i class="fas fa-clock"></i>
-                            Enter registration number to verify
-                        </div>
+                        <button class="btn btn-primary" onclick="verifyDocument('cipc')" style="width: 100%; margin-top: 0.5rem;">
+                            <i class="fas fa-search"></i>
+                            Verify CIPC
+                        </button>
                     </div>
-
+                    
                     <div class="verification-card pending" id="sars-card">
                         <div class="verification-header">
                             <div class="verification-icon">
@@ -571,19 +618,22 @@
                             </div>
                             <div>
                                 <h3>SARS Tax Compliance</h3>
-                                <p>Real-time tax status verification</p>
+                                <div class="status-badge status-pending" id="sars-status">
+                                    <i class="fas fa-clock"></i>
+                                    Pending
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Tax Reference Number</label>
-                            <input type="text" placeholder="Enter tax reference number" id="taxNumber" oninput="startVerification('sars')">
+                            <label for="taxNumber">Tax Reference Number *</label>
+                            <input type="text" id="taxNumber" placeholder="Enter tax reference number" required>
                         </div>
-                        <div class="verification-status status-pending" id="sars-status">
-                            <i class="fas fa-clock"></i>
-                            Enter tax number to verify
-                        </div>
+                        <button class="btn btn-primary" onclick="verifyDocument('sars')" style="width: 100%; margin-top: 0.5rem;">
+                            <i class="fas fa-search"></i>
+                            Verify Tax Status
+                        </button>
                     </div>
-
+                    
                     <div class="verification-card pending" id="bank-card">
                         <div class="verification-header">
                             <div class="verification-icon">
@@ -591,19 +641,22 @@
                             </div>
                             <div>
                                 <h3>Banking Verification</h3>
-                                <p>Secure business account validation</p>
+                                <div class="status-badge status-pending" id="bank-status">
+                                    <i class="fas fa-clock"></i>
+                                    Pending
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Business Account Number</label>
-                            <input type="text" placeholder="Enter business account number" id="bankNumber" oninput="startVerification('bank')">
+                            <label for="bankAccount">Business Account Number *</label>
+                            <input type="text" id="bankAccount" placeholder="Active business account required" required>
                         </div>
-                        <div class="verification-status status-pending" id="bank-status">
-                            <i class="fas fa-clock"></i>
-                            Enter account number to verify
-                        </div>
+                        <button class="btn btn-primary" onclick="verifyDocument('bank')" style="width: 100%; margin-top: 0.5rem;">
+                            <i class="fas fa-search"></i>
+                            Verify Banking
+                        </button>
                     </div>
-
+                    
                     <div class="verification-card pending" id="director-card">
                         <div class="verification-header">
                             <div class="verification-icon">
@@ -611,451 +664,541 @@
                             </div>
                             <div>
                                 <h3>Director Identity</h3>
-                                <p>Secure identity verification system</p>
+                                <div class="status-badge status-pending" id="director-status">
+                                    <i class="fas fa-clock"></i>
+                                    Pending
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Director ID Number</label>
-                            <input type="text" placeholder="Enter South African ID number" id="directorId" oninput="startVerification('director')">
+                            <label for="directorId">Director ID Number *</label>
+                            <input type="text" id="directorId" placeholder="South African ID required" required>
                         </div>
-                        <div class="verification-status status-pending" id="director-status">
-                            <i class="fas fa-clock"></i>
-                            Enter ID number to verify
-                        </div>
+                        <button class="btn btn-primary" onclick="verifyDocument('director')" style="width: 100%; margin-top: 0.5rem;">
+                            <i class="fas fa-search"></i>
+                            Verify Identity
+                        </button>
                     </div>
                 </div>
-
-                <div class="overall-progress">
-                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Verification Progress</h3>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="verificationProgress"></div>
+                
+                <div style="background: var(--gray-50); border-radius: 12px; padding: 2rem; margin-top: 2rem; text-align: center;" id="verification-summary">
+                    <h3 style="color: var(--gray-600); margin-bottom: 1rem;">Verification Progress: <span id="progress-count">0/4</span></h3>
+                    <div style="background: var(--gray-200); height: 8px; border-radius: 4px; margin: 1rem 0;">
+                        <div id="progress-fill" style="background: var(--success); height: 100%; width: 0%; border-radius: 4px; transition: width 0.3s;"></div>
                     </div>
-                    <p id="progressMessage" style="font-size: 1.125rem; color: var(--gray-600); margin-bottom: 2rem;">Complete all verifications to proceed</p>
-                    <button class="btn btn-primary" id="proceedBtn" onclick="proceedToAccount()" disabled>
-                        <i class="fas fa-rocket"></i>
-                        Launch Application Process
+                    <p style="color: var(--gray-600); margin-bottom: 1rem;">All verifications must pass to proceed</p>
+                    <button class="btn btn-primary" id="create-account-btn" disabled style="opacity: 0.5;">
+                        <i class="fas fa-lock"></i>
+                        Complete All Verifications First
                     </button>
                 </div>
             </div>
 
-            <!-- Business Profile Section -->
-            <div id="profile" class="form-section">
-                <div class="section-header">
-                    <h2>Business Profile</h2>
-                    <p>Complete your business information for personalized funding recommendations</p>
-                </div>
+            <!-- Step 3: Account Creation -->
+            <div id="step-account" class="form-section">
+                <h2 class="section-title">Account Created Successfully</h2>
+                <p class="section-subtitle">Your ELIDZ Eastern Cape business account has been automatically generated</p>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
-                    <div class="form-group">
-                        <label>Company Name</label>
-                        <input type="text" placeholder="Enter your registered company name">
-                    </div>
-                    <div class="form-group">
-                        <label>Industry Sector</label>
-                        <select>
-                            <option>Select your industry</option>
-                            <option>Technology</option>
-                            <option>Manufacturing</option>
-                            <option>Retail</option>
-                            <option>Services</option>
-                            <option>Agriculture</option>
-                            <option>Healthcare</option>
-                            <option>Construction</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Years in Operation</label>
-                        <select>
-                            <option>Select years</option>
-                            <option>Less than 1 year</option>
-                            <option>1-2 years</option>
-                            <option>3-5 years</option>
-                            <option>6-10 years</option>
-                            <option>More than 10 years</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Number of Employees</label>
-                        <select>
-                            <option>Select employee count</option>
-                            <option>1-5 employees</option>
-                            <option>6-20 employees</option>
-                            <option>21-50 employees</option>
-                            <option>51-200 employees</option>
-                            <option>More than 200 employees</option>
-                        </select>
+                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; text-align: center;">
+                    <div style="margin-bottom: 1.5rem;">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3 style="margin: 0; font-size: 1.5rem;">Verification Complete!</h3>
+                        <p style="margin: 0.5rem 0 0; opacity: 0.9;">Your Eastern Cape business has been successfully verified and your account is ready</p>
                     </div>
                 </div>
                 
-                <div style="text-align: center; margin-top: 3rem;">
-                    <button class="btn btn-primary" onclick="nextSection('requirements')">
-                        <i class="fas fa-arrow-right"></i>
-                        Continue to Funding Requirements
-                    </button>
-                </div>
-            </div>
-
-            <!-- Funding Requirements Section -->
-            <div id="requirements" class="form-section">
-                <div class="section-header">
-                    <h2>Funding Requirements</h2>
-                    <p>Define your funding needs for AI-powered opportunity matching</p>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
-                    <div class="form-group">
-                        <label>Funding Amount Required</label>
-                        <select>
-                            <option>Select funding range</option>
-                            <option>R50,000 - R250,000</option>
-                            <option>R250,000 - R500,000</option>
-                            <option>R500,000 - R1,000,000</option>
-                            <option>R1,000,000 - R5,000,000</option>
-                            <option>More than R5,000,000</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Funding Purpose</label>
-                        <select>
-                            <option>Select primary purpose</option>
-                            <option>Working Capital</option>
-                            <option>Equipment Purchase</option>
-                            <option>Business Expansion</option>
-                            <option>Technology Upgrade</option>
-                            <option>Market Entry</option>
-                            <option>Research & Development</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Preferred Funding Type</label>
-                        <select>
-                            <option>Select funding type</option>
-                            <option>Grant (Non-repayable)</option>
-                            <option>Low-interest Loan</option>
-                            <option>Equity Investment</option>
-                            <option>Government Incentive</option>
-                            <option>Any Available Option</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Timeline Required</label>
-                        <select>
-                            <option>Select timeline</option>
-                            <option>Immediate (Within 30 days)</option>
-                            <option>Short-term (1-3 months)</option>
-                            <option>Medium-term (3-6 months)</option>
-                            <option>Long-term (6+ months)</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div style="text-align: center; margin-top: 3rem;">
-                    <button class="btn btn-primary" onclick="nextSection('matching')">
-                        <i class="fas fa-brain"></i>
-                        Start AI Matching Process
-                    </button>
-                </div>
-            </div>
-
-            <!-- AI Matching Section -->
-            <div id="matching" class="form-section">
-                <div class="section-header">
-                    <h2>AI-Powered Opportunity Matching</h2>
-                    <p>Our advanced AI is analyzing thousands of funding opportunities for your business</p>
-                </div>
-                
-                <div style="text-align: center; padding: 3rem 0;">
-                    <div style="width: 200px; height: 200px; margin: 0 auto 2rem; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite;">
-                        <i class="fas fa-brain" style="font-size: 4rem; color: white;"></i>
-                    </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">AI Analysis in Progress</h3>
-                    <p style="color: var(--gray-600); margin-bottom: 2rem;">Matching your profile with 500+ funding opportunities...</p>
+                <!-- Login Credentials -->
+                <div style="background: var(--gray-50); border: 2px solid var(--secondary); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-key"></i>
+                        Your Login Credentials
+                    </h3>
                     
-                    <div class="progress-bar" style="max-width: 400px; margin: 0 auto 2rem;">
-                        <div class="progress-fill" id="matchingProgress" style="width: 0%; animation: progressAnimation 3s ease-in-out;"></div>
-                    </div>
-                    
-                    <button class="btn btn-primary" onclick="nextSection('application')" id="viewMatchesBtn" style="opacity: 0.5; pointer-events: none;">
-                        <i class="fas fa-eye"></i>
-                        View Matched Opportunities
-                    </button>
-                </div>
-            </div>
-
-            <!-- Application Generation Section -->
-            <div id="application" class="form-section">
-                <div class="section-header">
-                    <h2>Smart Application Generation</h2>
-                    <p>AI-generated applications tailored to each funding opportunity</p>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 2rem 0;">
-                    <div style="background: var(--white); border: 2px solid var(--success); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-lg);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="width: 50px; height: 50px; background: var(--success); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;">
-                                <i class="fas fa-trophy"></i>
+                    <div style="background: white; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <label style="display: block; font-weight: 600; color: var(--gray-600); margin-bottom: 0.5rem;">Username</label>
+                                <div style="background: var(--gray-50); padding: 1rem; border-radius: 6px; font-family: monospace; font-size: 1rem; border: 1px solid var(--gray-200);" id="generated-username">Loading...</div>
                             </div>
+                            <div>
+                                <label style="display: block; font-weight: 600; color: var(--gray-600); margin-bottom: 0.5rem;">Temporary Password</label>
+                                <div style="background: var(--gray-50); padding: 1rem; border-radius: 6px; font-family: monospace; font-size: 1rem; border: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center;">
+                                    <span id="generated-password">Loading...</span>
+                                    <button onclick="copyPassword()" style="background: var(--secondary); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; color: #92400e; margin-bottom: 0.5rem;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Important Security Notice</strong>
+                        </div>
+                        <ul style="margin: 0; padding-left: 1.5rem; color: #92400e; font-size: 0.875rem;">
+                            <li>Save these credentials securely</li>
+                            <li>You will be required to change your password on first login</li>
+                            <li>Username cannot be changed after account creation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Account Summary -->
+                <div style="background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-building"></i>
+                        Business Account Summary
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="background: var(--gray-50); padding: 1rem; border-radius: 8px;">
+                            <div style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0.25rem;">Company Name</div>
+                            <div style="font-weight: 600;" id="summary-business">-</div>
+                        </div>
+                        <div style="background: var(--gray-50); padding: 1rem; border-radius: 8px;">
+                            <div style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0.25rem;">Registration Number</div>
+                            <div style="font-weight: 600;" id="summary-registration">-</div>
+                        </div>
+                        <div style="background: var(--gray-50); padding: 1rem; border-radius: 8px;">
+                            <div style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0.25rem;">Location</div>
+                            <div style="font-weight: 600;" id="summary-location">-</div>
+                        </div>
+                        <div style="background: var(--gray-50); padding: 1rem; border-radius: 8px;">
+                            <div style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0.25rem;">Industry</div>
+                            <div style="font-weight: 600;" id="summary-sector">-</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Next Steps -->
+                <div style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%); border: 1px solid var(--secondary); border-radius: 12px; padding: 2rem; text-align: center;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">🎉 Welcome to ELIDZ!</h3>
+                    <p style="color: var(--gray-600); margin-bottom: 2rem;">Your account is ready. Use your login credentials to access the platform and start exploring funding opportunities.</p>
+                    
+                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <button onclick="downloadCredentials()" class="btn btn-outline">
+                            <i class="fas fa-download"></i>
+                            Download Credentials
+                        </button>
+                        <button onclick="proceedToLogin()" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login to Platform
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Review & Submit -->
+            <div id="step-review" class="form-section">
+                <h2 class="section-title">Matched Opportunities</h2>
+                <p class="section-subtitle">AI has found these funding opportunities that match your profile</p>
+                
+                <div class="opportunities-grid">
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
                             <div>
                                 <h3>SEDA Business Grant</h3>
-                                <p style="color: var(--gray-600);">95% Match Score</p>
+                                <p>Small Enterprise Development Agency</p>
+                            </div>
+                            <div class="match-score">95% Match</div>
+                        </div>
+                        <div class="opportunity-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Amount:</span>
+                                <span class="detail-value">R500,000</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Type:</span>
+                                <span class="detail-value">Non-repayable Grant</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Timeline:</span>
+                                <span class="detail-value">45 days</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Sector:</span>
+                                <span class="detail-value">Technology</span>
                             </div>
                         </div>
-                        <p style="margin-bottom: 1rem;"><strong>Amount:</strong> R500,000</p>
-                        <p style="margin-bottom: 1rem;"><strong>Type:</strong> Non-repayable Grant</p>
-                        <p style="margin-bottom: 2rem;"><strong>Timeline:</strong> 45 days</p>
-                        <button class="btn btn-primary" style="width: 100%;">
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
                             <i class="fas fa-file-alt"></i>
-                            Generate Application
+                            Apply Now
                         </button>
                     </div>
                     
-                    <div style="background: var(--white); border: 2px solid var(--primary); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-lg);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="width: 50px; height: 50px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;">
-                                <i class="fas fa-university"></i>
-                            </div>
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
                             <div>
                                 <h3>IDC Funding Scheme</h3>
-                                <p style="color: var(--gray-600);">88% Match Score</p>
+                                <p>Industrial Development Corporation</p>
+                            </div>
+                            <div class="match-score">88% Match</div>
+                        </div>
+                        <div class="opportunity-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Amount:</span>
+                                <span class="detail-value">R2,000,000</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Type:</span>
+                                <span class="detail-value">Low-interest Loan</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Timeline:</span>
+                                <span class="detail-value">60 days</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Interest:</span>
+                                <span class="detail-value">Prime - 2%</span>
                             </div>
                         </div>
-                        <p style="margin-bottom: 1rem;"><strong>Amount:</strong> R2,000,000</p>
-                        <p style="margin-bottom: 1rem;"><strong>Type:</strong> Low-interest Loan</p>
-                        <p style="margin-bottom: 2rem;"><strong>Timeline:</strong> 60 days</p>
-                        <button class="btn btn-primary" style="width: 100%;">
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
                             <i class="fas fa-file-alt"></i>
-                            Generate Application
+                            Apply Now
                         </button>
                     </div>
                     
-                    <div style="background: var(--white); border: 2px solid var(--warning); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-lg);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="width: 50px; height: 50px; background: var(--warning); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;">
-                                <i class="fas fa-seedling"></i>
-                            </div>
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
                             <div>
                                 <h3>NYDA Youth Fund</h3>
-                                <p style="color: var(--gray-600);">82% Match Score</p>
+                                <p>National Youth Development Agency</p>
+                            </div>
+                            <div class="match-score">82% Match</div>
+                        </div>
+                        <div class="opportunity-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Amount:</span>
+                                <span class="detail-value">R1,000,000</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Type:</span>
+                                <span class="detail-value">Grant + Mentorship</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Timeline:</span>
+                                <span class="detail-value">30 days</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Age Limit:</span>
+                                <span class="detail-value">18-35 years</span>
                             </div>
                         </div>
-                        <p style="margin-bottom: 1rem;"><strong>Amount:</strong> R1,000,000</p>
-                        <p style="margin-bottom: 1rem;"><strong>Type:</strong> Grant + Mentorship</p>
-                        <p style="margin-bottom: 2rem;"><strong>Timeline:</strong> 30 days</p>
-                        <button class="btn btn-primary" style="width: 100%;">
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
                             <i class="fas fa-file-alt"></i>
-                            Generate Application
+                            Apply Now
                         </button>
                     </div>
                 </div>
-                
-                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--gradient-light); border-radius: 20px;">
-                    <h3 style="margin-bottom: 1rem;">🎉 Application Process Complete!</h3>
-                    <p style="color: var(--gray-600); margin-bottom: 2rem;">Your applications have been generated and are ready for submission</p>
-                    <button class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i>
-                        Submit All Applications
-                    </button>
-                </div>
+            </div>
+
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-outline" id="prevBtn" onclick="previousStep()" style="display: none;">
+                    <i class="fas fa-arrow-left"></i>
+                    Previous
+                </button>
+                <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+                    Next Step
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        let verificationState = {
+        let currentStep = 1;
+        const totalSteps = 3;
+        let verificationStatus = {
             cipc: false,
             sars: false,
             bank: false,
             director: false
         };
 
-        let verificationTimeouts = {};
-
-        function startVerification(type) {
-            const input = document.getElementById(type === 'cipc' ? 'regNumber' : 
-                                               type === 'sars' ? 'taxNumber' : 
-                                               type === 'bank' ? 'bankNumber' : 'directorId');
-            
-            if (input.value.length < 5) return;
-
-            // Clear existing timeout
-            if (verificationTimeouts[type]) {
-                clearTimeout(verificationTimeouts[type]);
-            }
-
-            // Start verification animation
-            const card = document.getElementById(`${type}-card`);
-            const status = document.getElementById(`${type}-status`);
-            
-            card.className = 'verification-card verifying';
-            status.className = 'verification-status status-verifying';
-            status.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying with AI systems...';
-
-            // Simulate instant verification with realistic delay
-            verificationTimeouts[type] = setTimeout(() => {
-                completeVerification(type);
-            }, Math.random() * 1500 + 800); // 0.8-2.3 seconds
-        }
-
-        function completeVerification(type) {
-            const card = document.getElementById(`${type}-card`);
-            const status = document.getElementById(`${type}-status`);
-            
-            // Simulate 95% success rate
-            const success = Math.random() > 0.05;
-            
-            if (success) {
-                card.className = 'verification-card verified';
-                status.className = 'verification-status status-verified';
+        function updateProgressBar() {
+            // Update step circles
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepCircle = document.getElementById(`step${i}`);
+                const line = document.getElementById(`line${i}`);
                 
-                const messages = {
-                    cipc: '<i class="fas fa-check-circle"></i> CIPC Verified: Active company in good standing',
-                    sars: '<i class="fas fa-check-circle"></i> SARS Verified: Tax compliant status confirmed',
-                    bank: '<i class="fas fa-check-circle"></i> Bank Verified: Active business account validated',
-                    director: '<i class="fas fa-check-circle"></i> Director Verified: Valid SA ID confirmed'
-                };
-                
-                status.innerHTML = messages[type];
-                verificationState[type] = true;
-            } else {
-                card.className = 'verification-card failed';
-                status.className = 'verification-status status-failed';
-                status.innerHTML = '<i class="fas fa-exclamation-circle"></i> Verification failed - please check details';
-                verificationState[type] = false;
-            }
-            
-            updateProgress();
-        }
-
-        function updateProgress() {
-            const completed = Object.values(verificationState).filter(Boolean).length;
-            const total = Object.keys(verificationState).length;
-            const percentage = Math.round((completed / total) * 100);
-            
-            // Update progress circle
-            const circle = document.getElementById('progressCircle');
-            const text = document.getElementById('progressText');
-            const degrees = (percentage / 100) * 360;
-            
-            circle.style.background = `conic-gradient(var(--primary) ${degrees}deg, var(--gray-100) ${degrees}deg)`;
-            text.textContent = `${percentage}%`;
-            
-            // Update verification progress bar
-            const progressFill = document.getElementById('verificationProgress');
-            const progressMessage = document.getElementById('progressMessage');
-            const proceedBtn = document.getElementById('proceedBtn');
-            
-            progressFill.style.width = `${percentage}%`;
-            
-            if (percentage === 100) {
-                progressMessage.textContent = 'All verifications complete! Ready to proceed.';
-                proceedBtn.disabled = false;
-                
-                // Update step status
-                const step = document.getElementById('step-verification');
-                step.className = 'step completed';
-            } else {
-                progressMessage.textContent = `${completed}/${total} verifications complete`;
-                proceedBtn.disabled = true;
-            }
-        }
-
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.form-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Remove active class from all steps
-            document.querySelectorAll('.step').forEach(step => {
-                step.classList.remove('active');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Add active class to clicked step
-            const step = document.getElementById(`step-${sectionId}`);
-            if (step) step.classList.add('active');
-        }
-
-        function nextSection(sectionId) {
-            showSection(sectionId);
-            
-            // Mark current step as completed and next as active
-            const currentStep = document.querySelector('.step.active');
-            if (currentStep) {
-                currentStep.classList.remove('active');
-                currentStep.classList.add('completed');
-            }
-            
-            const nextStep = document.getElementById(`step-${sectionId}`);
-            if (nextStep) nextStep.classList.add('active');
-        }
-
-        function proceedToAccount() {
-            window.location.href = 'create-account.html';
-        }
-
-        // Enhanced matching animation
-        function startMatching() {
-            const progressBar = document.getElementById('matchingProgress');
-            const viewBtn = document.getElementById('viewMatchesBtn');
-            
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 15 + 5;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    viewBtn.style.opacity = '1';
-                    viewBtn.style.pointerEvents = 'auto';
+                if (i < currentStep) {
+                    stepCircle.className = 'step-circle completed';
+                    stepCircle.innerHTML = '<i class="fas fa-check"></i>';
+                    if (line) line.className = 'progress-line completed';
+                } else if (i === currentStep) {
+                    stepCircle.className = 'step-circle active';
+                    stepCircle.textContent = i;
+                    if (line) line.className = 'progress-line';
+                } else {
+                    stepCircle.className = 'step-circle pending';
+                    stepCircle.textContent = i;
+                    if (line) line.className = 'progress-line';
                 }
-                progressBar.style.width = progress + '%';
-            }, 200);
+            }
         }
 
-        // Auto-start matching when section is shown
-        function showSection(sectionId) {
+        function showStep(step) {
             // Hide all sections
             document.querySelectorAll('.form-section').forEach(section => {
                 section.classList.remove('active');
             });
             
-            // Remove active class from all steps
-            document.querySelectorAll('.step').forEach(step => {
-                step.classList.remove('active');
-            });
+            // Show current section
+            const sections = ['step-business', 'step-verification', 'step-account'];
+            document.getElementById(sections[step - 1]).classList.add('active');
             
-            // Show selected section
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Add active class to clicked step
-            const step = document.getElementById(`step-${sectionId}`);
-            if (step) step.classList.add('active');
-            
-            // Start matching animation if matching section
-            if (sectionId === 'matching') {
-                setTimeout(startMatching, 500);
+            // Generate credentials when showing account creation step
+            if (step === 3) {
+                setTimeout(() => {
+                    generateLoginCredentials();
+                    updateAccountSummary();
+                }, 500);
             }
+            
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.style.display = step === 1 ? 'none' : 'inline-flex';
+            
+            if (step === totalSteps) {
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.innerHTML = 'Next Step <i class="fas fa-arrow-right"></i>';
+                nextBtn.onclick = nextStep;
+                nextBtn.style.display = 'inline-flex';
+            }
+        }
+
+        let businessVerified = false;
+        
+        function nextStep() {
+            if (currentStep === 1 && !businessVerified) {
+                alert('Please verify your business with CIPC before proceeding.');
+                return;
+            }
+            
+            if (currentStep === 2) {
+                const completed = Object.values(verificationStatus).filter(Boolean).length;
+                if (completed < 4) {
+                    alert('Please complete all verifications before proceeding.');
+                    return;
+                }
+            }
+            
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateProgressBar();
+                showStep(currentStep);
+            }
+        }
+        
+        function verifyCIPC() {
+            const companyName = document.getElementById('companyName').value;
+            const regNumber = document.getElementById('regNumber').value;
+            const location = document.getElementById('location').value;
+            
+            if (!companyName || !regNumber || !location) {
+                alert('Please fill in all required fields including Eastern Cape location.');
+                return;
+            }
+            
+            // Strict Eastern Cape validation
+            if (!location || location === '') {
+                alert('You must select an Eastern Cape location to proceed.');
+                return;
+            }
+            
+            const statusDiv = document.getElementById('cipc-status');
+            const verifyBtn = document.getElementById('verify-cipc-btn');
+            
+            // Show verifying status
+            statusDiv.innerHTML = `
+                <div style="background: var(--warning); color: var(--white); padding: 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Verifying with CIPC database...
+                </div>
+            `;
+            verifyBtn.disabled = true;
+            
+            // Simulate CIPC API call with location validation
+            setTimeout(() => {
+                // Simulate 90% success rate for valid format
+                if (Math.random() > 0.1) {
+                    const locationText = document.getElementById('location').selectedOptions[0].text;
+                    statusDiv.innerHTML = `
+                        <div style="background: var(--success); color: var(--white); padding: 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check-circle"></i>
+                            CIPC Verified: ${companyName} registered in ${locationText}, Eastern Cape
+                        </div>
+                    `;
+                    businessVerified = true;
+                    verifyBtn.innerHTML = '<i class="fas fa-check"></i> Eastern Cape Business Verified';
+                    verifyBtn.style.background = 'var(--success)';
+                } else {
+                    statusDiv.innerHTML = `
+                        <div style="background: var(--danger); color: var(--white); padding: 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Verification Failed: Business not found or not registered in Eastern Cape
+                        </div>
+                    `;
+                    businessVerified = false;
+                    verifyBtn.disabled = false;
+                    verifyBtn.innerHTML = '<i class="fas fa-redo"></i> Retry Verification';
+                }
+            }, 2500);
+        }
+        
+        function checkFormCompletion() {
+            const companyName = document.getElementById('companyName').value;
+            const regNumber = document.getElementById('regNumber').value;
+            const industry = document.getElementById('industry').value;
+            const yearsOperation = document.getElementById('yearsOperation').value;
+            const employees = document.getElementById('employees').value;
+            const location = document.getElementById('location').value;
+            
+            const verifyBtn = document.getElementById('verify-cipc-btn');
+            
+            if (companyName && regNumber && industry && yearsOperation && employees && location) {
+                verifyBtn.disabled = false;
+                verifyBtn.style.opacity = '1';
+            } else {
+                verifyBtn.disabled = true;
+                verifyBtn.style.opacity = '0.5';
+            }
+        }
+        
+        function verifyDocument(type) {
+            const card = document.getElementById(`${type}-card`);
+            const status = document.getElementById(`${type}-status`);
+            
+            status.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+            
+            setTimeout(() => {
+                if (Math.random() > 0.05) {
+                    card.className = 'verification-card verified';
+                    status.innerHTML = '<i class="fas fa-check"></i> Verified';
+                    status.className = 'status-badge status-verified';
+                    verificationStatus[type] = true;
+                } else {
+                    status.innerHTML = '<i class="fas fa-times"></i> Failed';
+                    verificationStatus[type] = false;
+                }
+                updateVerificationProgress();
+            }, 2000);
+        }
+        
+        function updateVerificationProgress() {
+            const completed = Object.values(verificationStatus).filter(Boolean).length;
+            const percentage = (completed / 4) * 100;
+            
+            document.getElementById('progress-count').textContent = `${completed}/4`;
+            document.getElementById('progress-fill').style.width = `${percentage}%`;
+            
+            const btn = document.getElementById('create-account-btn');
+            if (completed === 4) {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.innerHTML = '<i class="fas fa-arrow-right"></i> Proceed to Account Creation';
+                btn.onclick = () => nextStep();
+            }
+        }
+        
+
+        
+        function generateLoginCredentials() {
+            const companyName = document.getElementById('companyName').value || 'Company';
+            const regNumber = document.getElementById('regNumber').value || '0000';
+            
+            // Generate username from company name and reg number
+            const cleanCompanyName = companyName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            const regSuffix = regNumber.slice(-4);
+            const username = `${cleanCompanyName.substring(0, 8)}${regSuffix}`;
+            
+            // Generate temporary password
+            const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+            let password = '';
+            for (let i = 0; i < 12; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            const usernameEl = document.getElementById('generated-username');
+            const passwordEl = document.getElementById('generated-password');
+            
+            if (usernameEl) usernameEl.textContent = username;
+            if (passwordEl) passwordEl.textContent = password;
+        }
+        
+        function copyPassword() {
+            const password = document.getElementById('generated-password').textContent;
+            navigator.clipboard.writeText(password).then(() => {
+                alert('Password copied to clipboard!');
+            });
+        }
+        
+        function downloadCredentials() {
+            const companyName = document.getElementById('companyName').value;
+            const username = document.getElementById('generated-username').textContent;
+            const password = document.getElementById('generated-password').textContent;
+            
+            const content = `ELIDZ Eastern Cape Business Portal - Login Credentials\n\nCompany: ${companyName}\nUsername: ${username}\nTemporary Password: ${password}\n\nIMPORTANT: Change your password on first login\nLogin URL: ${window.location.origin}/portal/portal.html`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ELIDZ_Login_${username}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function proceedToLogin() {
+            window.location.href = 'portal/portal.html';
+        }
+        
+        function updateAccountSummary() {
+            const companyName = document.getElementById('companyName').value;
+            const regNumber = document.getElementById('regNumber').value;
+            const location = document.getElementById('location').selectedOptions[0]?.text || '-';
+            const industry = document.getElementById('industry').selectedOptions[0]?.text || '-';
+            
+            document.getElementById('summary-business').textContent = companyName || '-';
+            document.getElementById('summary-registration').textContent = regNumber || '-';
+            document.getElementById('summary-location').textContent = location;
+            document.getElementById('summary-sector').textContent = industry;
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateProgressBar();
+                showStep(currentStep);
+            }
+        }
+
+        function submitApplication() {
+            alert('Application submitted successfully! You will be redirected to your dashboard.');
+            window.location.href = 'portal/portal.html';
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            showSection('verification');
-            document.getElementById('step-verification').classList.add('active');
+            updateProgressBar();
+            showStep(1);
+            
+            // Add event listeners to form fields
+            const formFields = ['companyName', 'regNumber', 'industry', 'yearsOperation', 'employees', 'location'];
+            formFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', checkFormCompletion);
+                    field.addEventListener('change', checkFormCompletion);
+                    field.addEventListener('change', updateAccountSummary);
+                }
+            });
         });
-
-        // Add CSS animation for matching progress
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes progressAnimation {
-                0% { width: 0%; }
-                100% { width: 100%; }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>

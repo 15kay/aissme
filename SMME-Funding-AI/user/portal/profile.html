@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - ELIDZ SMME Portal</title>
+    <title>Profile | ELIDZ Eastern Cape Business Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e40af;
-            --secondary: #0f172a;
-            --accent: #3b82f6;
-            --success: #059669;
-            --warning: #d97706;
-            --danger: #dc2626;
+            --primary: #0f172a;
+            --secondary: #1e40af;
+            --accent: #059669;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
             --white: #ffffff;
             --gray-50: #f8fafc;
             --gray-100: #f1f5f9;
             --gray-200: #e2e8f0;
             --gray-600: #475569;
+            --gray-800: #1e293b;
             --gray-900: #0f172a;
         }
 
@@ -26,17 +27,20 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
+            background: linear-gradient(135deg, var(--gray-50) 0%, #e0e7ff 100%);
             color: var(--gray-900);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         .header {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
         }
 
         .header-container {
@@ -46,170 +50,397 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 70px;
+            height: 88px;
         }
 
         .logo {
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.625rem;
             font-weight: 800;
             color: var(--primary);
+            text-decoration: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 0;
+            gap: 0.25rem;
+            background: rgba(248, 250, 252, 0.8);
+            padding: 0.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.6);
         }
 
         .nav-link {
             text-decoration: none;
             color: var(--gray-600);
             font-weight: 500;
-            padding: 1rem 1.5rem;
-            transition: all 0.2s;
-            position: relative;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav-link:hover {
             color: var(--primary);
-            background: var(--gray-50);
+            background: var(--white);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+            transform: translateY(-1px);
         }
 
         .nav-link.active {
-            color: var(--primary);
-            background: var(--gray-50);
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+            font-weight: 600;
         }
 
-        .nav-link.active::after {
-            content: '';
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            position: relative;
+        }
+
+        .notification-btn {
+            position: relative;
+            padding: 0.875rem;
+            border: none;
+            background: rgba(248, 250, 252, 0.8);
+            cursor: pointer;
+            border-radius: 14px;
+            transition: all 0.3s;
+            color: var(--gray-600);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .notification-btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.1);
+            color: var(--primary);
+        }
+
+        .notification-badge {
             position: absolute;
-            bottom: 0;
-            left: 0;
+            top: 0.625rem;
+            right: 0.625rem;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, var(--danger), #f87171);
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(248, 250, 252, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            position: relative;
+        }
+
+        .user-profile:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 0.875rem;
+        }
+
+        .user-role {
+            color: var(--gray-600);
+            font-size: 0.75rem;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
             right: 0;
-            height: 2px;
-            background: var(--primary);
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+            min-width: 280px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+
+        .user-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            text-align: center;
+        }
+
+        .dropdown-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+
+        .dropdown-menu {
+            padding: 0.5rem;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--gray-700);
+            text-decoration: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--gray-50);
+            color: var(--primary);
+        }
+
+        .dropdown-item.danger {
+            color: var(--danger);
+        }
+
+        .dropdown-item.danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--gray-200);
+            margin: 0.5rem 0;
         }
 
         .main-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #7c3aed 100%);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            margin-bottom: 3rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .page-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-grid {
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 1fr 2fr;
             gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .profile-sidebar {
             background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
+            border-radius: 20px;
             padding: 2rem;
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+            border: 1px solid var(--gray-200);
             height: fit-content;
-            position: sticky;
-            top: 90px;
         }
 
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: var(--white);
-        }
-
-        .profile-info {
+        .profile-avatar-section {
             text-align: center;
             margin-bottom: 2rem;
         }
 
-        .company-name {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 0.25rem;
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .company-type {
+        .profile-avatar-large:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        .profile-stats {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 12px;
+        }
+
+        .stat-label {
             color: var(--gray-600);
             font-size: 0.875rem;
-            margin-bottom: 0.5rem;
         }
 
-        .verification-badges {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
-        }
-
-        .badge {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .badge-verified {
-            background: rgba(5, 150, 105, 0.1);
-            color: var(--success);
-        }
-
-        .funding-score {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: var(--white);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .score-number {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-        }
-
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .card-header {
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid var(--gray-200);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .card-title {
-            font-size: 1.125rem;
+        .stat-value {
             font-weight: 600;
             color: var(--gray-900);
         }
 
-        .card-body {
+        .profile-content {
+            background: var(--white);
+            border-radius: 20px;
             padding: 2rem;
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+            border: 1px solid var(--gray-200);
+        }
+
+        .profile-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray-600);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .form-group {
@@ -219,126 +450,60 @@
         }
 
         .form-label {
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .form-input {
-            padding: 0.75rem;
-            border: 1px solid var(--gray-200);
-            border-radius: 8px;
-            font-size: 0.875rem;
-            background: var(--white);
-            color: var(--gray-900);
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.2s;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--secondary);
             box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
         }
 
-        .form-input:read-only {
-            background: var(--gray-50);
-            color: var(--gray-600);
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .metric-card {
-            background: var(--gray-50);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .metric-value {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .metric-label {
-            color: var(--gray-600);
-            font-size: 0.875rem;
-        }
-
-        .documents-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .document-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--gray-50);
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .document-item:hover {
-            background: rgba(30, 64, 175, 0.05);
-        }
-
-        .document-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--success);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-        }
-
-        .document-info h4 {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 0.25rem;
-        }
-
-        .document-info p {
-            font-size: 0.75rem;
-            color: var(--gray-600);
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
+            padding: 0.875rem 1.5rem;
             border: none;
-            border-radius: 8px;
-            font-weight: 500;
+            border-radius: 12px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            text-decoration: none;
             font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
             color: var(--white);
         }
 
         .btn-primary:hover {
-            background: #1e3a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(30, 64, 175, 0.3);
         }
 
         .btn-outline {
             background: transparent;
             color: var(--primary);
-            border: 1px solid var(--primary);
+            border: 2px solid var(--primary);
         }
 
         .btn-outline:hover {
@@ -346,13 +511,52 @@
             color: var(--white);
         }
 
+        .verification-status {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .verification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+        }
+
+        .verification-item.verified {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .verification-item.pending {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .verification-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-verified {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-pending {
+            background: var(--warning);
+            color: white;
+        }
+
         @media (max-width: 1024px) {
-            .main-container {
+            .profile-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            .profile-sidebar {
-                position: static;
             }
             .nav-links {
                 display: none;
@@ -372,320 +576,449 @@
 <body>
     <header class="header">
         <div class="header-container">
-            <div class="logo">ELIDZ SMME Portal</div>
+            <a href="../index.html" class="logo">
+                <img src="https://www.globalafricanetwork.com/wp-content/uploads/2021/05/ELIDZ-LOGO-transparent-2.png" alt="ELIDZ" style="height: 40px;">
+            </a>
             <nav class="nav-links">
-                <a href="portal.html" class="nav-link">Dashboard</a>
-                <a href="applications.html" class="nav-link">Applications</a>
-                <a href="opportunities.html" class="nav-link">Opportunities</a>
-                <a href="profile.html" class="nav-link active">Profile</a>
-                <a href="analytics.html" class="nav-link">Analytics</a>
+                <a href="portal.html" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    Dashboard
+                </a>
+                <a href="applications.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    Applications
+                </a>
+                <a href="opportunities.html" class="nav-link">
+                    <i class="fas fa-search"></i>
+                    Opportunities
+                </a>
+                <a href="profile.html" class="nav-link active">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
             </nav>
+            <div class="user-menu">
+                <button class="notification-btn" onclick="toggleNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge"></div>
+                </button>
+                <div class="user-profile" onclick="toggleUserDropdown()">
+                    <div class="user-avatar">TC</div>
+                    <div class="user-info">
+                        <div class="user-name">TechCorp Solutions</div>
+                        <div class="user-role">Verified Business</div>
+                    </div>
+                    <i class="fas fa-chevron-down" style="color: var(--gray-600); font-size: 0.75rem;"></i>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar">TC</div>
+                            <div style="font-weight: 600; color: var(--gray-900);">TechCorp Solutions</div>
+                            <div style="color: var(--gray-600); font-size: 0.875rem;">Verified Business • Eastern Cape</div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="profile.html" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="applications.html" class="dropdown-item">
+                                <i class="fas fa-file-alt"></i>
+                                <span>My Applications</span>
+                            </a>
+                            <a href="opportunities.html" class="dropdown-item">
+                                <i class="fas fa-search"></i>
+                                <span>Find Opportunities</span>
+                            </a>
+                            <div class="dropdown-item" onclick="showSettings()">
+                                <i class="fas fa-cog"></i>
+                                <span>Account Settings</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSecurity()">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Security & Privacy</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSupport()">
+                                <i class="fas fa-headset"></i>
+                                <span>Help & Support</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item danger" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <main class="main-container">
-        <div class="profile-sidebar">
-            <div class="profile-avatar">
-                <i class="fas fa-building"></i>
-            </div>
-            
-            <div class="profile-info">
-                <div class="company-name">TechSolutions SA</div>
-                <div class="company-type">Technology Services</div>
-                <p style="color: var(--gray-600); font-size: 0.75rem;">Est. 2022 • East London, EC</p>
-            </div>
-
-            <div class="verification-badges">
-                <div class="badge badge-verified">
-                    <i class="fas fa-check-circle"></i>
-                    CIPC Verified
-                </div>
-                <div class="badge badge-verified">
-                    <i class="fas fa-check-circle"></i>
-                    SARS Compliant
-                </div>
-                <div class="badge badge-verified">
-                    <i class="fas fa-check-circle"></i>
-                    Bank Verified
-                </div>
-                <div class="badge badge-verified">
-                    <i class="fas fa-check-circle"></i>
-                    Director Verified
-                </div>
-            </div>
-
-            <div class="funding-score">
-                <div class="score-number">97.3</div>
-                <div style="font-weight: 600; font-size: 0.875rem;">Funding Score</div>
-                <p style="opacity: 0.9; font-size: 0.75rem; margin-top: 0.25rem;">Top 5% of businesses</p>
-            </div>
+        <div class="page-header">
+            <h1 class="page-title">👤 Business Profile</h1>
+            <p class="page-subtitle">Manage your business information, verification status, and account settings</p>
         </div>
 
-        <div class="main-content">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Company Information</h2>
-                    <button class="btn btn-outline">
-                        <i class="fas fa-edit"></i>
-                        Edit
-                    </button>
+        <div class="profile-grid">
+            <div class="profile-sidebar">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-large" onclick="uploadAvatar()">
+                        TC
+                        <div class="avatar-upload">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <h3 style="color: var(--gray-900); margin-bottom: 0.5rem;">TechCorp Solutions</h3>
+                    <p style="color: var(--gray-600); margin-bottom: 1rem;">Verified Business • Eastern Cape</p>
+                    <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                        <span class="verification-badge badge-verified">✓ Verified</span>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label">Company Name</label>
-                            <input type="text" class="form-input" value="TechSolutions SA (Pty) Ltd" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Registration Number</label>
-                            <input type="text" class="form-input" value="2022/123456/07" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Industry Sector</label>
-                            <input type="text" class="form-input" value="Information Technology" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Business Type</label>
-                            <input type="text" class="form-input" value="Private Company" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Contact Email</label>
-                            <input type="email" class="form-input" value="info@techsolutions.co.za" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-input" value="+27 43 123 4567" readonly>
-                        </div>
+
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Member Since</span>
+                        <span class="stat-value">March 2024</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Applications</span>
+                        <span class="stat-value">4 Active</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Success Rate</span>
+                        <span class="stat-value">89.3%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Funding</span>
+                        <span class="stat-value">R650K</span>
                     </div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Financial Information</h2>
-                    <button class="btn btn-outline">
-                        <i class="fas fa-upload"></i>
-                        Update
+            <div class="profile-content">
+                <div class="profile-tabs">
+                    <button class="tab-btn active" onclick="switchTab('business')">
+                        <i class="fas fa-building"></i> Business Info
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('verification')">
+                        <i class="fas fa-shield-check"></i> Verification
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('documents')">
+                        <i class="fas fa-file-alt"></i> Documents
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('settings')">
+                        <i class="fas fa-cog"></i> Settings
                     </button>
                 </div>
-                <div class="card-body">
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="metric-value">R2.1M</div>
-                            <div class="metric-label">Annual Revenue</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value">R450K</div>
-                            <div class="metric-label">Net Profit</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value">R1.8M</div>
-                            <div class="metric-label">Total Assets</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value">15</div>
-                            <div class="metric-label">Employees</div>
-                        </div>
-                    </div>
 
-                    <div class="form-grid" style="margin-top: 2rem;">
+                <div id="business-tab" class="tab-content active">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--gray-900);">Business Information</h3>
+                    <form class="form-grid">
                         <div class="form-group">
-                            <label class="form-label">Tax Reference</label>
-                            <input type="text" class="form-input" value="9876543210" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">VAT Number</label>
-                            <input type="text" class="form-input" value="4567890123" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Bank Account</label>
-                            <input type="text" class="form-input" value="Standard Bank - ****1234" readonly>
+                            <label class="form-label">
+                                <i class="fas fa-building"></i>
+                                Company Name
+                            </label>
+                            <input type="text" class="form-input" value="TechCorp Solutions" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Credit Rating</label>
-                            <input type="text" class="form-input" value="A+ (Excellent)" readonly>
+                            <label class="form-label">
+                                <i class="fas fa-id-card"></i>
+                                Registration Number
+                            </label>
+                            <input type="text" class="form-input" value="2024/123456/07" readonly>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Documents & Compliance</h2>
-                    <button class="btn btn-primary">
-                        <i class="fas fa-plus"></i>
-                        Upload
-                    </button>
-                </div>
-                <div class="card-body">
-                    <div class="documents-grid">
-                        <div class="document-item">
-                            <div class="document-icon">
-                                <i class="fas fa-file-pdf"></i>
-                            </div>
-                            <div class="document-info">
-                                <h4>Certificate of Incorporation</h4>
-                                <p>Uploaded 15 Jan 2025</p>
-                            </div>
-                        </div>
-                        <div class="document-item">
-                            <div class="document-icon">
-                                <i class="fas fa-file-excel"></i>
-                            </div>
-                            <div class="document-info">
-                                <h4>Financial Statements 2024</h4>
-                                <p>Uploaded 20 Jan 2025</p>
-                            </div>
-                        </div>
-                        <div class="document-item">
-                            <div class="document-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <div class="document-info">
-                                <h4>Tax Clearance Certificate</h4>
-                                <p>Valid until Dec 2025</p>
-                            </div>
-                        </div>
-                        <div class="document-item">
-                            <div class="document-icon">
-                                <i class="fas fa-file-contract"></i>
-                            </div>
-                            <div class="document-info">
-                                <h4>B-BBEE Certificate</h4>
-                                <p>Level 4 Contributor</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Funding Preferences</h2>
-                    <button class="btn btn-outline">
-                        <i class="fas fa-cog"></i>
-                        Configure
-                    </button>
-                </div>
-                <div class="card-body">
-                    <div class="form-grid">
                         <div class="form-group">
-                            <label class="form-label">Preferred Amount</label>
+                            <label class="form-label">
+                                <i class="fas fa-industry"></i>
+                                Industry Sector
+                            </label>
                             <select class="form-input">
-                                <option>R100K - R500K</option>
-                                <option>R500K - R1M</option>
-                                <option>R1M - R2M</option>
-                                <option>Over R2M</option>
+                                <option selected>Technology</option>
+                                <option>Manufacturing</option>
+                                <option>Agriculture</option>
+                                <option>Services</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Funding Type</label>
+                            <label class="form-label">
+                                <i class="fas fa-users"></i>
+                                Number of Employees
+                            </label>
                             <select class="form-input">
-                                <option>Grants (Non-repayable)</option>
-                                <option>Concessional Loans</option>
-                                <option>Equity Investment</option>
-                                <option>Mixed Funding</option>
+                                <option>1-5</option>
+                                <option selected>6-20</option>
+                                <option>21-50</option>
+                                <option>51-200</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Purpose</label>
-                            <select class="form-input">
-                                <option>Business Expansion</option>
-                                <option>Equipment Purchase</option>
-                                <option>Working Capital</option>
-                                <option>Technology Upgrade</option>
-                            </select>
+                            <label class="form-label">
+                                <i class="fas fa-calendar"></i>
+                                Year Established
+                            </label>
+                            <input type="number" class="form-input" value="2022">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Notifications</label>
+                            <label class="form-label">
+                                <i class="fas fa-chart-line"></i>
+                                Annual Revenue
+                            </label>
                             <select class="form-input">
-                                <option>Notify immediately</option>
-                                <option>Weekly digest</option>
-                                <option>Monthly summary</option>
+                                <option>Under R1M</option>
+                                <option selected>R1M - R5M</option>
+                                <option>R5M - R20M</option>
+                                <option>Over R20M</option>
                             </select>
                         </div>
+                    </form>
+                    
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label class="form-label">
+                            <i class="fas fa-info-circle"></i>
+                            Business Description
+                        </label>
+                        <textarea class="form-input form-textarea" placeholder="Describe your business activities, products, and services...">TechCorp Solutions specializes in developing innovative software solutions for small and medium enterprises. We focus on business management systems, inventory tracking, and digital transformation tools.</textarea>
                     </div>
 
-                    <div style="margin-top: 2rem;">
-                        <button class="btn btn-primary">
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-primary" onclick="saveProfile()">
                             <i class="fas fa-save"></i>
-                            Save Preferences
+                            Save Changes
+                        </button>
+                        <button class="btn btn-outline" onclick="resetForm()">
+                            <i class="fas fa-undo"></i>
+                            Reset
                         </button>
                     </div>
+                </div>
+
+                <div id="verification-tab" class="tab-content">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--gray-900);">Verification Status</h3>
+                    <div class="verification-status">
+                        <div class="verification-item verified">
+                            <div>
+                                <h4 style="color: var(--gray-900);">CIPC Registration</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Company registration verified</p>
+                            </div>
+                            <span class="verification-badge badge-verified">✓ Verified</span>
+                        </div>
+                        <div class="verification-item verified">
+                            <div>
+                                <h4 style="color: var(--gray-900);">SARS Tax Compliance</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Tax clearance certificate valid</p>
+                            </div>
+                            <span class="verification-badge badge-verified">✓ Verified</span>
+                        </div>
+                        <div class="verification-item verified">
+                            <div>
+                                <h4 style="color: var(--gray-900);">Banking Details</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Bank account verified</p>
+                            </div>
+                            <span class="verification-badge badge-verified">✓ Verified</span>
+                        </div>
+                        <div class="verification-item pending">
+                            <div>
+                                <h4 style="color: var(--gray-900);">BEE Certificate</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Upload required for enhanced opportunities</p>
+                            </div>
+                            <span class="verification-badge badge-pending">⏳ Pending</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="uploadBEE()">
+                        <i class="fas fa-upload"></i>
+                        Upload BEE Certificate
+                    </button>
+                </div>
+
+                <div id="documents-tab" class="tab-content">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--gray-900);">Document Management</h3>
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 12px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4>CIPC Certificate</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Uploaded: March 15, 2024</p>
+                            </div>
+                            <button class="btn btn-outline" onclick="downloadDoc('cipc')">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                        </div>
+                        <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 12px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4>Tax Clearance Certificate</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Uploaded: March 16, 2024</p>
+                            </div>
+                            <button class="btn btn-outline" onclick="downloadDoc('tax')">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                        </div>
+                        <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 12px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4>Bank Statement</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Uploaded: March 18, 2024</p>
+                            </div>
+                            <button class="btn btn-outline" onclick="downloadDoc('bank')">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="settings-tab" class="tab-content">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--gray-900);">Account Settings</h3>
+                    <div style="display: grid; gap: 2rem;">
+                        <div>
+                            <h4 style="margin-bottom: 1rem;">Notification Preferences</h4>
+                            <div style="display: grid; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                                    <input type="checkbox" checked style="width: 18px; height: 18px;">
+                                    <span>Email notifications for new opportunities</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                                    <input type="checkbox" checked style="width: 18px; height: 18px;">
+                                    <span>SMS alerts for application updates</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                                    <input type="checkbox" style="width: 18px; height: 18px;">
+                                    <span>Weekly funding digest</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 1rem;">Privacy Settings</h4>
+                            <div style="display: grid; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                                    <input type="checkbox" checked style="width: 18px; height: 18px;">
+                                    <span>Allow profile visibility to funders</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                                    <input type="checkbox" style="width: 18px; height: 18px;">
+                                    <span>Share success stories publicly</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <i class="fas fa-save"></i>
+                        Save Settings
+                    </button>
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="shared.js"></script>
     <script>
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const text = this.textContent.trim();
-                
-                if (text.includes('Edit')) {
-                    portal.editProfile();
-                } else if (text.includes('Update')) {
-                    portal.showModal('Update Financial Information', `
-                        <p>To update your financial information, please upload your latest:</p>
-                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                            <li>Annual Financial Statements</li>
-                            <li>Management Accounts (last 6 months)</li>
-                            <li>Bank Statements (last 3 months)</li>
-                            <li>Tax Returns (latest year)</li>
-                        </ul>
-                        <p style="color: #64748b; font-size: 0.875rem;">All documents will be verified and processed within 24 hours.</p>
-                    `, `
-                        <button class="btn btn-outline" onclick="portal.closeModal()">Cancel</button>
-                        <button class="btn btn-primary" onclick="portal.uploadDocument()">
-                            <i class="fas fa-upload"></i>
-                            Upload Documents
-                        </button>
-                    `);
-                } else if (text.includes('Upload')) {
-                    portal.uploadDocument();
-                } else if (text.includes('Configure')) {
-                    portal.showModal('Configure Funding Preferences', `
-                        <div style="display: grid; gap: 1rem;">
-                            <div>
-                                <label>Notification Frequency</label>
-                                <select style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px;">
-                                    <option>Immediate notifications</option>
-                                    <option>Daily digest</option>
-                                    <option>Weekly summary</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Minimum Match Score</label>
-                                <input type="range" min="70" max="100" value="85" style="width: 100%;">
-                                <span style="color: #64748b; font-size: 0.875rem;">85% minimum match</span>
-                            </div>
-                            <div>
-                                <label>Auto-apply for high matches (95%+)</label>
-                                <input type="checkbox" style="margin-left: 0.5rem;">
-                            </div>
-                        </div>
-                    `, `
-                        <button class="btn btn-outline" onclick="portal.closeModal()">Cancel</button>
-                        <button class="btn btn-primary" onclick="portal.savePreferences()">
-                            <i class="fas fa-save"></i>
-                            Save Preferences
-                        </button>
-                    `);
-                } else if (text.includes('Save')) {
-                    portal.savePreferences();
-                }
-            });
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; top: 2rem; right: 2rem; z-index: 1000;
+                background: white; border-radius: 12px; padding: 1rem 1.5rem;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15); border-left: 4px solid ${type === 'success' ? '#10b981' : '#1e40af'};
+                transform: translateX(400px); transition: transform 0.3s;
+            `;
+            toast.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle" style="color: ${type === 'success' ? '#10b981' : '#1e40af'};"></i>
+                    <div style="font-weight: 600; color: #0f172a;">${message}</div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // User dropdown functionality
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function showSettings() {
+            showNotification('Opening account settings...', 'info');
+        }
+
+        function showSecurity() {
+            showNotification('Opening security settings...', 'info');
+        }
+
+        function showSupport() {
+            showNotification('Opening support center...', 'info');
+        }
+
+        function logout() {
+            showNotification('Logging out...', 'info');
+            setTimeout(() => {
+                window.location.href = '../login.html';
+            }, 1500);
+        }
+
+        function toggleNotifications() {
+            showNotification('Opening notifications...', 'info');
+        }
+
+        // Tab functionality
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        // Profile functions
+        function uploadAvatar() {
+            showNotification('Avatar upload feature coming soon!', 'info');
+        }
+
+        function saveProfile() {
+            showNotification('Profile updated successfully!', 'success');
+        }
+
+        function resetForm() {
+            showNotification('Form reset to original values', 'info');
+        }
+
+        function uploadBEE() {
+            showNotification('BEE certificate upload initiated...', 'info');
+        }
+
+        function downloadDoc(type) {
+            const docs = {
+                cipc: 'CIPC_Certificate_TechCorp.pdf',
+                tax: 'Tax_Clearance_TechCorp.pdf',
+                bank: 'Bank_Statement_TechCorp.pdf'
+            };
+            showNotification(`Downloading ${docs[type]}...`, 'success');
+        }
+
+        function saveSettings() {
+            showNotification('Settings saved successfully!', 'success');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function (e) {
+            const userDropdown = document.getElementById('userDropdown');
+            const userProfile = document.querySelector('.user-profile');
+            if (userDropdown && !userProfile.contains(e.target)) {
+                userDropdown.classList.remove('show');
+            }
         });
 
-        // Add savePreferences method to portal
-        portal.savePreferences = function() {
-            this.showProgressModal('Saving Preferences', 'Updating your funding preferences...');
-            setTimeout(() => {
-                this.showSuccessModal('Preferences Saved', 'Your funding preferences have been updated successfully!');
-            }, 1000);
-        };
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification('Welcome to your profile! Keep your information updated.', 'success');
+        });
     </script>
 </body>
 </html>

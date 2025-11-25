@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELIDZ SMME Portal - Executive Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -22,7 +24,11 @@
             --gray-900: #0f172a;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -32,11 +38,13 @@
         }
 
         .header {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
         }
 
         .header-container {
@@ -46,78 +54,246 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 70px;
+            height: 88px;
         }
 
         .logo {
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.625rem;
             font-weight: 800;
             color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 0;
+            gap: 0.25rem;
+            background: rgba(248, 250, 252, 0.8);
+            padding: 0.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.6);
         }
 
         .nav-link {
             text-decoration: none;
             color: var(--gray-600);
             font-weight: 500;
-            padding: 1rem 1.5rem;
-            border-radius: 0;
-            transition: all 0.2s;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s;
             position: relative;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav-link:hover {
             color: var(--primary);
-            background: var(--gray-50);
+            background: var(--white);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+            transform: translateY(-1px);
         }
 
         .nav-link.active {
-            color: var(--primary);
-            background: var(--gray-50);
-        }
-
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--primary);
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+            font-weight: 600;
         }
 
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.25rem;
+            position: relative;
         }
 
         .notification-btn {
             position: relative;
-            padding: 0.5rem;
+            padding: 0.875rem;
             border: none;
-            background: none;
+            background: rgba(248, 250, 252, 0.8);
             cursor: pointer;
-            border-radius: 6px;
-            transition: background 0.2s;
+            border-radius: 14px;
+            transition: all 0.3s;
+            color: var(--gray-600);
+            border: 1px solid rgba(226, 232, 240, 0.6);
         }
 
         .notification-btn:hover {
-            background: var(--gray-100);
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.1);
+            color: var(--primary);
         }
 
         .notification-badge {
             position: absolute;
-            top: 0.25rem;
-            right: 0.25rem;
-            width: 8px;
-            height: 8px;
-            background: var(--danger);
+            top: 0.625rem;
+            right: 0.625rem;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, var(--danger), #f87171);
             border-radius: 50%;
+            border: 2px solid var(--white);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(248, 250, 252, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            position: relative;
+        }
+
+        .user-profile:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 0.875rem;
+        }
+
+        .user-role {
+            color: var(--gray-600);
+            font-size: 0.75rem;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+            min-width: 280px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+
+        .user-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            text-align: center;
+        }
+
+        .dropdown-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+
+        .dropdown-menu {
+            padding: 0.5rem;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--gray-700);
+            text-decoration: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--gray-50);
+            color: var(--primary);
+        }
+
+        .dropdown-item.danger {
+            color: var(--danger);
+        }
+
+        .dropdown-item.danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--gray-200);
+            margin: 0.5rem 0;
         }
 
         .main-container {
@@ -152,14 +328,38 @@
         .metric-card {
             background: var(--white);
             border: 1px solid var(--gray-200);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 2rem;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s;
         }
 
         .metric-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+            transform: translateY(-8px);
+            border-color: var(--primary);
+        }
+
+        .metric-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .metric-card:active {
+            transform: translateY(-4px);
         }
 
         .metric-header {
@@ -180,10 +380,21 @@
             color: var(--white);
         }
 
-        .metric-icon.primary { background: var(--primary); }
-        .metric-icon.success { background: var(--success); }
-        .metric-icon.warning { background: var(--warning); }
-        .metric-icon.accent { background: var(--accent); }
+        .metric-icon.primary {
+            background: var(--primary);
+        }
+
+        .metric-icon.success {
+            background: var(--success);
+        }
+
+        .metric-icon.warning {
+            background: var(--warning);
+        }
+
+        .metric-icon.accent {
+            background: var(--accent);
+        }
 
         .metric-value {
             font-size: 2.25rem;
@@ -293,9 +504,17 @@
             flex-shrink: 0;
         }
 
-        .status-indicator.approved { background: var(--success); }
-        .status-indicator.pending { background: var(--warning); }
-        .status-indicator.review { background: var(--accent); }
+        .status-indicator.approved {
+            background: var(--success);
+        }
+
+        .status-indicator.pending {
+            background: var(--warning);
+        }
+
+        .status-indicator.review {
+            background: var(--accent);
+        }
 
         .application-info h4 {
             font-weight: 600;
@@ -356,36 +575,195 @@
         .action-card {
             background: var(--white);
             border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: 16px;
+            padding: 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
         }
 
         .action-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .action-card:hover::before {
+            left: 100%;
+        }
+
+        .action-card:hover .action-icon {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: var(--white);
         }
 
         .action-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--gray-100);
-            border-radius: 10px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.25rem;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
             color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        .action-card h4 {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+        }
+
+        .action-card p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .floating-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
+        }
+
+        .fab {
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3);
+            transition: all 0.3s;
+            font-size: 1.25rem;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.4);
+        }
+
+        .fab.secondary {
+            background: var(--accent);
+            width: 48px;
+            height: 48px;
+            font-size: 1rem;
+        }
+
+        .notification-toast {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 100;
+            max-width: 300px;
+        }
+
+        .notification-toast.show {
+            transform: translateX(0);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
         }
 
         @media (max-width: 1024px) {
             .content-grid {
                 grid-template-columns: 1fr;
             }
+
             .nav-links {
+                display: none;
+            }
+
+            .floating-actions {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .user-info {
                 display: none;
             }
         }
@@ -394,40 +772,139 @@
             .main-container {
                 padding: 1rem;
             }
+
             .metrics-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .notification-toast {
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
             }
         }
     </style>
 </head>
+
 <body>
     <header class="header">
         <div class="header-container">
-            <div class="logo">ELIDZ SMME Portal</div>
+            <a href="../index.html" class="logo">
+                <div class="logo">
+                    <img src="https://www.globalafricanetwork.com/wp-content/uploads/2021/05/ELIDZ-LOGO-transparent-2.png"
+                        alt="ELIDZ SMME AI" style="height: 40px; margin-right: 10px;">
+                </div>
+
+            </a>
             <nav class="nav-links">
-                <a href="portal.html" class="nav-link active">Dashboard</a>
-                <a href="applications.html" class="nav-link">Applications</a>
-                <a href="opportunities.html" class="nav-link">Opportunities</a>
-                <a href="profile.html" class="nav-link">Profile</a>
-                <a href="analytics.html" class="nav-link">Analytics</a>
+                <a href="portal.html" class="nav-link active">
+                    <i class="fas fa-chart-pie"></i>
+                    Dashboard
+                </a>
+                <a href="applications.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    Applications
+                </a>
+                <a href="opportunities.html" class="nav-link">
+                    <i class="fas fa-search"></i>
+                    Opportunities
+                </a>
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
             </nav>
             <div class="user-menu">
-                <button class="notification-btn">
+                <button class="notification-btn" onclick="toggleNotifications()">
                     <i class="fas fa-bell"></i>
                     <div class="notification-badge"></div>
                 </button>
-                <button class="btn btn-outline btn-sm">
-                    <i class="fas fa-user"></i>
-                    Account
-                </button>
+                <div class="user-profile" onclick="toggleUserDropdown()">
+                    <div class="user-avatar">TC</div>
+                    <div class="user-info">
+                        <div class="user-name">TechCorp Solutions</div>
+                        <div class="user-role">Verified Business</div>
+                    </div>
+                    <i class="fas fa-chevron-down" style="color: var(--gray-600); font-size: 0.75rem;"></i>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar">TC</div>
+                            <div style="font-weight: 600; color: var(--gray-900);">TechCorp Solutions</div>
+                            <div style="color: var(--gray-600); font-size: 0.875rem;">Verified Business • Eastern Cape</div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="profile.html" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="applications.html" class="dropdown-item">
+                                <i class="fas fa-file-alt"></i>
+                                <span>My Applications</span>
+                            </a>
+                            <a href="opportunities.html" class="dropdown-item">
+                                <i class="fas fa-search"></i>
+                                <span>Find Opportunities</span>
+                            </a>
+                            <div class="dropdown-item" onclick="showSettings()">
+                                <i class="fas fa-cog"></i>
+                                <span>Account Settings</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSecurity()">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Security & Privacy</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSupport()">
+                                <i class="fas fa-headset"></i>
+                                <span>Help & Support</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item danger" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="main-container">
-        <div class="page-header">
-            <h1 class="page-title">Executive Dashboard</h1>
-            <p class="page-subtitle">Monitor your funding performance and opportunities</p>
+        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #7c3aed 100%); padding: 3rem 2rem; border-radius: 24px; margin-bottom: 3rem; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; transform: translate(30%, -30%);"></div>
+            <div style="position: relative; z-index: 1; text-align: center;">
+                <h2 style="font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2;">🚀 Unlock Your Business Potential, TechCorp!</h2>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
+                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); padding: 1rem 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 1.75rem; font-weight: 700; color: #10b981;">R2.4M</div>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem;">Matched Funding</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); padding: 1rem 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 1.75rem; font-weight: 700; color: #f59e0b;">3</div>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem;">Hot Opportunities</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); padding: 1rem 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 1.75rem; font-weight: 700; color: #a855f7;">89.3%</div>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem;">Success Rate</div>
+                    </div>
+                </div>
+                <p style="font-size: 1.125rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Your breakthrough moment is here! AI-powered matching • Judge-ready applications • Eastern Cape's #1 funding platform</p>
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <button onclick="quickApply()" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 1rem 2rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.875rem; transition: all 0.3s; box-shadow: 0 4px 20px rgba(16,185,129,0.3);">⚡ Quick Apply Now</button>
+                    <button onclick="openChat()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 1rem 2rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.875rem; backdrop-filter: blur(10px); transition: all 0.3s;">🤖 AI Assistant</button>
+                    <button onclick="navigateTo('Opportunities')" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 1rem 2rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.875rem; backdrop-filter: blur(10px); transition: all 0.3s;">🎯 Explore All</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="font-size: 2.75rem; font-weight: 800; background: linear-gradient(135deg, #0f172a, #1e40af, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem;">🏆 Your Funding Command Center</h1>
+            <p style="font-size: 1.125rem; color: var(--gray-600); max-width: 800px; margin: 0 auto;">Eastern Cape's premier SMME ecosystem • Real-time opportunities • AI-powered matching • Judge-ready applications • Your success, amplified</p>
         </div>
 
         <div class="metrics-grid">
@@ -544,28 +1021,28 @@
             </div>
             <div class="card-body">
                 <div class="quick-actions">
-                    <div class="action-card" onclick="window.location.href='opportunities.html'">
+                    <div class="action-card" onclick="navigateTo('Opportunities')">
                         <div class="action-icon">
                             <i class="fas fa-search"></i>
                         </div>
                         <h4>Find Opportunities</h4>
                         <p>Discover new funding</p>
                     </div>
-                    <div class="action-card" onclick="window.location.href='applications.html'">
+                    <div class="action-card" onclick="navigateTo('Applications')">
                         <div class="action-icon">
                             <i class="fas fa-file-alt"></i>
                         </div>
                         <h4>Track Applications</h4>
                         <p>Monitor progress</p>
                     </div>
-                    <div class="action-card" onclick="window.location.href='profile.html'">
+                    <div class="action-card" onclick="navigateTo('Profile')">
                         <div class="action-icon">
                             <i class="fas fa-building"></i>
                         </div>
                         <h4>Update Profile</h4>
                         <p>Manage business info</p>
                     </div>
-                    <div class="action-card" onclick="window.location.href='analytics.html'">
+                    <div class="action-card" onclick="navigateTo('Analytics')">
                         <div class="action-icon">
                             <i class="fas fa-chart-bar"></i>
                         </div>
@@ -577,39 +1054,593 @@
         </div>
     </main>
 
+    <!-- Floating Action Buttons -->
+    <div class="floating-actions">
+        <button class="fab" onclick="quickApply()" title="Quick Apply">
+            <i class="fas fa-plus"></i>
+        </button>
+        <button class="fab secondary" onclick="openChat()" title="AI Assistant">
+            <i class="fas fa-robot"></i>
+        </button>
+        <button class="fab secondary" onclick="openHelp()" title="Help">
+            <i class="fas fa-question"></i>
+        </button>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="notification-toast">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div
+                style="width: 40px; height: 40px; background: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-check"></i>
+            </div>
+            <div>
+                <div style="font-weight: 600; color: var(--gray-900);">Application Submitted!</div>
+                <div style="font-size: 0.875rem; color: var(--gray-600);">Your SEDA grant application is being
+                    processed.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Apply Modal -->
+    <div id="quickApplyModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1rem; color: var(--gray-900);">Quick Apply to Opportunity</h3>
+            <p style="color: var(--gray-600); margin-bottom: 2rem;">Select a funding opportunity to apply with your
+                existing profile:</p>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button class="btn btn-primary" onclick="applyToOpportunity('SEDA Tech Grant')">
+                    <i class="fas fa-rocket"></i>
+                    SEDA Technology Innovation Grant - R500K
+                </button>
+                <button class="btn btn-outline" onclick="applyToOpportunity('IDC SMME Fund')">
+                    <i class="fas fa-building"></i>
+                    IDC SMME Development Fund - R1M
+                </button>
+                <button class="btn btn-outline" onclick="closeModal('quickApplyModal')">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="shared.js"></script>
     <script>
-        // Update opportunity actions
-        document.querySelectorAll('.opportunity-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const title = this.querySelector('h4').textContent;
-                const details = this.querySelector('p').textContent;
-                portal.viewOpportunityDetails(title, `<p>${details}</p>`);
+        // Enhanced interactive functionality
+        let notificationCount = 3;
+
+        // Navigation functionality
+        function navigateTo(page) {
+            showNotification(`Navigating to ${page}`, 'info');
+            setTimeout(() => {
+                if (page === 'Applications') window.location.href = 'applications.html';
+                else if (page === 'Opportunities') window.location.href = 'opportunities.html';
+                else if (page === 'Profile') window.location.href = 'profile.html';
+                else if (page === 'Analytics') window.location.href = 'analytics.html';
+                else if (page === 'Home') window.location.href = '../index.html';
+            }, 800);
+        }
+
+        // Metric card interactions with detailed views
+        document.querySelectorAll('.metric-card').forEach((card, index) => {
+            card.addEventListener('click', function () {
+                const metrics = [
+                    { title: 'Funding Analytics', page: 'analytics.html?view=funding' },
+                    { title: 'Success Probability', page: 'analytics.html?view=success' },
+                    { title: 'Application Manager', page: 'applications.html' },
+                    { title: 'Opportunity Matcher', page: 'opportunities.html' }
+                ];
+                showNotification(`Opening ${metrics[index].title}`, 'info');
+                setTimeout(() => window.location.href = metrics[index].page, 1000);
             });
         });
 
-        // Update application actions
+        // Enhanced opportunity interactions
+        document.querySelectorAll('.opportunity-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const title = this.querySelector('h4').textContent;
+                const matchScore = this.querySelector('.match-score').textContent;
+                showNotification(`Viewing ${title} (${matchScore} match)`, 'success');
+                setTimeout(() => window.location.href = `opportunities.html?id=${encodeURIComponent(title)}`, 1000);
+            });
+        });
+
+        // Application status interactions
         document.querySelectorAll('.application-item').forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 const title = this.querySelector('h4').textContent;
                 const status = this.querySelector('p').textContent;
                 if (status.includes('Approved')) {
-                    portal.downloadDocument(`${title}_Agreement.pdf`);
+                    showNotification(`Downloading ${title} agreement`, 'success');
+                    downloadDocument(`${title}_Agreement.pdf`);
                 } else {
-                    portal.viewApplication();
+                    showNotification(`Opening ${title} application`, 'info');
+                    setTimeout(() => window.location.href = `applications.html?id=${encodeURIComponent(title)}`, 1000);
                 }
             });
         });
 
-        // Metric card animations
-        document.querySelectorAll('.metric-card').forEach(card => {
-            card.addEventListener('click', function() {
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = 'translateY(-2px)';
-                }, 100);
-            });
+        // Floating Action Button Functions
+        function quickApply() {
+            document.getElementById('quickApplyModal').classList.add('show');
+        }
+
+        // AI Agent Knowledge Base
+        const aiKnowledge = {
+            greetings: [
+                "Hello! I'm your ELIDZ AI funding assistant. I can help you find opportunities, check eligibility, and guide you through applications.",
+                "Hi there! Ready to explore Eastern Cape funding opportunities? I'm here to help!",
+                "Welcome! I'm your personal ELIDZ funding advisor. What can I assist you with today?"
+            ],
+            opportunities: {
+                'seda': { name: 'SEDA Technology Innovation Grant', amount: 'Up to R500,000', deadline: '30 March 2025', match: '98.7%' },
+                'idc': { name: 'IDC SMME Development Fund', amount: 'R100K - R1M', deadline: 'Rolling applications', match: '94.2%' },
+                'ecdc': { name: 'Eastern Cape Development Corporation', amount: 'Up to R2M', deadline: '15 April 2025', match: '91.8%' }
+            },
+            responses: {
+                'funding': 'Based on your profile, you have access to 47 matched opportunities worth R2.4M in potential funding. Your top matches are SEDA (98.7%), IDC (94.2%), and ECDC (91.8%).',
+                'eligibility': 'For Eastern Cape businesses, you need: Valid CIPC registration, SARS tax compliance, operational for 6+ months, and location in one of our 16 supported municipalities.',
+                'application': 'I can help you start an application right now! Which opportunity interests you: SEDA Tech Grant (R500K), IDC SMME Fund (R1M), or ECDC Fund (R2M)?',
+                'requirements': 'Standard requirements include: Business registration, financial statements, business plan, BEE certificate, and director ID documents. I can check what you still need.',
+                'status': 'Your current applications: SEDA Grant (R150K - Approved ✅), IDC Loan (R300K - In Review 🔄), ECDC Fund (R200K - Pending ⏳)',
+                'judge_criteria': '📋 **Judge Evaluation Criteria:** 1️⃣ Business Legitimacy (CIPC, SARS, licenses) 2️⃣ Financial Transparency (audited statements, projections) 3️⃣ Strategic Plan (market analysis, growth strategy) 4️⃣ Operational Readiness (management, infrastructure) 5️⃣ Regional Impact (job creation, sustainability) 6️⃣ Risk Management (mitigation strategies) 7️⃣ Monitoring Systems (KPIs, reporting). Want details on any area?',
+                'readiness': 'Investment readiness checklist: ✅ Valid registrations ✅ Tax compliance ✅ Financial statements ✅ Business plan ✅ Management team ✅ Market research ✅ Growth projections ✅ Risk assessment. Missing any? I can guide you through preparation.',
+                'impact': 'Judges prioritize Eastern Cape economic impact: job creation potential, skills development, supply chain integration, export opportunities, and long-term sustainability. Your business should demonstrate clear regional benefits.'
+            }
+        };
+
+        let chatHistory = [];
+        let isTyping = false;
+
+        function openChat() {
+            showNotification('AI Assistant is starting...', 'info');
+            setTimeout(() => {
+                const chatModal = document.createElement('div');
+                chatModal.innerHTML = `
+                    <div class="modal show" id="chatModal">
+                        <div class="modal-content" style="max-width: 650px; height: 600px; display: flex; flex-direction: column;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--gray-200); padding-bottom: 1rem;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--success)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.25rem;">🤖</div>
+                                    <div>
+                                        <h3 style="color: var(--gray-900); margin: 0;">ELIDZ AI Agent</h3>
+                                        <small style="color: var(--gray-600);">Funding Assistant • Online</small>
+                                    </div>
+                                </div>
+                                <button onclick="closeModal('chatModal')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-600);">×</button>
+                            </div>
+                            <div id="chatMessages" style="flex: 1; background: var(--gray-50); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; overflow-y: auto; max-height: 400px;">
+                                <div class="ai-message" style="background: var(--white); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border-left: 4px solid var(--accent); animation: slideIn 0.3s ease;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <strong style="color: var(--accent);">ELIDZ AI Agent</strong>
+                                        <span style="font-size: 0.75rem; color: var(--gray-500);">now</span>
+                                    </div>
+                                    <p>${aiKnowledge.greetings[0]}</p>
+                                    <div style="margin-top: 0.75rem; display: flex; flex-wrap: gap: 0.5rem;">
+                                        <button class="quick-btn" onclick="sendQuickMessage('Show my funding opportunities')" style="background: var(--gray-100); border: none; padding: 0.5rem 0.75rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;">💰 My Opportunities</button>
+                                        <button class="quick-btn" onclick="sendQuickMessage('Check my application status')" style="background: var(--gray-100); border: none; padding: 0.5rem 0.75rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;">📋 Application Status</button>
+                                        <button class="quick-btn" onclick="sendQuickMessage('Start new application')" style="background: var(--gray-100); border: none; padding: 0.5rem 0.75rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;">🚀 Apply Now</button>
+                                        <button class="quick-btn" onclick="sendQuickMessage('What do judges look for?')" style="background: var(--gray-100); border: none; padding: 0.5rem 0.75rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;">👨⚖️ Judge Criteria</button>
+                                        <button class="quick-btn" onclick="sendQuickMessage('Am I ready to apply?')" style="background: var(--gray-100); border: none; padding: 0.5rem 0.75rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;">📋 Readiness Check</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 0.75rem; align-items: end;">
+                                <input id="chatInput" type="text" placeholder="Ask about funding, eligibility, applications..." style="flex: 1; padding: 0.875rem; border: 1px solid var(--gray-200); border-radius: 12px; font-size: 0.875rem;" onkeypress="if(event.key==='Enter') sendMessage()">
+                                <button onclick="sendMessage()" style="background: var(--accent); color: white; border: none; padding: 0.875rem 1.25rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(chatModal);
+                document.getElementById('chatInput').focus();
+                
+                // Add hover effects to quick buttons
+                document.querySelectorAll('.quick-btn').forEach(btn => {
+                    btn.addEventListener('mouseenter', () => btn.style.background = 'var(--accent)');
+                    btn.addEventListener('mouseleave', () => btn.style.background = 'var(--gray-100)');
+                });
+            }, 1000);
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message || isTyping) return;
+
+            addMessage(message, 'user');
+            input.value = '';
+            showTyping();
+            
+            setTimeout(() => {
+                const response = generateAIResponse(message);
+                hideTyping();
+                addMessage(response, 'ai');
+            }, 1500 + Math.random() * 1000);
+        }
+
+        function addMessage(message, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const isUser = sender === 'user';
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser ? 'user-message' : 'ai-message';
+            messageDiv.style.cssText = `
+                background: ${isUser ? 'var(--accent)' : 'var(--white)'};
+                color: ${isUser ? 'white' : 'var(--gray-900)'};
+                padding: 1rem;
+                border-radius: 12px;
+                margin-bottom: 1rem;
+                ${isUser ? 'margin-left: 2rem;' : 'border-left: 4px solid var(--accent);'}
+                animation: slideIn 0.3s ease;
+            `;
+            
+            messageDiv.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <strong style="color: ${isUser ? 'rgba(255,255,255,0.9)' : 'var(--accent)'};">${isUser ? 'You' : 'ELIDZ AI Agent'}</strong>
+                    <span style="font-size: 0.75rem; color: ${isUser ? 'rgba(255,255,255,0.7)' : 'var(--gray-500)'};">now</span>
+                </div>
+                <p style="margin: 0; line-height: 1.5;">${message}</p>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            chatHistory.push({ message, sender, timestamp: new Date() });
+        }
+
+        function showTyping() {
+            isTyping = true;
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.style.cssText = `
+                background: var(--white);
+                padding: 1rem;
+                border-radius: 12px;
+                margin-bottom: 1rem;
+                border-left: 4px solid var(--accent);
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                animation: slideIn 0.3s ease;
+            `;
+            typingDiv.innerHTML = `
+                <div style="display: flex; gap: 0.25rem;">
+                    <div style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out;"></div>
+                    <div style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out 0.2s;"></div>
+                    <div style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out 0.4s;"></div>
+                </div>
+                <span style="color: var(--gray-600); font-style: italic;">AI Agent is thinking...</span>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTyping() {
+            isTyping = false;
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) typingIndicator.remove();
+        }
+
+        function generateAIResponse(userMessage) {
+            const msg = userMessage.toLowerCase();
+            
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+                return aiKnowledge.greetings[Math.floor(Math.random() * aiKnowledge.greetings.length)];
+            }
+            
+            if (msg.includes('funding') || msg.includes('opportunities') || msg.includes('grants')) {
+                return aiKnowledge.responses.funding + ' Would you like me to help you apply to any of these?';
+            }
+            
+            if (msg.includes('eligibility') || msg.includes('qualify') || msg.includes('requirements')) {
+                return aiKnowledge.responses.eligibility + ' Would you like me to check your current compliance status?';
+            }
+            
+            if (msg.includes('application') || msg.includes('apply') || msg.includes('start')) {
+                return aiKnowledge.responses.application;
+            }
+            
+            if (msg.includes('status') || msg.includes('progress') || msg.includes('update')) {
+                return aiKnowledge.responses.status + ' Would you like details on any specific application?';
+            }
+            
+            if (msg.includes('seda')) {
+                const seda = aiKnowledge.opportunities.seda;
+                return `The ${seda.name} offers ${seda.amount} with a ${seda.match} match for your business. Deadline: ${seda.deadline}. This focuses on technology innovation and R&D. Shall I start your application?`;
+            }
+            
+            if (msg.includes('idc')) {
+                const idc = aiKnowledge.opportunities.idc;
+                return `The ${idc.name} provides ${idc.amount} with ${idc.match} compatibility. ${idc.deadline}. Perfect for business expansion and equipment. Ready to apply?`;
+            }
+            
+            if (msg.includes('ecdc')) {
+                const ecdc = aiKnowledge.opportunities.ecdc;
+                return `The ${ecdc.name} offers ${ecdc.amount} with ${ecdc.match} match. Deadline: ${ecdc.deadline}. Ideal for large-scale Eastern Cape projects. Interested in applying?`;
+            }
+            
+            if (msg.includes('judge') || msg.includes('criteria') || msg.includes('evaluation')) {
+                return aiKnowledge.responses.judge_criteria;
+            }
+            
+            if (msg.includes('ready') || msg.includes('prepared') || msg.includes('checklist')) {
+                return aiKnowledge.responses.readiness;
+            }
+            
+            if (msg.includes('impact') || msg.includes('economic') || msg.includes('jobs')) {
+                return aiKnowledge.responses.impact;
+            }
+            
+            if (msg.includes('financial') || msg.includes('statements') || msg.includes('projections')) {
+                return 'Financial requirements: 📊 Audited statements (2-3 years), 💰 Cash flow projections, 📈 Fund usage breakdown, 🏦 Bank statements, 📋 Tax clearance. Need help preparing any of these?';
+            }
+            
+            if (msg.includes('business plan') || msg.includes('strategy') || msg.includes('market')) {
+                return 'Your business plan should include: 🎯 Market analysis, 🏆 Competitive advantage, 📈 Growth strategy, 👥 Job creation plan, 🌍 Environmental impact, 📊 5-year projections. Want guidance on any section?';
+            }
+            
+            if (msg.includes('risk') || msg.includes('management') || msg.includes('mitigation')) {
+                return 'Risk management essentials: ⚠️ Identify key risks, 🛡️ Mitigation strategies, 🏥 Insurance coverage, 📋 Contingency plans, 📊 Monitoring systems. I can help assess your risk profile.';
+            }
+            
+            if (msg.includes('help') || msg.includes('support')) {
+                return 'I can help you with: 🔍 Finding opportunities, ✅ Checking eligibility, 📝 Starting applications, 📊 Tracking status, 💡 Funding advice, 👨⚖️ Judge criteria, 📋 Readiness assessment. What would you like to explore?';
+            }
+            
+            return `I understand you're asking about "${userMessage}". Based on your TechCorp Solutions profile, I can provide specific guidance. Could you clarify if you want information about: funding opportunities, application requirements, or your current application status?`;
+        }
+
+        function openHelp() {
+            showNotification('Opening help center', 'info');
+            setTimeout(() => {
+                const helpModal = document.createElement('div');
+                helpModal.innerHTML = `
+                    <div class="modal show" id="helpModal">
+                        <div class="modal-content">
+                            <h3 style="margin-bottom: 1rem; color: var(--gray-900);">📚 Help Center</h3>
+                            <div style="display: grid; gap: 1rem;">
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; cursor: pointer;" onclick="showNotification('Opening funding guide', 'info')">
+                                    <h4>📖 Funding Application Guide</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Step-by-step guide to apply for funding</p>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; cursor: pointer;" onclick="showNotification('Opening requirements', 'info')">
+                                    <h4>📋 Eligibility Requirements</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Check if your business qualifies</p>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; cursor: pointer;" onclick="showNotification('Opening contact info', 'info')">
+                                    <h4>📞 Contact Support</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Get help from our team</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" onclick="closeModal('helpModal')" style="margin-top: 1rem;">Close</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(helpModal);
+            }, 1000);
+        }
+
+        function applyToOpportunity(opportunity) {
+            showNotification(`Starting application for ${opportunity}`, 'success');
+            closeModal('quickApplyModal');
+            setTimeout(() => {
+                window.location.href = `../application.html?opportunity=${encodeURIComponent(opportunity)}`;
+            }, 1500);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(() => modal.remove(), 300);
+            }
+        }
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            const toast = document.getElementById('notificationToast');
+            const icons = { success: 'check', info: 'info-circle', warning: 'exclamation-triangle', error: 'times' };
+            const colors = { success: 'var(--success)', info: 'var(--secondary)', warning: 'var(--warning)', error: 'var(--danger)' };
+
+            toast.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 40px; height: 40px; background: ${colors[type]}; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                        <i class="fas fa-${icons[type]}"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--gray-900);">${message}</div>
+                        <div style="font-size: 0.875rem; color: var(--gray-600);">Just now</div>
+                    </div>
+                </div>
+            `;
+
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        function toggleNotifications() {
+            const notificationModal = document.createElement('div');
+            notificationModal.innerHTML = `
+                <div class="modal show" id="notificationModal">
+                    <div class="modal-content">
+                        <h3 style="margin-bottom: 1rem; color: var(--gray-900);">🔔 Notifications (${notificationCount})</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; border-left: 4px solid var(--success);">
+                                <h4 style="color: var(--success);">Application Approved!</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Your SEDA grant application has been approved for R150,000</p>
+                                <small style="color: var(--gray-500);">2 hours ago</small>
+                            </div>
+                            <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; border-left: 4px solid var(--secondary);">
+                                <h4 style="color: var(--secondary);">New Opportunity Match</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">IDC SMME Development Fund - 94.2% match for your business</p>
+                                <small style="color: var(--gray-500);">5 hours ago</small>
+                            </div>
+                            <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; border-left: 4px solid var(--warning);">
+                                <h4 style="color: var(--warning);">Document Required</h4>
+                                <p style="color: var(--gray-600); font-size: 0.875rem;">Please upload your latest financial statements for ECDC application</p>
+                                <small style="color: var(--gray-500);">1 day ago</small>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" onclick="closeModal('notificationModal')" style="margin-top: 1rem;">Close</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(notificationModal);
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function showSettings() {
+            showNotification('Opening account settings...', 'info');
+            setTimeout(() => {
+                const modal = document.createElement('div');
+                modal.innerHTML = `
+                    <div class="modal show" id="settingsModal">
+                        <div class="modal-content">
+                            <h3 style="margin-bottom: 1rem; color: var(--gray-900);">⚙️ Account Settings</h3>
+                            <div style="display: grid; gap: 1rem;">
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px;">
+                                    <h4>Profile Information</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Update your business details and contact information</p>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px;">
+                                    <h4>Notification Preferences</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Manage email and SMS notifications</p>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px;">
+                                    <h4>Privacy Settings</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Control data sharing and visibility</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" onclick="closeModal('settingsModal')" style="margin-top: 1rem;">Close</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }, 500);
+        }
+
+        function showSecurity() {
+            showNotification('Opening security settings...', 'info');
+            setTimeout(() => {
+                const modal = document.createElement('div');
+                modal.innerHTML = `
+                    <div class="modal show" id="securityModal">
+                        <div class="modal-content">
+                            <h3 style="margin-bottom: 1rem; color: var(--gray-900);">🔒 Security & Privacy</h3>
+                            <div style="display: grid; gap: 1rem;">
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px;">
+                                    <h4>Change Password</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Update your account password</p>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px;">
+                                    <h4>Two-Factor Authentication</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Add extra security to your account</p>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px;">
+                                    <h4>Login History</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">View recent account activity</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" onclick="closeModal('securityModal')" style="margin-top: 1rem;">Close</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }, 500);
+        }
+
+        function showSupport() {
+            showNotification('Opening support center...', 'info');
+            setTimeout(() => {
+                const modal = document.createElement('div');
+                modal.innerHTML = `
+                    <div class="modal show" id="supportModal">
+                        <div class="modal-content">
+                            <h3 style="margin-bottom: 1rem; color: var(--gray-900);">🎧 Help & Support</h3>
+                            <div style="display: grid; gap: 1rem;">
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; cursor: pointer;" onclick="showNotification('Opening live chat...', 'info')">
+                                    <h4>💬 Live Chat Support</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Chat with our support team</p>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; cursor: pointer;" onclick="showNotification('Opening FAQ...', 'info')">
+                                    <h4>❓ Frequently Asked Questions</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Find answers to common questions</p>
+                                </div>
+                                <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: 8px; cursor: pointer;" onclick="showNotification('Opening contact form...', 'info')">
+                                    <h4>📧 Contact Us</h4>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem;">Send us a message</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" onclick="closeModal('supportModal')" style="margin-top: 1rem;">Close</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }, 500);
+        }
+
+        function logout() {
+            showNotification('Logging out...', 'info');
+            setTimeout(() => {
+                window.location.href = '../login.html';
+            }, 1500);
+        }
+
+        function downloadDocument(filename) {
+            // Simulate document download
+            const link = document.createElement('a');
+            link.href = '#';
+            link.download = filename;
+            link.click();
+        }
+
+        // Auto-show welcome notification
+        setTimeout(() => {
+            showNotification('Welcome to your ELIDZ portal! 🎉', 'success');
+        }, 1000);
+
+        // Close modals and dropdowns when clicking outside
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+            }
+            
+            // Close user dropdown when clicking outside
+            const userDropdown = document.getElementById('userDropdown');
+            const userProfile = document.querySelector('.user-profile');
+            if (userDropdown && !userProfile.contains(e.target)) {
+                userDropdown.classList.remove('show');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case 'k': e.preventDefault(); quickApply(); break;
+                    case 'h': e.preventDefault(); openHelp(); break;
+                    case '/': e.preventDefault(); openChat(); break;
+                }
+            }
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.show').forEach(modal => {
+                    modal.classList.remove('show');
+                });
+            }
         });
     </script>
 </body>
+
 </html>
