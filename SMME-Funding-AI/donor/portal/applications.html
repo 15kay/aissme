@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications | ELIDZ Donor Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e40af;
+            --accent: #059669;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-600: #475569;
+            --gray-900: #0f172a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 88px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.625rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.25rem;
+            background: rgba(248, 250, 252, 0.8);
+            padding: 0.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+            font-weight: 600;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .notification-btn {
+            position: relative;
+            padding: 0.875rem;
+            border: none;
+            background: rgba(248, 250, 252, 0.8);
+            cursor: pointer;
+            border-radius: 14px;
+            transition: all 0.3s;
+            color: var(--gray-600);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .notification-btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.1);
+            color: var(--primary);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0.625rem;
+            right: 0.625rem;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, var(--danger), #f87171);
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(248, 250, 252, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .user-profile:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 0.875rem;
+        }
+
+        .user-role {
+            color: var(--gray-600);
+            font-size: 0.75rem;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #7c3aed 100%);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            margin-bottom: 3rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .page-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .filters-bar {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--gray-200);
+            background: var(--white);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .filter-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-50);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 0.875rem;
+            width: 200px;
+        }
+
+        .applications-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .application-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .application-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .application-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+        }
+
+        .application-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .application-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .application-amount {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .status-approved { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-review { background: rgba(59, 130, 246, 0.1); color: var(--secondary); }
+        .status-rejected { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+        .application-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 12px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .application-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+            .application-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .application-actions {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../../index.html" class="logo">
+                <img src="https://www.globalafricanetwork.com/wp-content/uploads/2021/05/ELIDZ-LOGO-transparent-2.png" alt="ELIDZ" style="height: 40px;">
+            </a>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    Dashboard
+                </a>
+                <a href="applications.html" class="nav-link active">
+                    <i class="fas fa-file-alt"></i>
+                    Applications
+                </a>
+                <a href="portfolio.html" class="nav-link">
+                    <i class="fas fa-briefcase"></i>
+                    Portfolio
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
+            </nav>
+            <div class="user-menu">
+                <button class="notification-btn" onclick="showNotification('Opening notifications...', 'info')">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge"></div>
+                </button>
+                <div class="user-profile" onclick="showNotification('User menu coming soon!', 'info')">
+                    <div class="user-avatar">SF</div>
+                    <div class="user-info">
+                        <div class="user-name">SEDA Foundation</div>
+                        <div class="user-role">Funding Partner</div>
+                    </div>
+                    <i class="fas fa-chevron-down" style="color: var(--gray-600); font-size: 0.75rem;"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">📋 Application Management</h1>
+            <p class="page-subtitle">Review, evaluate, and manage funding applications from Eastern Cape businesses</p>
+        </div>
+
+        <div class="filters-bar">
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterApplications('all')">All Applications</button>
+                <button class="filter-btn" onclick="filterApplications('pending')">Pending Review</button>
+                <button class="filter-btn" onclick="filterApplications('review')">In Review</button>
+                <button class="filter-btn" onclick="filterApplications('approved')">Approved</button>
+                <button class="filter-btn" onclick="filterApplications('rejected')">Rejected</button>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search" style="color: var(--gray-600);"></i>
+                <input type="text" placeholder="Search applications..." onkeyup="searchApplications(this.value)">
+            </div>
+        </div>
+
+        <div class="applications-grid">
+            <div class="application-card" data-status="pending" data-company="techcorp">
+                <div class="application-header">
+                    <div>
+                        <div class="application-title">TechCorp Solutions</div>
+                        <div class="application-amount">R500,000</div>
+                    </div>
+                    <div class="status-badge status-pending">⏳ Pending Review</div>
+                </div>
+                <div class="application-details">
+                    <div class="detail-item">
+                        <div class="detail-value">2 days ago</div>
+                        <div class="detail-label">Submitted</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">Technology</div>
+                        <div class="detail-label">Sector</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">98.7%</div>
+                        <div class="detail-label">AI Match</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">12 months</div>
+                        <div class="detail-label">Duration</div>
+                    </div>
+                </div>
+                <div class="application-actions">
+                    <button class="btn btn-primary" onclick="reviewApplication('TechCorp Solutions')">
+                        <i class="fas fa-eye"></i>
+                        Review Application
+                    </button>
+                    <button class="btn btn-success" onclick="quickApprove('TechCorp Solutions')">
+                        <i class="fas fa-check"></i>
+                        Quick Approve
+                    </button>
+                </div>
+            </div>
+
+            <div class="application-card" data-status="review" data-company="eastern">
+                <div class="application-header">
+                    <div>
+                        <div class="application-title">Eastern Cape Manufacturing</div>
+                        <div class="application-amount">R1,200,000</div>
+                    </div>
+                    <div class="status-badge status-review">🔄 In Review</div>
+                </div>
+                <div class="application-details">
+                    <div class="detail-item">
+                        <div class="detail-value">5 days ago</div>
+                        <div class="detail-label">Submitted</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">Manufacturing</div>
+                        <div class="detail-label">Sector</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">94.2%</div>
+                        <div class="detail-label">AI Match</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">24 months</div>
+                        <div class="detail-label">Duration</div>
+                    </div>
+                </div>
+                <div class="application-actions">
+                    <button class="btn btn-primary" onclick="reviewApplication('Eastern Cape Manufacturing')">
+                        <i class="fas fa-eye"></i>
+                        Continue Review
+                    </button>
+                    <button class="btn btn-outline" onclick="requestInfo('Eastern Cape Manufacturing')">
+                        <i class="fas fa-question-circle"></i>
+                        Request Info
+                    </button>
+                </div>
+            </div>
+
+            <div class="application-card" data-status="approved" data-company="agritech">
+                <div class="application-header">
+                    <div>
+                        <div class="application-title">AgriTech Innovations</div>
+                        <div class="application-amount">R750,000</div>
+                    </div>
+                    <div class="status-badge status-approved">✅ Approved</div>
+                </div>
+                <div class="application-details">
+                    <div class="detail-item">
+                        <div class="detail-value">1 week ago</div>
+                        <div class="detail-label">Approved</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">Agriculture</div>
+                        <div class="detail-label">Sector</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">96.5%</div>
+                        <div class="detail-label">AI Match</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">18 months</div>
+                        <div class="detail-label">Duration</div>
+                    </div>
+                </div>
+                <div class="application-actions">
+                    <button class="btn btn-success" onclick="downloadAgreement('AgriTech Innovations')">
+                        <i class="fas fa-download"></i>
+                        Download Agreement
+                    </button>
+                    <button class="btn btn-outline" onclick="viewApplication('AgriTech Innovations')">
+                        <i class="fas fa-eye"></i>
+                        View Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showNotification(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; top: 2rem; right: 2rem; z-index: 1000;
+                background: white; border-radius: 12px; padding: 1rem 1.5rem;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15); border-left: 4px solid ${type === 'success' ? '#10b981' : '#1e40af'};
+                transform: translateX(400px); transition: transform 0.3s;
+            `;
+            toast.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle" style="color: ${type === 'success' ? '#10b981' : '#1e40af'};"></i>
+                    <div style="font-weight: 600; color: #0f172a;">${message}</div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function filterApplications(status) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const cards = document.querySelectorAll('.application-card');
+            cards.forEach(card => {
+                if (status === 'all' || card.dataset.status === status) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            showNotification(`Filtered applications by: ${status}`, 'info');
+        }
+
+        function searchApplications(query) {
+            const cards = document.querySelectorAll('.application-card');
+            cards.forEach(card => {
+                const company = card.dataset.company;
+                const title = card.querySelector('.application-title').textContent.toLowerCase();
+                if (title.includes(query.toLowerCase()) || company.includes(query.toLowerCase())) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function reviewApplication(companyName) {
+            showNotification(`Opening detailed review for ${companyName}...`, 'info');
+            setTimeout(() => {
+                window.location.href = `review.html?company=${encodeURIComponent(companyName)}`;
+            }, 1000);
+        }
+
+        function quickApprove(companyName) {
+            showNotification(`✅ ${companyName} application approved instantly!`, 'success');
+            
+            // Update the card status
+            const card = event.target.closest('.application-card');
+            const statusBadge = card.querySelector('.status-badge');
+            statusBadge.className = 'status-badge status-approved';
+            statusBadge.innerHTML = '✅ Approved';
+            card.dataset.status = 'approved';
+            
+            // Update actions
+            const actions = card.querySelector('.application-actions');
+            actions.innerHTML = `
+                <button class="btn btn-success" onclick="downloadAgreement('${companyName}')">
+                    <i class="fas fa-download"></i>
+                    Download Agreement
+                </button>
+                <button class="btn btn-outline" onclick="viewApplication('${companyName}')">
+                    <i class="fas fa-eye"></i>
+                    View Details
+                </button>
+            `;
+        }
+
+        function requestInfo(companyName) {
+            showNotification(`📋 Information request sent to ${companyName}`, 'info');
+        }
+
+        function downloadAgreement(companyName) {
+            showNotification(`📄 Downloading funding agreement for ${companyName}...`, 'success');
+        }
+
+        function viewApplication(companyName) {
+            showNotification(`Opening application details for ${companyName}...`, 'info');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification('Application management center loaded!', 'success');
+        });
+    </script>
+</body>
+</html>
